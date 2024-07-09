@@ -4,6 +4,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import HomePage from '@/app/[locale]/page';
 import ProfilesPage from './app/[locale]/(authenticated)/profiles/page';
 import NotFoundPage from './app/[locale]/not-found/page';
+import ProfileDetailPage from './app/[locale]/(authenticated)/profile-detail/page';
 
 const router = createBrowserRouter([
   {
@@ -12,8 +13,14 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage/>
   },{
     path: '/profiles',
-    element: <ProfilesPage/>
-  }
+    element: <ProfilesPage/>,
+    children: [
+      {
+        path: '/profiles/:profileId',
+        element: <ProfileDetailPage/>
+      }
+    ]
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
