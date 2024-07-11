@@ -1,5 +1,5 @@
-import Profiles from "@/containers/Profiles";
+import Profiles from '@/containers/Profiles';
 
 export default function ProfilesPage() {
-  return <Profiles/>;
+  return <Profiles />;
 }

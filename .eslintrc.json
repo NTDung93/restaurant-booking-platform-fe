@@ -1,11 +1,10 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["prettier", "@typescript-eslint"],
+  "plugins": ["react", "prettier", "@typescript-eslint"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "next",
     "prettier"
   ],
   "rules": {
@@ -16,18 +15,22 @@
     "import/no-dynamic-require": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-named-as-default": 0,
-    "import/no-unresolved": 2,
     "import/no-webpack-loader-syntax": 0,
     "import/prefer-default-export": 0,
     "react-hooks/exhaustive-deps": "off", // Disables the exhaustive-deps rule globally
     "prettier/prettier": [
       "error",
       {
+        "printWidth": 80,
+        "tabWidth": 2,
+        "useTabs": false,
+        "semi": true,
+        "singleQuote": true,
+        "trailingComma": "all",
         "endOfLine": "auto"
       }
     ],
     "react/destructuring-assignment": 0,
-    "react-hooks/rules-of-hooks": "error",
     "react/jsx-closing-tag-location": 0,
     "react/forbid-prop-types": 0,
     "react/jsx-first-prop-new-line": [2, "multiline"],

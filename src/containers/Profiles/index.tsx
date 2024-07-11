@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from 'react-router-dom';
 
 export default function Profiles() {
   const profiles: number[] = [1, 2, 3, 4, 5];
@@ -9,9 +9,7 @@ export default function Profiles() {
           <NavLink
             key={profileId}
             to={`/profiles/${profileId}`}
-            className={({ isActive }) => {
-              return isActive ? "text-green-700" : "";
-            }}
+            className={({ isActive }) => (isActive ? 'text-green-700' : '')}
           >
             Profile {profileId}
           </NavLink>
