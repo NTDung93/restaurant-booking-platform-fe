@@ -11,7 +11,8 @@ export default function Profiles() {
             to={`/profiles/${profileId}`}
             className={({ isActive }) => (isActive ? 'text-green-700' : '')}
           >
-            Profile {profileId}
+            Profile
+            {profileId}
           </NavLink>
         ))}
       </div>
