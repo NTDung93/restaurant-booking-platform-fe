@@ -6,11 +6,17 @@ import ProfilesPage from './app/[locale]/(authenticated)/profiles/page';
 import NotFoundPage from './app/[locale]/not-found/page';
 import ProfileDetailPage from './app/[locale]/(authenticated)/profile-detail/page';
 import SignInPage from './app/[locale]/sign-in/page';
+import AuthProvider from './components/Auth/AuthProvider';
+import ProtectedRoute from './components/Auth/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />,
+    element: (
+      <ProtectedRoute>
+        <HomePage />
+      </ProtectedRoute>
+    ),
     errorElement: <NotFoundPage />,
   },
   {
@@ -31,6 +37,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider isSignedIn={false}>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>,
 );
