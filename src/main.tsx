@@ -8,14 +8,17 @@ import ProfileDetailPage from './app/[locale]/(authenticated)/profile-detail/pag
 import SignInPage from './app/[locale]/sign-in/page';
 import AuthProvider from './components/Auth/AuthProvider';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
+import { Provider } from 'react-redux';
+import CounterPage from './app/[locale]/counter/page';
+import { store } from './libs/redux/store';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <ProtectedRoute>
+      // <ProtectedRoute>
         <HomePage />
-      </ProtectedRoute>
+      // </ProtectedRoute>
     ),
     errorElement: <NotFoundPage />,
   },
@@ -29,16 +32,22 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // {
+  //   path: '/signin',
+  //   element: <SignInPage />,
+  // },
   {
-    path: '/signin',
-    element: <SignInPage />,
+    path: '/counter',
+    element: <CounterPage />,
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <AuthProvider isSignedIn={false}>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <Provider store={store}>
+      {/* <AuthProvider isSignedIn={false}> */}
+        <RouterProvider router={router} />
+      {/* </AuthProvider> */}
+    </Provider>
   </React.StrictMode>,
 );

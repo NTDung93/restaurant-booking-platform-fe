@@ -7,27 +7,32 @@ import { pick } from 'lodash';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import ModalView from '@/components/ModalView';
+import { selectUserStatus, selectUserToken } from './selectors';
+import { signIn } from './thunks';
+import { ApiStatus } from '@/common/enums/apiStatus';
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { ReduxDispatch } from '@/libs/redux/store';
 
 export default function SignIn() {
   const [modalVisible, setModalVisible] = useState(false);
   const [form] = Form.useForm();
+  const status = useSelector(selectUserStatus);
+  const token = useSelector(selectUserToken);
+  const dispatch = useDispatch<ReduxDispatch>();
+  const navigate = useNavigate();
 
   const onFinish = async (values: AccountSignIn) => {
     const accountSignIn = pick(values, ['username', 'password']);
     console.log(accountSignIn);
 
-    // const resultAction = await dispatch(signUpAsync(accountSignIn));
-    // if (signUpAsync.fulfilled.match(resultAction)) {
-    //   router.push({
-    //     pathname: '/otp',
-    //     query: {
-    //       phone_number: accountSignIn.contactPersonPhone,
-    //       tax_code: accountSignIn.taxCode,
-    //     },
-    //   });
-    // } else {
-    //   setModalVisible(true);
-    // }
+    const resultAction = await dispatch(signIn(accountSignIn));
+    if (signIn.fulfilled.match(resultAction)) {
+      console.log(token);
+      navigate('/');
+    } else {
+      setModalVisible(true);
+    }
   };
 
   return (
@@ -102,6 +107,7 @@ export default function SignIn() {
                   type="primary"
                   htmlType="submit"
                   className="!flex items-center"
+                  loading={status == ApiStatus.Loading}
                 >
                   Sign In
                   <ArrowRightOutlined className="ml-2" />

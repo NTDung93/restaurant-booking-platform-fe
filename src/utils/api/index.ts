@@ -1,5 +1,4 @@
 import { defaultLocale } from '@/config/locale';
-import { isServer } from '@/utils/server';
 import User from '@/services/user';
 import { ApiError } from '@/common/models/apiError';
 import { BASE_API_URL } from '@/utils/environment';
@@ -78,7 +77,7 @@ async function checkStatus(response: Response) {
 }
 
 function handleError(error: ApiError) {
-  if (!isServer() && error.httpStatusCode === 403) {
+  if (error.httpStatusCode === 403) {
     window.location.href = accessDeniedUrl;
   }
 
