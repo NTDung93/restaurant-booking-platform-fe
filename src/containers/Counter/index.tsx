@@ -1,8 +1,8 @@
-import { useSelector, useDispatch } from "react-redux";
-import { incrementAsync } from "./thunks";
-import { decrement } from "./slice";
-import { ReduxDispatch } from "@/libs/redux/store";
-import { selectCounter } from "./selectors";
+import { useSelector, useDispatch } from 'react-redux';
+import { incrementAsync } from './thunks';
+import { decrement } from './slice';
+import { ReduxDispatch } from '@/libs/redux/store';
+import { selectCounter } from './selectors';
 
 export default function Counter() {
   const count = useSelector(selectCounter);

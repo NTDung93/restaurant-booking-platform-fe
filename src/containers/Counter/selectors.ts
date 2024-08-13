@@ -1,4 +1,3 @@
-import { ReduxState } from "@/libs/redux/store";
+import { ReduxState } from '@/libs/redux/store';
 
-export const selectCounter = (state: ReduxState) =>
-    state.counter.value
+export const selectCounter = (state: ReduxState) => state.counter.value;

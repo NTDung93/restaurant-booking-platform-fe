@@ -7,18 +7,18 @@ import { pick } from 'lodash';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import ModalView from '@/components/ModalView';
-import { selectUserStatus, selectUserToken } from './selectors';
+import { selectUserStatus } from './selectors';
 import { signIn } from './thunks';
 import { ApiStatus } from '@/common/enums/apiStatus';
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { ReduxDispatch } from '@/libs/redux/store';
 
 export default function SignIn() {
   const [modalVisible, setModalVisible] = useState(false);
   const [form] = Form.useForm();
   const status = useSelector(selectUserStatus);
-  const token = useSelector(selectUserToken);
+  // const token = useSelector(selectUserToken);
   const dispatch = useDispatch<ReduxDispatch>();
   const navigate = useNavigate();
 
@@ -28,7 +28,6 @@ export default function SignIn() {
 
     const resultAction = await dispatch(signIn(accountSignIn));
     if (signIn.fulfilled.match(resultAction)) {
-      console.log(token);
       navigate('/');
     } else {
       setModalVisible(true);

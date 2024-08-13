@@ -1,5 +1,9 @@
 /* Core */
-import { createAsyncThunk, AsyncThunkPayloadCreator, AsyncThunkOptions } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  AsyncThunkPayloadCreator,
+  AsyncThunkOptions,
+} from '@reduxjs/toolkit';
 
 /* Instruments */
 import type { ReduxState, ReduxDispatch } from './store';
@@ -18,12 +22,15 @@ type AsyncThunkConfig = {
  */
 export const createAppAsyncThunk = <Returned, ThunkArg = void>(
   typePrefix: string,
-  payloadCreator: AsyncThunkPayloadCreator<Returned, ThunkArg, AsyncThunkConfig>,
-  options?: AsyncThunkOptions<ThunkArg, AsyncThunkConfig>
-) => {
-  return createAsyncThunk<Returned, ThunkArg, AsyncThunkConfig>(
+  payloadCreator: AsyncThunkPayloadCreator<
+    Returned,
+    ThunkArg,
+    AsyncThunkConfig
+  >,
+  options?: AsyncThunkOptions<ThunkArg, AsyncThunkConfig>,
+) =>
+  createAsyncThunk<Returned, ThunkArg, AsyncThunkConfig>(
     typePrefix,
     payloadCreator,
-    options
+    options,
   );
-};

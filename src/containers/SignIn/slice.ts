@@ -1,7 +1,11 @@
 import { ApiStatus } from '@/common/enums/apiStatus';
 import { UserToken } from '@/common/models/user';
 import { signIn } from './thunks';
-import { ActionReducerMapBuilder, PayloadAction, createSlice } from "@reduxjs/toolkit";
+import {
+  ActionReducerMapBuilder,
+  PayloadAction,
+  createSlice,
+} from '@reduxjs/toolkit';
 
 export interface UserTokenSliceState {
   token: UserToken | undefined;

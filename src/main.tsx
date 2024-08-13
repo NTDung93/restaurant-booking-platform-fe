@@ -16,9 +16,9 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      // <ProtectedRoute>
+      <ProtectedRoute>
         <HomePage />
-      // </ProtectedRoute>
+      </ProtectedRoute>
     ),
     errorElement: <NotFoundPage />,
   },
@@ -32,10 +32,10 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // {
-  //   path: '/signin',
-  //   element: <SignInPage />,
-  // },
+  {
+    path: '/signin',
+    element: <SignInPage />,
+  },
   {
     path: '/counter',
     element: <CounterPage />,
@@ -45,9 +45,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <AuthProvider isSignedIn={false}> */}
+      <AuthProvider>
         <RouterProvider router={router} />
-      {/* </AuthProvider> */}
+      </AuthProvider>
     </Provider>
   </React.StrictMode>,
 );

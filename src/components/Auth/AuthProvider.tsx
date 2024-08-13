@@ -1,21 +1,26 @@
-import { User } from '@/common/models/user';
-import { createContext, PropsWithChildren, useContext, useState } from 'react';
+import { selectUserToken } from '@/containers/SignIn/selectors';
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import { useSelector } from 'react-redux';
 
-const AuthContext = createContext<User | null>(null);
+const AuthContext = createContext<string | null>(null);
 
-type AuthProviderProps = PropsWithChildren & {
-  isSignedIn?: boolean;
-};
+export default function AuthProvider({ children }: PropsWithChildren) {
+  const token = useSelector(selectUserToken);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
 
-export default function AuthProvider({
-  children,
-  isSignedIn,
-}: AuthProviderProps) {
-  const [user] = useState<User | null>(
-    isSignedIn ? { id: 1, avatar: 'abc', name: 'nguyen' } : null,
+  useEffect(() => {
+    setAccessToken(token?.accessToken ? token?.accessToken : null);
+  }, [token]);
+
+  return (
+    <AuthContext.Provider value={accessToken}>{children}</AuthContext.Provider>
   );
-
-  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 }
 
 export const useAuth = () => {
