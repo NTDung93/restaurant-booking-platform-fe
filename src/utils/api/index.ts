@@ -1,12 +1,24 @@
 import { ApiError } from '@/common/models/apiError';
 import axios from './axios';
 import { AxiosResponse } from 'axios';
+import UserService from '@/services/user';
 
 export default async function callApi(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   options: any = {},
+  needAuth: boolean = false,
 ) {
-  return axios(options).then(checkStatus);
+  const headers = { ...options.headers };
+
+  if (needAuth) {
+    const token = UserService.getInstance().getAccessToken();
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+  }
+
+  return axios({ ...options, headers }).then(checkStatus);
+  // return axios(options).then(checkStatus);
 }
 
 async function checkStatus(response: AxiosResponse) {

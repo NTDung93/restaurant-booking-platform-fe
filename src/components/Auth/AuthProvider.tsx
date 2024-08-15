@@ -1,25 +1,21 @@
-import { selectUserToken } from '@/containers/SignIn/selectors';
-import {
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
-import { useSelector } from 'react-redux';
+import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
-const AuthContext = createContext<string | null>(null);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const AuthContext = createContext<any>({});
 
 export default function AuthProvider({ children }: PropsWithChildren) {
-  const token = useSelector(selectUserToken);
-  const [accessToken, setAccessToken] = useState<string | null>(null);
+  // const token = useSelector(selectUserToken);
+  // const [accessToken, setAccessToken] = useState(null);
 
-  useEffect(() => {
-    setAccessToken(token?.accessToken ? token?.accessToken : null);
-  }, [token]);
+  // useEffect(() => {
+  //   setAccessToken(token?.accessToken ? token?.accessToken : null);
+  // }, [token]);
+  const [auth, setAuth] = useState({});
 
   return (
-    <AuthContext.Provider value={accessToken}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ auth, setAuth }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 

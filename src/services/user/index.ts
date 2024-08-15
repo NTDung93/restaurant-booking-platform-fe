@@ -17,12 +17,12 @@ export default class User {
     return User.instance;
   }
 
-  setAccessToken(token: string) {
-    setCookie(ACCESS_TOKEN_KEY, token);
+  setAccessToken(accessToken: string) {
+    setCookie(ACCESS_TOKEN_KEY, accessToken);
   }
 
-  setRefreshToken(token: string) {
-    setCookie(REFRESH_TOKEN_KEY, token);
+  setRefreshToken(refreshToken: string) {
+    setCookie(REFRESH_TOKEN_KEY, refreshToken);
   }
 
   getAccessToken() {

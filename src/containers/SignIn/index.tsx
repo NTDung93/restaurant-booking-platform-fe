@@ -8,7 +8,7 @@ import { ArrowRightOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import ModalView from '@/components/ModalView';
 import { selectUserStatus } from './selectors';
-import { signIn } from './thunks';
+import { getUserInfo, signIn } from './thunks';
 import { ApiStatus } from '@/common/enums/apiStatus';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,17 +18,23 @@ export default function SignIn() {
   const [modalVisible, setModalVisible] = useState(false);
   const [form] = Form.useForm();
   const status = useSelector(selectUserStatus);
-  // const token = useSelector(selectUserToken);
+  // const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch<ReduxDispatch>();
   const navigate = useNavigate();
 
   const onFinish = async (values: AccountSignIn) => {
+    // const {setAuth} = useAuth();
     const accountSignIn = pick(values, ['username', 'password']);
-    console.log(accountSignIn);
+    // const username = accountSignIn.username;
 
-    const resultAction = await dispatch(signIn(accountSignIn));
-    if (signIn.fulfilled.match(resultAction)) {
-      navigate('/');
+    const getTokenResult = await dispatch(signIn(accountSignIn));
+    if (signIn.fulfilled.match(getTokenResult)) {
+      const getUserInfoResult = await dispatch(getUserInfo());
+      if (getUserInfo.fulfilled.match(getUserInfoResult)) {
+        // const userRole = userInfo?.roleName;
+        // setAuth({username, userRole});
+        navigate('/');
+      }
     } else {
       setModalVisible(true);
     }

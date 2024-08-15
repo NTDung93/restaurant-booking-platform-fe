@@ -1,6 +1,6 @@
 import counterReducer from '@/containers/Counter/slice';
-import userTokenReducer from '@/containers/SignIn/slice';
+import userReducer from '@/containers/SignIn/slice';
 export const reducer = {
   counter: counterReducer,
-  userToken: userTokenReducer,
+  user: userReducer,
 };
