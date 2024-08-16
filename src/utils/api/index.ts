@@ -18,7 +18,6 @@ export default async function callApi(
   }
 
   return axios({ ...options, headers }).then(checkStatus);
-  // return axios(options).then(checkStatus);
 }
 
 async function checkStatus(response: AxiosResponse) {

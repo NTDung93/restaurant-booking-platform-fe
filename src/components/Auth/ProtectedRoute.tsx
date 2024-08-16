@@ -1,18 +1,19 @@
 import { PropsWithChildren, useEffect } from 'react';
-import { useAuth } from './AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectUserInfo } from '@/containers/SignIn/selectors';
 
 type ProtectedRouteProps = PropsWithChildren;
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const token = useAuth();
+  const userInfo = useSelector(selectUserInfo);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (token === null) {
+    if (userInfo === null) {
       navigate('/signin', { replace: true });
     }
-  }, [navigate, token]);
+  }, [navigate, userInfo]);
 
   return children;
 }
