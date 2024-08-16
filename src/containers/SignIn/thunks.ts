@@ -14,8 +14,6 @@ export const signIn = createAppAsyncThunk(
       data: data,
     });
 
-    console.log('response ne', response);
-
     const userToken: UserToken = {
       accessToken: response.access_token,
       refreshToken: response.refresh_token,
