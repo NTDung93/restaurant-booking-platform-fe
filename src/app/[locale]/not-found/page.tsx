@@ -1,4 +1,4 @@
-import NotFound from '@/containers/NotFound';
+import NotFound from '@/containers/AccessDenied';
 
 export default function NotFoundPage() {
   return <NotFound />;
