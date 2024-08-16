@@ -1,15 +1,9 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const AuthContext = createContext<any>({});
+export const AuthContext = createContext<any>({});
 
 export default function AuthProvider({ children }: PropsWithChildren) {
-  // const token = useSelector(selectUserToken);
-  // const [accessToken, setAccessToken] = useState(null);
-
-  // useEffect(() => {
-  //   setAccessToken(token?.accessToken ? token?.accessToken : null);
-  // }, [token]);
   const [auth, setAuth] = useState({});
 
   return (

@@ -1,19 +1,27 @@
 import { PropsWithChildren, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectUserInfo } from '@/containers/SignIn/selectors';
+import { useAuth } from './AuthProvider';
 
-type ProtectedRouteProps = PropsWithChildren;
+type ProtectedRouteProps = PropsWithChildren & {
+  allowedRoles?: string;
+};
 
-export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const userInfo = useSelector(selectUserInfo);
+export default function ProtectedRoute({
+  children,
+  allowedRoles,
+}: ProtectedRouteProps) {
+  const { auth } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (userInfo === null) {
+    if (auth.userInfo === undefined) {
       navigate('/signin', { replace: true });
+    } else {
+      if (allowedRoles != auth.userInfo?.roleName) {
+        navigate('/access-denied', { replace: true });
+      }
     }
-  }, [navigate, userInfo]);
+  }, [navigate]);
 
   return children;
 }
