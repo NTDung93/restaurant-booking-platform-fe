@@ -1,6 +1,6 @@
 import { ApiStatus } from '@/common/enums/apiStatus';
 import { User, UserToken } from '@/common/models/user';
-import { getUserInfo, signIn } from './thunks';
+import { getUserInfo, refreshToken, signIn } from './thunks';
 import {
   ActionReducerMapBuilder,
   PayloadAction,
@@ -27,6 +27,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     setUserToken(builder);
     setUserInfo(builder);
+    setNewUserToken(builder);
   },
 });
 
@@ -45,6 +46,25 @@ function setUserToken(builder: ActionReducerMapBuilder<UserSliceState>) {
       },
     )
     .addCase(signIn.rejected, (state: UserSliceState) => {
+      state.status = ApiStatus.Failed;
+    });
+}
+
+function setNewUserToken(builder: ActionReducerMapBuilder<UserSliceState>) {
+  builder
+    .addCase(refreshToken.pending, (state: UserSliceState) => {
+      state.status = ApiStatus.Loading;
+    })
+    .addCase(
+      refreshToken.fulfilled,
+      (state: UserSliceState, action: PayloadAction<UserToken>) => {
+        state.status = ApiStatus.Fulfilled;
+        state.token = action.payload;
+        UserService.getInstance().setAccessToken(action.payload.accessToken);
+        UserService.getInstance().setRefreshToken(action.payload.refreshToken);
+      },
+    )
+    .addCase(refreshToken.rejected, (state: UserSliceState) => {
       state.status = ApiStatus.Failed;
     });
 }

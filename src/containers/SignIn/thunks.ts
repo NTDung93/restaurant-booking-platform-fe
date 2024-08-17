@@ -19,6 +19,31 @@ export const signIn = createAppAsyncThunk(
       refreshToken: response.refresh_token,
     };
 
+    console.log('old token ne bro: ', userToken);
+
+    return userToken;
+  },
+);
+
+export const refreshToken = createAppAsyncThunk(
+  `${TypePrefix}/refreshToken`,
+  async () => {
+    const response = await callApi(
+      {
+        method: 'post',
+        url: '/auth/refresh-token',
+      },
+      false,
+      true,
+    );
+
+    const userToken: UserToken = {
+      accessToken: response.access_token,
+      refreshToken: response.refresh_token,
+    };
+
+    console.log('new token ne bro: ', userToken);
+
     return userToken;
   },
 );
