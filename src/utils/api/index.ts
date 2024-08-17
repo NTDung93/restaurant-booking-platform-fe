@@ -1,7 +1,7 @@
 import { ApiError } from '@/common/models/apiError';
-import axios from './axios';
 import { AxiosResponse } from 'axios';
 import UserService from '@/services/user';
+import axiosInstance from './axios';
 
 export default async function callApi(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,7 +25,7 @@ export default async function callApi(
     }
   }
 
-  return axios({ ...options, headers }).then(checkStatus);
+  return axiosInstance({ ...options, headers }).then(checkStatus);
 }
 
 async function checkStatus(response: AxiosResponse) {

@@ -19,8 +19,6 @@ export const signIn = createAppAsyncThunk(
       refreshToken: response.refresh_token,
     };
 
-    console.log('old token ne bro: ', userToken);
-
     return userToken;
   },
 );
@@ -41,8 +39,6 @@ export const refreshToken = createAppAsyncThunk(
       accessToken: response.access_token,
       refreshToken: response.refresh_token,
     };
-
-    console.log('new token ne bro: ', userToken);
 
     return userToken;
   },
