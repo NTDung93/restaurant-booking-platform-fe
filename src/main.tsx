@@ -14,7 +14,8 @@ import ProtectedRoute from './components/Auth/ProtectedRoute';
 import AccessDeniedPage from './app/[locale]/access-denied/page';
 
 const router = createBrowserRouter([
-  {
+  { 
+    
     path: '/',
     element: (
       <ProtectedRoute allowedRoles="ROLE_STAFF">
