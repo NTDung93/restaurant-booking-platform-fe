@@ -72,7 +72,7 @@ export default function SignUp() {
             </div>
 
             <button className="w-full py-3 bg-white text-[#d86500] font-bold text-lg md:text-xl rounded-lg hover:bg-gray-200 transition duration-300">
-              Đăng nhập
+              Đăng ký
             </button>
 
             <div className="flex items-center mt-4 md:mt-6">

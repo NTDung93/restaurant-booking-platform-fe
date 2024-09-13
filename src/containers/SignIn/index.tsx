@@ -63,19 +63,8 @@ export default function SignIn() {
             </div>
 
             <button className="w-full py-3 bg-white text-[#d86500] font-bold text-lg md:text-xl rounded-lg hover:bg-gray-200 transition duration-300">
-              Đăng ký
+              Đăng nhập
             </button>
-
-            <div className="flex items-center mt-4 md:mt-6">
-              <input
-                type="checkbox"
-                id="terms"
-                className="w-4 h-4 md:w-5 md:h-5 mr-2"
-              />
-              <label htmlFor="terms" className="text-sm md:text-xl">
-                Tôi chấp nhận Điều khoản và Điều kiện
-              </label>
-            </div>
           </div>
         </div>
       </div>
