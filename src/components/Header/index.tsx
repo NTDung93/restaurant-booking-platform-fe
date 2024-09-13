@@ -1,14 +1,16 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeNav, setActiveNav] = useState(''); // Thêm trạng thái cho link được nhấn
+  const location = useLocation();
 
-  const handleNavClick = (navItem: string) => {
-    setActiveNav(navItem);
+  const handleLinkClick = () => {
     setIsMenuOpen(false);
   };
+
+  const isSignInPage = location.pathname === '/signin';
+  const isHomePage = location.pathname === '/';
 
   return (
     <>
@@ -23,39 +25,38 @@ export default function Header() {
             <nav
               className={`md:flex space-x-4 md:space-x-10 ${isMenuOpen ? 'flex' : 'hidden'} md:block flex-col md:flex-row absolute md:static left-0 top-[80px] w-full bg-[#312525] md:bg-transparent`}
             >
-              <a href=""></a>
               <Link
                 to="/"
-                className={`text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0 ${activeNav === 'home' ? 'text-[#D86500]' : ''}`}
-                onClick={() => handleNavClick('home')}
+                className={`text-lg md:text-xl p-4 md:p-0 ${isHomePage ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
+                onClick={handleLinkClick}
               >
                 Trang chủ
               </Link>
               <a
                 href="#"
-                className={`text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0 ${activeNav === 'event' ? 'text-[#D86500]' : ''}`}
-                onClick={() => handleNavClick('event')}
+                className="text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0"
+                onClick={handleLinkClick}
               >
                 Sự kiện
               </a>
               <a
                 href="#"
-                className={`text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0 ${activeNav === 'contact' ? 'text-[#D86500]' : ''}`}
-                onClick={() => handleNavClick('contact')}
+                className="text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0"
+                onClick={handleLinkClick}
               >
                 Liên hệ
               </a>
               <a
                 href="#"
-                className={`text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0 ${activeNav === 'blogs' ? 'text-[#D86500]' : ''}`}
-                onClick={() => handleNavClick('blogs')}
+                className="text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0"
+                onClick={handleLinkClick}
               >
                 Blogs
               </a>
               <a
                 href="#"
-                className={`text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0 ${activeNav === 'nearYou' ? 'text-[#D86500]' : ''}`}
-                onClick={() => handleNavClick('nearYou')}
+                className="text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0"
+                onClick={handleLinkClick}
               >
                 Gần bạn
               </a>
@@ -71,7 +72,7 @@ export default function Header() {
             </div>
             <Link
               to="/signin"
-              className="text-white text-lg md:text-xl hover:text-[#D86500]"
+              className={`text-lg md:text-xl ${isSignInPage ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
             >
               Đăng nhập
             </Link>
