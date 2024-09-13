@@ -8,28 +8,30 @@ export default function Plan() {
         </h2>
 
         {/* Các loại bữa ăn */}
-        <div className="flex justify-start space-x-4 mb-10 flex-wrap">
-          <button className="px-4 py-2 text-black text-lg font-normal rounded-full border border-gray-400 hover:border-gray-600 hover:bg-gray-300 transition">
+        <div className="flex flex-wrap justify-start gap-4 mb-10">
+          <button className="px-4 py-2 text-black text-lg font-normal rounded-full border border-gray-400 hover:border-gray-600 hover:bg-gray-300 transition mb-2">
             Ăn sáng
           </button>
 
-          <button className="px-4 py-2 text-black text-lg font-normal bg-gray-200 rounded-full hover:bg-gray-300 transition">
+          <button className="px-4 py-2 text-black text-lg font-normal bg-gray-200 rounded-full hover:bg-gray-300 transition mb-2">
             Ăn trưa
           </button>
-          <button className="px-4 py-2 text-black text-lg font-normal bg-gray-200 rounded-full hover:bg-gray-300 transition">
+
+          <button className="px-4 py-2 text-black text-lg font-normal bg-gray-200 rounded-full hover:bg-gray-300 transition mb-2">
             Ăn tối
           </button>
-          <button className="px-4 py-2 text-black text-lg font-normal bg-gray-200 rounded-full hover:bg-gray-300 transition">
+
+          <button className="px-4 py-2 text-black text-lg font-normal bg-gray-200 rounded-full hover:bg-gray-300 transition mb-2">
             Hẹn hò
           </button>
-          <button className="px-4 py-2 text-black text-lg font-normal bg-gray-200 rounded-full hover:bg-gray-300 transition">
+          <button className="px-4 py-2 text-black text-lg font-normal bg-gray-200 rounded-full hover:bg-gray-300 transition mb-2">
             Meeting
           </button>
         </div>
       </div>
 
       {/* Lưới 4 thẻ */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 place-items-center">
         {/* Thẻ bữa ăn */}
         {Array.from({ length: 4 }).map((_, index) => (
           <div
