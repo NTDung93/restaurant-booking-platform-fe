@@ -15,7 +15,7 @@ export default function SignUp() {
             <div className="w-full h-full bg-black/20">
               <img
                 className="w-full h-full object-cover"
-                src="https://via.placeholder.com/941x752"
+                src="https://res.cloudinary.com/dnslrwedn/image/upload/v1726239862/image_6_cirsev.png"
                 alt="Placeholder"
               />
             </div>
