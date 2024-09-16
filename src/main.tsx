@@ -12,6 +12,7 @@ import AuthProvider from './components/Auth/AuthProvider';
 import AccessDeniedPage from './app/[locale]/access-denied/page';
 import HomePage from './app/[locale]/page';
 import SignUpPage from './app/[locale]/sign-up/page';
+import RestaurantDetailPage from './app/[locale]/restaurant-detail/page';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <SignUpPage />,
+  },
+  {
+    path: '/res-detail',
+    element: <RestaurantDetailPage />,
   },
   {
     path: '/counter',

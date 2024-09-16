@@ -20,53 +20,55 @@ const Hero: React.FC = () => {
 
   return (
     <>
-      <div className="group-hero-section w-full h-[700px] relative">
+      <div className="relative w-full h-[400px] md:h-[700px]">
         <img
-          className="hero-image w-full h-[90%] object-cover absolute opacity-90"
+          className="absolute inset-0 w-full h-full object-cover opacity-90"
           src="https://res.cloudinary.com/dnslrwedn/image/upload/v1726239414/nha-hang-the-log-restaurant-222_uqjc8t.jpg"
           alt="Hero"
         />
 
-        <div className="search-bar w-[80%] max-w-[1290px] h-[125px] left-1/2 -translate-x-1/2 bottom-4 absolute bg-white shadow-lg rounded-lg flex items-center">
-          <div className="location-dropdown flex items-center w-[200px] h-[60px] ml-6 bg-white border border-gray-400 rounded-lg">
-            <div className="location-text text-black text-base font-medium ml-4">
-              Quận 1
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-full max-w-screen-lg px-4">
+          <div className="bg-white shadow-lg rounded-lg flex flex-col md:flex-row items-center p-4 md:p-6 space-y-4 md:space-y-0 md:space-x-4">
+            <div className="flex items-center w-full md:w-auto bg-white border border-gray-400 rounded-lg">
+              <div className="text-black text-base font-medium ml-4">
+                Quận 1
+              </div>
+              <div className="ml-auto mr-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </div>
             </div>
-            <div className="arrow-down ml-auto mr-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+
+            <div className="flex-grow bg-white border border-gray-400 rounded-lg ">
+              <input
+                ref={inputRef}
+                type="text"
+                placeholder="Bạn muốn đặt chỗ đến đâu"
+                className="w-full h-full px-4 py-2 outline-none text-gray-600 text-base"
+                onFocus={openModal}
+              />
             </div>
-          </div>
 
-          <div className="search-input flex-grow h-[60px] mx-4 bg-white border border-gray-400 rounded-lg flex items-center px-4">
-            <input
-              ref={inputRef}
-              type="text"
-              placeholder="Bạn muốn đặt chỗ đến đâu"
-              className="w-full h-full outline-none text-gray-600 font-normal text-base"
-              onFocus={openModal}
-            />
+            <button
+              ref={buttonRef}
+              onClick={openModal}
+              className="bg-[#d86500] rounded-lg flex items-center justify-center text-white font-medium text-base px-6 py-3"
+            >
+              Tìm kiếm
+            </button>
           </div>
-
-          <button
-            ref={buttonRef}
-            onClick={openModal}
-            className="search-button w-[190px] h-[60px] mr-6 bg-[#d86500] rounded-lg flex items-center justify-center text-white font-medium text-base"
-          >
-            Tìm kiếm
-          </button>
         </div>
       </div>
 

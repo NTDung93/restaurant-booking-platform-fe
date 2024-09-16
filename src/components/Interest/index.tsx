@@ -1,19 +1,14 @@
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
-import { useNavigate } from 'react-router-dom';
 
-export default function Popular() {
-  const navigate = useNavigate();
-
+export default function Interest() {
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
-    autoplay: true,
-    autoplaySpeed: 3000,
     responsive: [
       {
         breakpoint: 1024,
@@ -38,11 +33,6 @@ export default function Popular() {
       },
     ],
   };
-
-  const handleNavigation = () => {
-    navigate('/res-detail');
-  };
-
   const cards = Array.from({ length: 12 }, (_, i) => (
     <div key={i} className="p-4">
       <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
@@ -51,10 +41,7 @@ export default function Popular() {
           <div className="text-amber-500 text-base font-normal font-['Roboto']">
             150.000 - 2.000.000 VNĐ
           </div>
-          <div
-            className="flex items-center mt-2 cursor-pointer hover:text-amber-600 hover:underline"
-            onClick={handleNavigation}
-          >
+          <div className="flex items-center mt-2">
             <div className="text-black text-2xl font-bold font-['Roboto']">
               Nhà hàng PUPU
             </div>
@@ -72,10 +59,7 @@ export default function Popular() {
             </div>
           </div>
           <div className="flex justify-center mt-4">
-            <button
-              className="bg-amber-500 text-white text-lg font-medium px-4 py-2 rounded-full transition-transform transform hover:scale-105 hover:bg-amber-600"
-              onClick={handleNavigation}
-            >
+            <button className="bg-amber-500 text-white text-lg font-medium px-4 py-2 rounded-full">
               ĐẶT BÀN NGAY
             </button>
           </div>
@@ -83,13 +67,12 @@ export default function Popular() {
       </div>
     </div>
   ));
-
   return (
     <>
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 mb-5">
         <div className="text-center mb-8 mt-8">
-          <div className="text-black text-4xl font-bold font-['Be Vietnam Pro']">
-            Nhà hàng nổi bật
+          <div className="text-black text-4xl font-bold font-['Be Vietnam Pro'] mb-4">
+            Có thể bạn quan tâm
           </div>
         </div>
         <Slider {...settings}>{cards}</Slider>

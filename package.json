@@ -12,6 +12,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.4.0",
     "@ant-design/nextjs-registry": "^1.0.0",
     "@reduxjs/toolkit": "^2.2.6",
     "antd": "^5.19.4",
