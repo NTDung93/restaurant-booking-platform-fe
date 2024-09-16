@@ -2,7 +2,8 @@ import Category from '@/components/Category';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import Image from '@/components/Image';
+import Image from '@/components/Image-page';
+
 import Plan from '@/components/Plan';
 import Popular from '@/components/Popular';
 import Sales from '@/components/Sales';

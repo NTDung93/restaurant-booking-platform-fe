@@ -25,6 +25,7 @@ export default function Header() {
             <nav
               className={`md:flex space-x-4 md:space-x-10 ${isMenuOpen ? 'flex' : 'hidden'} md:block flex-col md:flex-row absolute md:static left-0 top-[80px] w-full bg-[#312525] md:bg-transparent`}
             >
+              <a href="#"> </a>
               <Link
                 to="/"
                 className={`text-lg md:text-xl p-4 md:p-0 ${isHomePage ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
