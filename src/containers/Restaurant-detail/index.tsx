@@ -209,8 +209,8 @@ const RestaurantDetail: React.FC = () => {
         <div className="w-full max-w-screen-xl mx-auto mt-10 px-4">
           <h2 className="text-3xl md:text-5xl font-bold text-black">Voucher</h2>
           <div
-            className="relative bg-amber-100 text-black mt-6 p-6 rounded-lg shadow-lg border-2  border-black w-full md:w-2/5 mx-auto flex flex-col justify-between"
-            style={{ height: '250px' }}
+            className="relative bg-amber-100 text-black mt-6 p-6 rounded-lg shadow-lg border-2  w-full md:w-2/5 mx-auto flex flex-col justify-between"
+            style={{ height: '200px' }}
           >
             {/* Phần trên (2/3) */}
             <div className="flex-grow">
@@ -219,7 +219,6 @@ const RestaurantDetail: React.FC = () => {
                 <span className="font-bold text-red-600">COMTAM10</span> để được
                 giảm 10% cho đơn hàng từ 100,000đ trở lên.
               </p>
-              <p className="text-lg md:text-xl mb-4">Hạn sử dụng: 31/12/2024</p>
             </div>
 
             {/* Đường gạch đứt ngăn cách */}
