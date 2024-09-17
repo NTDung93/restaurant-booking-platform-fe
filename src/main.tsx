@@ -13,6 +13,7 @@ import AccessDeniedPage from './app/[locale]/access-denied/page';
 import HomePage from './app/[locale]/page';
 import SignUpPage from './app/[locale]/sign-up/page';
 import RestaurantDetailPage from './app/[locale]/restaurant-detail/page';
+import Restaurant from './app/[locale]/restaurant/page';
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: '/res-detail',
     element: <RestaurantDetailPage />,
+  },
+  {
+    path: '/restaurant',
+    element: <Restaurant />,
   },
   {
     path: '/counter',
