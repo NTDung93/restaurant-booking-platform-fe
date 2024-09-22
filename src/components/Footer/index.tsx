@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#312525] text-white relative">
+    <footer className="w-full bg-[#312525] text-white relative mt-10">
       <div className="max-w-[90%] md:max-w-[80%] mx-auto flex flex-col md:flex-row justify-between py-8 md:py-10 px-4 md:px-5">
         <div className="w-full md:w-1/4 mb-6 md:mb-0">
           <h3 className="text-md md:text-lg font-bold uppercase">
@@ -28,7 +28,7 @@ export default function Footer() {
 
         <div className="w-full md:w-1/4 mb-6 md:mb-0">
           <h3 className="text-[#e5e8eb] text-md md:text-lg font-bold uppercase">
-            Contact
+            Liên hệ
           </h3>
           <ul className="mt-3 md:mt-4 space-y-1 md:space-y-2 text-xs md:text-sm text-[#e5e8eb] font-normal uppercase">
             <li>Lorem ipsum dolo</li>

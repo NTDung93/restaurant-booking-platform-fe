@@ -1,26 +1,100 @@
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
 export default function Plan() {
+  const navigate = useNavigate();
+  const [slidesToShow, setSlidesToShow] = useState(4);
+  const cardMaxWidth = 400;
+
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth;
+      const cardsToShow = Math.floor(screenWidth / cardMaxWidth);
+      setSlidesToShow(cardsToShow > 0 ? cardsToShow : 1);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: slidesToShow,
+    slidesToScroll: slidesToShow,
+    autoplay: true,
+    autoplaySpeed: 3000,
+  };
+
+  const handleNavigation = () => {
+    navigate('/res-detail');
+  };
+
+  const cards = Array.from({ length: 12 }, (_, i) => (
+    <div key={i} className="p-4 max-w-[400px]">
+      <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
+        <div className="w-full h-60 bg-zinc-300"></div>
+        <div className="p-4">
+          <div className="text-amber-500 text-base font-normal font-['Roboto']">
+            150.000 - 2.000.000 VNĐ
+          </div>
+          <div
+            className="flex items-center mt-2 cursor-pointer"
+            onClick={handleNavigation}
+          >
+            <div className="text-black text-2xl font-bold font-['Roboto']">
+              Cơm tấm Baque
+            </div>
+          </div>
+          <div className="text-zinc-500 text-base font-normal font-['Be Vietnam Pro'] mt-2">
+            Location: 123 Đường ABC, Phường DEF, Quận GHI, TP Hồ Chí Minh
+          </div>
+          <div className="flex justify-between items-center mt-4">
+            <div className="text-black text-sm font-medium font-['Roboto']">
+              Đánh giá
+            </div>
+            <div className="text-black text-sm font-medium font-['Roboto']">
+              Lượt đặt: 12345
+            </div>
+          </div>
+          <div className="flex justify-center mt-4">
+            <button
+              className="bg-amber-500 text-white text-lg font-medium px-4 py-2 rounded-full"
+              onClick={handleNavigation}
+            >
+              ĐẶT BÀN NGAY
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  ));
+
   return (
-    <div className="w-4/5 mx-auto mt-10 mb-10">
-      {/* Tiêu đề */}
+    <div className="w-4/5 mx-auto mt-10 mb-10 p-4">
       <div className="text-left mb-10">
         <h2 className="text-3xl font-semibold text-black mb-8">
           Lên kế hoạch cho bữa ăn nhanh chóng
         </h2>
 
-        {/* Các loại bữa ăn */}
         <div className="flex flex-wrap justify-start gap-4 mb-10">
           <button className="px-4 py-2 text-black text-lg font-normal rounded-full border border-gray-400 hover:border-gray-600 hover:bg-gray-300 transition mb-2">
             Ăn sáng
           </button>
-
           <button className="px-4 py-2 text-black text-lg font-normal bg-gray-200 rounded-full hover:bg-gray-300 transition mb-2">
             Ăn trưa
           </button>
-
           <button className="px-4 py-2 text-black text-lg font-normal bg-gray-200 rounded-full hover:bg-gray-300 transition mb-2">
             Ăn tối
           </button>
-
           <button className="px-4 py-2 text-black text-lg font-normal bg-gray-200 rounded-full hover:bg-gray-300 transition mb-2">
             Hẹn hò
           </button>
@@ -30,34 +104,7 @@ export default function Plan() {
         </div>
       </div>
 
-      {/* Lưới 4 thẻ */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 place-items-center">
-        {/* Thẻ bữa ăn */}
-        {Array.from({ length: 4 }).map((_, index) => (
-          <div
-            key={index}
-            className="relative w-72 h-[350px] bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-shadow flex flex-col justify-between"
-          >
-            {/* Phần hình ảnh */}
-            <div>
-              <div className="w-full h-48 bg-gray-300 rounded-tl-3xl rounded-tr-3xl"></div>
-              <div className="px-4 py-4">
-                <h3 className="text-lg font-medium text-neutral-900 mb-2">
-                  Cơm tấm Baque
-                </h3>
-                <p className="text-xs font-normal text-neutral-600">
-                  Lorem ipsum dolor sit ame, consectetur adipiscing elit.
-                </p>
-              </div>
-            </div>
-            <div className="px-4 pb-4">
-              <button className="w-32 py-2 bg-black text-white font-semibold rounded-full text-sm hover:bg-gray-800 transition mx-auto">
-                Đặt ngay
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+      <Slider {...settings}>{cards}</Slider>
     </div>
   );
 }
