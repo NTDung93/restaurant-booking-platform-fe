@@ -17,7 +17,7 @@ export default function SignIn() {
 
         {/* Main */}
         <div
-          className="flex flex-col justify-center items-center h-screen px-4"
+          className="flex flex-col justify-center items-center h-screen px-4 "
           style={{
             backgroundImage:
               "url('https://res.cloudinary.com/dnslrwedn/image/upload/v1726239862/image_6_cirsev.png')",
@@ -29,7 +29,6 @@ export default function SignIn() {
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8">
                 Đăng nhập
               </h2>
-
               <div className="w-full mb-4 sm:mb-6">
                 <label className="text-lg sm:text-xl font-medium mb-2 block">
                   Email
@@ -51,21 +50,19 @@ export default function SignIn() {
                   placeholder="Nhập mật khẩu"
                 />
               </div>
-
               <button className="w-full py-2 sm:py-3 bg-white text-[#d86500] font-bold text-base sm:text-lg md:text-xl rounded-lg shadow hover:bg-gray-100 transition duration-300 mb-3 sm:mb-4">
                 Đăng nhập
               </button>
-
               <span className="text-white text-sm sm:text-base mb-3 sm:mb-4">
                 Chưa có tài khoản ?
               </span>
 
-              <button
+              <span
                 onClick={handleSignUp}
-                className="w-full py-2 sm:py-3 bg-white text-[#d86500] font-bold text-base sm:text-lg md:text-xl rounded-lg shadow hover:bg-gray-100 transition duration-300"
+                className="text-white underline cursor-pointer text-sm sm:text-base"
               >
                 Đăng ký
-              </button>
+              </span>
             </div>
           </div>
         </div>
