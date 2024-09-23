@@ -81,11 +81,10 @@ export default function Plan() {
   return (
     <div className="w-4/5 mx-auto mt-10 mb-10 p-4">
       <div className="text-left mb-10">
-        <h2 className="text-3xl font-semibold text-black mb-8">
+        <h2 className="text-3xl font-semibold text-black mb-8 pl-4">
           Lên kế hoạch cho bữa ăn nhanh chóng
         </h2>
-
-        <div className="flex flex-wrap justify-start gap-4 mb-10">
+        <div className="flex flex-wrap justify-start gap-4 mb-10 pl-4">
           <button className="px-4 py-2 text-black text-lg font-normal rounded-full border border-gray-400 hover:border-gray-600 hover:bg-gray-300 transition mb-2">
             Ăn sáng
           </button>
@@ -103,7 +102,6 @@ export default function Plan() {
           </button>
         </div>
       </div>
-
       <Slider {...settings}>{cards}</Slider>
     </div>
   );

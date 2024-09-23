@@ -20,7 +20,7 @@ const Hero: React.FC = () => {
 
   return (
     <>
-      <div className="relative w-full h-[400px] md:h-[700px] mb-20">
+      <div className="relative w-full h-[65vh] mb-20">
         <img
           className="absolute inset-0 w-full h-full object-cover opacity-90"
           src="https://res.cloudinary.com/dnslrwedn/image/upload/v1726239414/nha-hang-the-log-restaurant-222_uqjc8t.jpg"
@@ -29,7 +29,7 @@ const Hero: React.FC = () => {
 
         <div className="absolute bottom-[-50px] left-1/2 transform -translate-x-1/2 w-full max-w-screen-lg px-4">
           <div className="bg-white shadow-lg rounded-lg flex flex-col md:flex-row items-center p-4 md:p-6 space-y-4 md:space-y-0 md:space-x-4">
-            <div className="flex items-center w-full md:w-auto bg-white border border-gray-400 rounded-lg">
+            <div className="flex items-center w-full md:w-auto bg-white border border-gray-400 rounded-lg h-12">
               <div className="text-black text-base font-medium ml-4">
                 Quận 1
               </div>
@@ -51,7 +51,7 @@ const Hero: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex-grow bg-white border border-gray-400 rounded-lg ">
+            <div className="flex-grow bg-white border h-12 rounded ">
               <input
                 ref={inputRef}
                 type="text"
@@ -64,7 +64,7 @@ const Hero: React.FC = () => {
             <button
               ref={buttonRef}
               onClick={openModal}
-              className="bg-[#d86500] rounded-lg flex items-center justify-center text-white font-medium text-base px-6 py-3"
+              className="bg-[#d86500] rounded-lg flex items-center justify-center text-white font-medium text-base px-6 py-3 "
             >
               Tìm kiếm
             </button>

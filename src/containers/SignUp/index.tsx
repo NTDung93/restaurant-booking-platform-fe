@@ -68,12 +68,12 @@ export default function SignUp() {
                 Đã có tài khoản ?
               </span>
 
-              <button
+              <span
                 onClick={handleSignIn}
-                className="w-full py-2 sm:py-3 bg-white text-[#d86500] font-bold text-base sm:text-lg md:text-xl rounded-lg shadow hover:bg-gray-100 transition duration-300"
+                className="text-white underline cursor-pointer text-sm sm:text-base"
               >
                 Đăng nhập
-              </button>
+              </span>
             </div>
           </div>
         </div>

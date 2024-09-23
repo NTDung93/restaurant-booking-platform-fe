@@ -80,7 +80,7 @@ export default function Sales() {
   ));
 
   return (
-    <div className="w-[80%] mx-auto p-4">
+    <div className="w-[80%] mx-auto p-4 mb-10">
       <div className="text-center mb-8 mt-8">
         <div className="text-black text-4xl font-bold font-['Be Vietnam Pro']">
           Đang giảm giá

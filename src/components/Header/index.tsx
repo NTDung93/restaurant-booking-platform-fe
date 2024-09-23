@@ -17,13 +17,17 @@ export default function Header() {
       <header className="w-full h-[80px] md:h-[100px] bg-[#312525] fixed top-0 left-0 z-50">
         <div className="max-w-[90%] md:max-w-[80%] mx-auto h-full flex items-center justify-between">
           <div className="flex items-center space-x-2 md:space-x-4">
-            <img
-              className="w-[80px] md:w-[100px] h-auto"
-              src="https://via.placeholder.com/100x98"
-              alt="Logo"
-            />
+            {/* Thay đổi từ img thành Link bao bọc img */}
+            <Link to="/" onClick={handleLinkClick}>
+              <img
+                className="w-[150px] h-auto"
+                src="https://res.cloudinary.com/dnslrwedn/image/upload/v1727033229/SKEDEAT_logo_tr%E1%BA%AFng-01_rrkx3o.png"
+                alt="Logo"
+              />
+            </Link>
             <nav
-              className={`md:flex space-x-4 md:space-x-10 ${isMenuOpen ? 'flex' : 'hidden'} md:block flex-col md:flex-row absolute md:static left-0 top-[80px] w-full bg-[#312525] md:bg-transparent`}
+              className={`md:flex space-x-4 md:space-x-10 ml-0 ${isMenuOpen ? 'flex' : 'hidden'} md:block flex-col md:flex-row absolute md:static left-0 top-[80px] w-full md:w-auto bg-[#312525] md:bg-transparent`}
+              style={{ marginLeft: '0px' }}
             >
               <a href="#"> </a>
               <Link
