@@ -7,7 +7,6 @@ export default function Comfirm() {
   const [phone] = useState('a');
   const [email, setEmail] = useState('');
   const [notes, setNotes] = useState('');
-
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex-grow">
