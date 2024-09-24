@@ -25,6 +25,16 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+ *{
+  font-family: 'Roboto Slab', sans-serif;
+ }
+ .roboto-slab{
+  font-family: 'Roboto Slab', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+ }
+
 
 .ant-radio-wrapper-disabled .ant-radio-inner::after {
   background-color: var(--disabled-button-color) !important;

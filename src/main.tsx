@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ProfilesPage from './app/[locale]/(authenticated)/profiles/page';
+// import ProfilesPage from './app/[locale]/(authenticated)/profiles/page';
 import NotFoundPage from './app/[locale]/not-found/page';
-import ProfileDetailPage from './app/[locale]/(authenticated)/profile-detail/page';
+// import ProfileDetailPage from './app/[locale]/(authenticated)/profile-detail/page';
 import SignInPage from './app/[locale]/sign-in/page';
 import { Provider } from 'react-redux';
 import CounterPage from './app/[locale]/counter/page';
@@ -14,6 +14,10 @@ import HomePage from './app/[locale]/page';
 import SignUpPage from './app/[locale]/sign-up/page';
 import RestaurantDetailPage from './app/[locale]/restaurant-detail/page';
 import Restaurant from './app/[locale]/restaurant/page';
+import User from './app/[locale]/user/page';
+import UserPass from './app/[locale]/user-pass/page';
+import UserFavor from './app/[locale]/user-favorite/page';
+import ComfirmPage from './app/[locale]/comfirm/page';
 
 const router = createBrowserRouter([
   {
@@ -21,15 +25,27 @@ const router = createBrowserRouter([
     element: <HomePage />,
     errorElement: <NotFoundPage />,
   },
+  // {
+  //   path: '/profiles',
+  //   element: <ProfilesPage />,
+  //   children: [
+  //     {
+  //       path: '/profiles/:profileId',
+  //       element: <ProfileDetailPage />,
+  //     },
+  //   ],
+  // },
   {
-    path: '/profiles',
-    element: <ProfilesPage />,
-    children: [
-      {
-        path: '/profiles/:profileId',
-        element: <ProfileDetailPage />,
-      },
-    ],
+    path: '/user',
+    element: <User />,
+  },
+  {
+    path: '/user-pass',
+    element: <UserPass />,
+  },
+  {
+    path: '/user-favorite',
+    element: <UserFavor />,
   },
   {
     path: '/signin',
@@ -42,6 +58,10 @@ const router = createBrowserRouter([
   {
     path: '/res-detail',
     element: <RestaurantDetailPage />,
+  },
+  {
+    path: '/comfirm',
+    element: <ComfirmPage />,
   },
   {
     path: '/restaurant',
