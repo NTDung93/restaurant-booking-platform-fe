@@ -17,7 +17,6 @@ export default function Header() {
       <header className="w-full h-[80px] md:h-[100px] bg-[#312525] fixed top-0 left-0 z-50">
         <div className="max-w-[90%] md:max-w-[80%] mx-auto h-full flex items-center justify-between">
           <div className="flex items-center space-x-2 md:space-x-4">
-            {/* Thay đổi từ img thành Link bao bọc img */}
             <Link to="/" onClick={handleLinkClick}>
               <img
                 className="w-[150px] h-auto"
