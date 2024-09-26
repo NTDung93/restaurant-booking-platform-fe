@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+
 export default function Footer() {
+  const navigate = useNavigate();
+
   return (
     <footer className="w-full bg-[#312525] text-white relative ">
       <div className="max-w-[90%] md:max-w-[80%] mx-auto flex flex-col md:flex-row justify-between py-8 md:py-10 px-4 md:px-5">
@@ -53,8 +57,11 @@ export default function Footer() {
               placeholder="Email Address"
               className="w-full p-2 text-xs md:text-sm text-black placeholder-gray-400 rounded-md"
             />
-            <button className="mt-2 w-full bg-white text-black text-xs md:text-sm font-semibold py-2 rounded-md">
-              SIGN UP
+            <button
+              onClick={() => navigate('/signup')}
+              className="mt-2 w-full bg-white text-black text-xs md:text-sm font-semibold py-2 rounded-md"
+            >
+              Đăng ký
             </button>
           </div>
         </div>
