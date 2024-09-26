@@ -50,20 +50,20 @@ export default function Header() {
               >
                 Liên hệ
               </a>
-              <a
-                href="#"
-                className="text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0"
+              <Link
+                to="/blog"
+                className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/blog' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
                 onClick={handleLinkClick}
               >
                 Blogs
-              </a>
-              <a
-                href="#"
-                className="text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0"
+              </Link>
+              <Link
+                to="/restaurant"
+                className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/restaurant' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
                 onClick={handleLinkClick}
               >
                 Gần bạn
-              </a>
+              </Link>
             </nav>
           </div>
           <div className="flex items-center space-x-2 md:space-x-4">
