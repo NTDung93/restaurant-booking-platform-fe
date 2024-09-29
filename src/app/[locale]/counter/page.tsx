@@ -1,4 +1,4 @@
-import Counter from '@/containers/Counter';
+import Counter from '@/containers/client/Counter';
 
 export default function CounterPage() {
   return <Counter />;

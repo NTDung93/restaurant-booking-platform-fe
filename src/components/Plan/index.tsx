@@ -76,7 +76,7 @@ export default function Plan() {
   ));
 
   return (
-    <div className="w-full md:w-4/5 mx-auto mt-10 mb-10">
+    <div className="w-full md:w-4/5 mx-auto mt-48 mb-10">
       <div className="text-left mb-10">
         <h2 className="text-xl md:text-3xl font-semibold text-black mb-8 pl-4">
           Lên kế hoạch cho bữa ăn nhanh chóng
