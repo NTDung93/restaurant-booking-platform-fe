@@ -1,4 +1,4 @@
-import ProfileDetail from '@/containers/ProfileDetail';
+import ProfileDetail from '@/containers/client/ProfileDetail';
 
 export default function ProfileDetailPage() {
   return <ProfileDetail />;

@@ -1,4 +1,4 @@
-import SignUp from '@/containers/SignUp';
+import SignUp from '@/containers/client/SignUp';
 
 export default function SignUpPage() {
   return <SignUp />;

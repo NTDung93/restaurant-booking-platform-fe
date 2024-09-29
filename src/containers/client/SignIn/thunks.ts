@@ -1,6 +1,6 @@
 import { AccountSignIn, User } from '@/common/models/user';
 import { createAppAsyncThunk } from '@/libs/redux/createAppAsyncThunk';
-import { UserToken } from '../../common/models/user/index';
+import { UserToken } from '../../../common/models/user/index';
 import callApi from '@/utils/api';
 
 const TypePrefix = 'user';

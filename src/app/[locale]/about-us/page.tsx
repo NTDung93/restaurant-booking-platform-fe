@@ -1,4 +1,4 @@
-import AboutUs from '@/containers/About-us';
+import AboutUs from '@/containers/client/About-us';
 
 export default function AboutUsPage() {
   return <AboutUs />;
