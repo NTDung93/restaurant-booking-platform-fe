@@ -1,5 +1,5 @@
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
+import Footer from '@/components/client/Footer';
+import Header from '@/components/client/Header';
 import { useState } from 'react';
 
 export default function Comfirm() {

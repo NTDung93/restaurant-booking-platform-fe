@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import Slider from 'react-slick';
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import Hero from '@/components/Hero';
-import Interest from '@/components/Interest';
+import Footer from '@/components/client/Footer';
+import Header from '@/components/client/Header';
+import Hero from '@/components/client/Hero';
+import Interest from '@/components/client/Interest';
 import { PrevArrow, NextArrow } from '@/components/Arrow';
 import {
   CarOutlined,

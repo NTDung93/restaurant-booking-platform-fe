@@ -1,6 +1,6 @@
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import MenuUser from '@/components/MenuUser';
+import Footer from '@/components/client/Footer';
+import Header from '@/components/client/Header';
+import MenuUser from '@/components/client/MenuUser';
 import { useState, FormEvent } from 'react';
 
 const UserPassword: React.FC = () => {

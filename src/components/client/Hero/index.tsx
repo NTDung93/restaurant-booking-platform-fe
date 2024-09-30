@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import Modal from '@/components/Modal-search';
+import Modal from '@/components/client/Modal-search';
 import { SearchOutlined } from '@ant-design/icons';
 // Import magnifying glass icon from react-icons
 

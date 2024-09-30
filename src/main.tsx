@@ -4,22 +4,22 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // import ProfilesPage from './app/[locale]/(authenticated)/profiles/page';
 import NotFoundPage from './app/[locale]/not-found/page';
 // import ProfileDetailPage from './app/[locale]/(authenticated)/profile-detail/page';
-import SignInPage from './app/[locale]/sign-in/page';
+import SignInPage from './app/[locale]/client/sign-in/page';
 import { Provider } from 'react-redux';
 import CounterPage from './app/[locale]/counter/page';
 import { store } from './libs/redux/store';
 import AuthProvider from './components/Auth/AuthProvider';
 import AccessDeniedPage from './app/[locale]/access-denied/page';
-import HomePage from './app/[locale]/page';
-import SignUpPage from './app/[locale]/sign-up/page';
-import RestaurantDetailPage from './app/[locale]/restaurant-detail/page';
-import Restaurant from './app/[locale]/restaurant/page';
-import User from './app/[locale]/user/page';
-import UserPass from './app/[locale]/user-pass/page';
-import UserFavor from './app/[locale]/user-favorite/page';
-import ComfirmPage from './app/[locale]/comfirm/page';
-import BlogPage from './app/[locale]/blog/page';
-import AboutUsPage from './app/[locale]/about-us/page';
+import HomePage from './app/[locale]/client/Home/page';
+import SignUpPage from './app/[locale]/client/sign-up/page';
+import RestaurantDetailPage from './app/[locale]/client/restaurant-detail/page';
+import Restaurant from './app/[locale]/client/restaurant/page';
+import User from './app/[locale]/client/user/page';
+import UserPass from './app/[locale]/client/user-pass/page';
+import UserFavor from './app/[locale]/client/user-favorite/page';
+import ComfirmPage from './app/[locale]/client/comfirm/page';
+import BlogPage from './app/[locale]/client/blog/page';
+import AboutUsPage from './app/[locale]/client/about-us/page';
 
 const router = createBrowserRouter([
   {
