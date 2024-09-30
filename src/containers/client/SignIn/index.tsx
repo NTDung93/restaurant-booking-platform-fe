@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
+import Footer from '@/components/client/Footer';
+import Header from '@/components/client/Header';
 
 export default function SignIn() {
   const navigate = useNavigate();

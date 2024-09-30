@@ -1,14 +1,14 @@
-import Category from '@/components/Category';
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import Hero from '@/components/Hero';
-import Image from '@/components/Image-page';
+import Category from '@/components/client/Category';
+import Footer from '@/components/client/Footer';
+import Header from '@/components/client/Header';
+import Hero from '@/components/client/Hero';
+import Image from '@/components/client/Image-page';
 
-import Plan from '@/components/Plan';
-import Popular from '@/components/Popular';
-import Sales from '@/components/Sales';
-import Video from '@/components/Video';
-import Voucher from '@/components/Voucher';
+import Plan from '@/components/client/Plan';
+import Popular from '@/components/client/Popular';
+import Sales from '@/components/client/Sales';
+import Video from '@/components/client/Video';
+import Voucher from '@/components/client/Voucher';
 
 export default function Home() {
   return (

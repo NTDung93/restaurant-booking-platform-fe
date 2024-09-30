@@ -1,6 +1,6 @@
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import Hero from '@/components/Hero';
+import Footer from '@/components/client/Footer';
+import Header from '@/components/client/Header';
+import Hero from '@/components/client/Hero';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 

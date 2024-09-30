@@ -1,6 +1,6 @@
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import VideosBlog from '@/components/Videos-blog';
+import Footer from '@/components/client/Footer';
+import Header from '@/components/client/Header';
+import VideosBlog from '@/components/client/Videos-blog';
 
 export default function Blog() {
   return (
