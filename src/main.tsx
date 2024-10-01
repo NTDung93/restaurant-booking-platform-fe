@@ -20,6 +20,7 @@ import UserFavor from './app/[locale]/client/user-favorite/page';
 import ComfirmPage from './app/[locale]/client/comfirm/page';
 import BlogPage from './app/[locale]/client/blog/page';
 import AboutUsPage from './app/[locale]/client/about-us/page';
+import HomePageRestaurant from './app/[locale]/restaurant/Home/page';
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
   {
     path: '/access-denied',
     element: <AccessDeniedPage />,
+  },
+  {
+    path: '/home-restaurant',
+    element: <HomePageRestaurant />,
   },
 ]);
 
