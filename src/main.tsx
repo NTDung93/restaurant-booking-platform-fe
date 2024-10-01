@@ -21,6 +21,7 @@ import ComfirmPage from './app/[locale]/client/comfirm/page';
 import BlogPage from './app/[locale]/client/blog/page';
 import AboutUsPage from './app/[locale]/client/about-us/page';
 import HomePageRestaurant from './app/[locale]/restaurant/Home/page';
+import ManageTableBookingAllPage from './app/[locale]/restaurant/Manage-table-booking-all-page/page';
 
 const router = createBrowserRouter([
   {
@@ -87,8 +88,12 @@ const router = createBrowserRouter([
     element: <AccessDeniedPage />,
   },
   {
-    path: '/home-restaurant',
+    path: '/manage/home',
     element: <HomePageRestaurant />,
+  },
+  {
+    path: '/manage/all-table-booking',
+    element: <ManageTableBookingAllPage />,
   },
 ]);
 
