@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import Image from '@/components/restaurant/Img';
 
 ChartJS.register(
   CategoryScale,
@@ -70,13 +71,8 @@ export default function Home() {
       <Header />
       <div className="mt-[100px] flex min-h-screen">
         <Menu />
-        <div className="w-[80vw] flex flex-col ">
-          {/* Image Section */}
-          <img
-            className="w-full h-[40vh] object-cover mb-8  shadow-md"
-            src="https://res.cloudinary.com/dnslrwedn/image/upload/v1727749829/image_2_mtowav.png"
-            alt="Restaurant Visual"
-          />
+        <div className="w-[85vw] flex flex-col ">
+          <Image />
 
           {/* Task List Section */}
           <div className="p-6 bg-white rounded-lg shadow-md">

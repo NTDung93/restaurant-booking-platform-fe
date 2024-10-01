@@ -1,18 +1,20 @@
+import { Link } from 'react-router-dom';
+
 export default function Menu() {
   return (
-    <div className="w-[20vw] p-6 bg-amber-600 shadow-md min-h-screen">
+    <div className="w-[15vw] p-6 bg-amber-600 shadow-md min-h-screen">
       <div className="space-y-10">
         <div className="space-y-4">
-          <h2 className="text-3xl font-bold text-white">Quản lý Đặt bàn</h2>
+          <h2 className="text-2xl font-bold text-white">Quản lý Đặt bàn</h2>
           <div className="space-y-2 text-xl font-medium text-black">
-            <p>Tất cả</p>
+            <Link to="/manage/all-table-booking">Tất cả</Link>
             <p>Bàn đang đợi</p>
             <p>Bàn hoàn thành</p>
             <p>Bàn hủy</p>
           </div>
         </div>
         <div className="space-y-4">
-          <h2 className="text-3xl font-bold text-white">Quản lý Thực đơn</h2>
+          <h2 className="text-2xl font-bold text-white">Quản lý Thực đơn</h2>
           <div className="space-y-2 text-xl font-medium text-black">
             <p>Tất cả</p>
             <p>Thêm khuyến mãi</p>
@@ -20,7 +22,7 @@ export default function Menu() {
           </div>
         </div>
         <div className="space-y-4">
-          <h2 className="text-3xl font-bold text-white">Quản lý Đánh giá</h2>
+          <h2 className="text-2xl font-bold text-white">Quản lý Đánh giá</h2>
           <div className="space-y-2 text-xl font-medium text-black">
             <p>Tất cả</p>
             <p>Cần phản hồi</p>
@@ -28,21 +30,21 @@ export default function Menu() {
           </div>
         </div>
         <div className="space-y-4">
-          <h2 className="text-3xl font-bold text-white">Quản lý Bàn</h2>
+          <h2 className="text-2xl font-bold text-white">Quản lý Bàn</h2>
           <div className="space-y-2 text-xl font-medium text-black">
             <p>Tất cả</p>
             <p>Bàn trống</p>
           </div>
         </div>
         <div className="space-y-4">
-          <h2 className="text-3xl font-bold text-white">Báo cáo chi tiết</h2>
+          <h2 className="text-2xl font-bold text-white">Báo cáo chi tiết</h2>
           <div className="space-y-2 text-xl font-medium text-black">
             <p>Báo cáo đặt bàn</p>
             <p>Thống kê lượt đặt bàn</p>
           </div>
         </div>
         <div className="space-y-4">
-          <h2 className="text-3xl font-bold text-white">
+          <h2 className="text-2xl font-bold text-white">
             Tiếp thị và Quảng cáo
           </h2>
           <div className="space-y-2 text-xl font-medium text-black">
@@ -51,7 +53,7 @@ export default function Menu() {
           </div>
         </div>
         <div className="space-y-4">
-          <h2 className="text-3xl font-bold text-white">Đặt hàng Trực tuyến</h2>
+          <h2 className="text-2xl font-bold text-white">Đặt hàng Trực tuyến</h2>
           <div className="space-y-2 text-xl font-medium text-black">
             <p>Quản lý đặt hàng trực tuyến</p>
           </div>
