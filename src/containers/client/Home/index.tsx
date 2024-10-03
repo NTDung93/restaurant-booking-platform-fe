@@ -2,7 +2,7 @@ import Category from '@/components/client/Category';
 import Footer from '@/components/client/Footer';
 import Header from '@/components/client/Header';
 import Hero from '@/components/client/Hero';
-import Image from '@/components/client/Image-page';
+import Image from '@/components/client/ImagePage';
 
 import Plan from '@/components/client/Plan';
 import Popular from '@/components/client/Popular';

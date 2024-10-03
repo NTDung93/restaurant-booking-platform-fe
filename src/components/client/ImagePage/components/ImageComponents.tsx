@@ -1,4 +1,4 @@
-export default function Image() {
+export default function ImageComponents() {
   return (
     <div className="w-4/5 mx-auto mt-2 mb-20">
       <div className="grid grid-cols-1 md:grid-cols-5 w-full md:h-[600px] gap-2">

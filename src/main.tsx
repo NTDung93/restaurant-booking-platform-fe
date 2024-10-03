@@ -20,8 +20,8 @@ import UserFavor from './app/[locale]/client/user-favorite/page';
 import ComfirmPage from './app/[locale]/client/comfirm/page';
 import BlogPage from './app/[locale]/client/blog/page';
 import AboutUsPage from './app/[locale]/client/about-us/page';
-import HomePageRestaurant from './app/[locale]/restaurant/Home/page';
-import ManageTableBookingAllPage from './app/[locale]/restaurant/Manage-table-booking-all-page/page';
+import HomePageRestaurant from './app/[locale]/restaurant-client/Home/page';
+import ManageTableBookingAllPage from './app/[locale]/restaurant-client/Manage-table-booking-all-page/page';
 
 const router = createBrowserRouter([
   {
