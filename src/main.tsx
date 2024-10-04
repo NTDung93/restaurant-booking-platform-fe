@@ -4,24 +4,24 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // import ProfilesPage from './app/[locale]/(authenticated)/profiles/page';
 import NotFoundPage from './app/[locale]/not-found/page';
 // import ProfileDetailPage from './app/[locale]/(authenticated)/profile-detail/page';
-import SignInPage from './app/[locale]/client/sign-in/page';
+import SignInPage from './app/[locale]/restaurant-user/SignIn/page';
 import { Provider } from 'react-redux';
 import CounterPage from './app/[locale]/counter/page';
 import { store } from './libs/redux/store';
 import AuthProvider from './components/Auth/AuthProvider';
 import AccessDeniedPage from './app/[locale]/access-denied/page';
-import HomePage from './app/[locale]/client/Home/page';
-import SignUpPage from './app/[locale]/client/sign-up/page';
-import RestaurantDetailPage from './app/[locale]/client/restaurant-detail/page';
-import Restaurant from './app/[locale]/client/restaurant/page';
-import User from './app/[locale]/client/user/page';
-import UserPass from './app/[locale]/client/user-pass/page';
-import UserFavor from './app/[locale]/client/user-favorite/page';
-import ComfirmPage from './app/[locale]/client/comfirm/page';
-import BlogPage from './app/[locale]/client/blog/page';
-import AboutUsPage from './app/[locale]/client/about-us/page';
-import HomePageRestaurant from './app/[locale]/restaurant-client/Home/page';
-import ManageTableBookingAllPage from './app/[locale]/restaurant-client/Manage-table-booking-all-page/page';
+import HomePage from './app/[locale]/restaurant-user/Home/page';
+import SignUpPage from './app/[locale]/restaurant-user/SignUp/page';
+import RestaurantDetailPage from './app/[locale]/restaurant-user/RestaurantDetail/page';
+import Restaurant from './app/[locale]/restaurant-user/Restaurant/page';
+import User from './app/[locale]/restaurant-user/User/page';
+import UserPass from './app/[locale]/restaurant-user/UserPassword/page';
+import UserFavor from './app/[locale]/restaurant-user/UserFavorite/page';
+import ComfirmPage from './app/[locale]/restaurant-user/Confirm/page';
+import BlogPage from './app/[locale]/restaurant-user/Blog/page';
+import AboutUsPage from './app/[locale]/restaurant-user/AboutUs/page';
+import HomePageRestaurant from './app/[locale]/restaurant-admin/Home/page';
+import ManageTableBookingAllPage from './app/[locale]/restaurant-admin/ManageTableBookingAll/page';
 
 const router = createBrowserRouter([
   {
