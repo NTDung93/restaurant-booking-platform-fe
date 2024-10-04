@@ -10,7 +10,7 @@ export const signIn = createAppAsyncThunk(
   async (data: AccountSignIn) => {
     const response = await callApi({
       method: 'post',
-      url: '/auth/user/signin',
+      url: 'http://localhost:8080/api/v1/auth/login',
       data: data,
     });
 
