@@ -1,13 +1,14 @@
-import Category from '@/components/restaurant-user/Category';
+import Category from '@/containers/restaurant-user/Home/Components/Category';
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
 import Hero from '@/components/restaurant-user/Hero';
-import Image from '@/components/restaurant-user/ImagePage';
-import Plan from '@/components/restaurant-user/Plan';
-import Popular from '@/components/restaurant-user/Popular';
-import Sales from '@/components/restaurant-user/Sales';
-import Video from '@/components/restaurant-user/Video';
-import Voucher from '@/components/restaurant-user/Voucher';
+
+import Plan from '@/containers/restaurant-user/Home/Components/Plan';
+import Popular from '@/containers/restaurant-user/Home/Components/Popular';
+import Sales from '@/containers/restaurant-user/Home/Components/Sales';
+import Video from '@/containers/restaurant-user/Home/Components/Video';
+import Voucher from '@/containers/restaurant-user/Home/Components/Voucher';
+import Image from './Components/ImagePage';
 
 export default function Home() {
   return (

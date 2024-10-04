@@ -1,6 +1,6 @@
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
-import VideosBlog from '@/components/restaurant-user/VideosBlog';
+import VideosBlog from './components/VideosBlog';
 
 export default function Blog() {
   return (

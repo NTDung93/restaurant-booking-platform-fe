@@ -1,6 +1,6 @@
-export default function VideoComponent() {
+export default function Video() {
   return (
-    <div className="w-full md:w-4/5 mx-auto mt-5">
+    <div className="w-[80%] md:w-[80%] mx-auto mt-5">
       <div className="flex flex-col md:flex-row">
         <div className="w-full md:w-1/2 h-60 md:h-96 bg-gray-300 flex items-center justify-center">
           <img
