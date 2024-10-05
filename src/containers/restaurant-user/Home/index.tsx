@@ -20,7 +20,7 @@ export default function Home() {
         <div className="hidden sm:block">
           <Category />
         </div>
-        
+
         <div className="block sm:hidden">
           <CategoryMobile />
         </div>
