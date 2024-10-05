@@ -39,7 +39,6 @@ export default function Category() {
               <div className="mt-0 text-black text-xl ">Quán nhậu</div>
             </div>
           </div>
-          {/* Fourth Category Item */}
           <div className="category-item flex flex-col items-center w-full sm:w-1/5 text-center">
             <div className="flex-grow flex flex-col items-center">
               <div className="h-40 flex items-center justify-center">
