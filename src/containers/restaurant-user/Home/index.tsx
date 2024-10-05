@@ -7,7 +7,7 @@ import Plan from '@/containers/restaurant-user/Home/Components/Plan';
 import Popular from '@/containers/restaurant-user/Home/Components/Popular';
 import Sales from '@/containers/restaurant-user/Home/Components/Sales';
 import Video from '@/containers/restaurant-user/Home/Components/Video';
-import Voucher from '@/containers/restaurant-user/Home/Components/Voucher';
+import VoucherCarousel from '@/containers/restaurant-user/Home/Components/VoucherCarousel';
 import Image from './Components/ImagePage';
 import CategoryMobile from './Components/CategoryCarousel';
 
@@ -24,7 +24,7 @@ export default function Home() {
         <div className="block sm:hidden">
           <CategoryMobile />
         </div>
-        <Voucher />
+        <VoucherCarousel />
         <Popular />
         <Video />
         <Image />
