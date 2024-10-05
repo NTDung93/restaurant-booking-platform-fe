@@ -11,7 +11,7 @@ export interface User {
 }
 
 export interface AccountSignIn {
-  username: string;
+  userNameOrEmailOrPhone: string;
   password: string;
 }
 
