@@ -1,5 +1,5 @@
-import counterReducer from '@/containers/Counter/slice';
-import userReducer from '@/containers/SignIn/slice';
+import counterReducer from '@/containers/restaurant-user/Counter/slice';
+import userReducer from '@/containers/restaurant-user/SignIn/slice';
 export const reducer = {
   counter: counterReducer,
   user: userReducer,
