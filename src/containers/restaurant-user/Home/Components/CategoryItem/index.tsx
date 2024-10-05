@@ -9,19 +9,7 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
   altText,
   title,
 }) => (
-  // return (
-  //   <div className="category-item flex-shrink-0 w-40 flex flex-col items-center text-center">
-  //       <div className="h-40 flex items-center justify-center">
-  //       <img
-  //         src={imgSrc}
-  //         alt={altText}
-  //         className="w-20 h-30 object-cover rounded-lg"
-  //       />
-  //     </div>
-  //     <div className="mt-2 text-black text-xl">{title}</div>
-  //   </div>
-  // );
-  <div className="category-item flex-shrink-0 w-40 flex flex-col items-center text-center">
+  <div className="place-items-stretch flex flex-col items-center text-center">
     <div className="h-40 flex items-center justify-center">
       <img
         src={imgSrc}
@@ -29,7 +17,7 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
         className="w-20 h-30 object-cover rounded-lg"
       />
     </div>
-    <div className="mt-2 text-black text-xl">{title}</div>
+    <div className="text-black text-xl">{title}</div>
   </div>
 );
 export default CategoryItem;

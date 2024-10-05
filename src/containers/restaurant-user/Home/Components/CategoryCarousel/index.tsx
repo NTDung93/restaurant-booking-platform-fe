@@ -1,6 +1,7 @@
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
+import CategoryItem from '../CategoryItem';
 
 export default function CategoryMobile() {
   const settings = {
@@ -22,51 +23,46 @@ export default function CategoryMobile() {
     ],
   };
 
+  const categories = [
+    {
+      imgSrc:
+        'https://res.cloudinary.com/dnslrwedn/image/upload/v1726238852/OBJECTS_zrhobk.png',
+      altText: 'Lẩu',
+      title: 'Lẩu',
+    },
+    {
+      imgSrc:
+        'https://res.cloudinary.com/dnslrwedn/image/upload/v1726238852/Group_ujlmvm.png',
+      altText: 'Món Nhật',
+      title: 'Món Nhật',
+    },
+    {
+      imgSrc:
+        'https://res.cloudinary.com/dnslrwedn/image/upload/v1726238853/OBJECTS_1_yy9r9d.png',
+      altText: 'Quán nhậu',
+      title: 'Quán nhậu',
+    },
+    {
+      imgSrc:
+        'https://res.cloudinary.com/dnslrwedn/image/upload/v1726238854/Group_1000002666_avvhnl.png',
+      altText: 'Hải sản',
+      title: 'Hải sản',
+    },
+  ];
+
   return (
-    <Slider {...settings}>
-      <div className="category-item flex-shrink-0 w-40 flex flex-col items-center text-center">
-        <div className="h-40 flex items-center justify-center">
-          <img
-            src="https://res.cloudinary.com/dnslrwedn/image/upload/v1726238852/OBJECTS_zrhobk.png"
-            alt="Lẩu"
-            className="w-20 h-30 object-cover rounded-lg"
-          />
-        </div>
-        <div className="mt-2 text-black text-xl">Lẩu</div>
-      </div>
-
-      <div className="category-item flex-shrink-0 w-40 flex flex-col items-center text-center">
-        <div className="h-40 flex items-center justify-center">
-          <img
-            src="https://res.cloudinary.com/dnslrwedn/image/upload/v1726238852/Group_ujlmvm.png"
-            alt="Món Nhật"
-            className="w-20 h-30 object-cover rounded-lg"
-          />
-        </div>
-        <div className="mt-2 text-black text-xl">Món Nhật</div>
-      </div>
-
-      <div className="category-item flex-shrink-0 w-40 flex flex-col items-center text-center">
-        <div className="h-40 flex items-center justify-center">
-          <img
-            src="https://res.cloudinary.com/dnslrwedn/image/upload/v1726238853/OBJECTS_1_yy9r9d.png"
-            alt="Quán nhậu"
-            className="w-20 h-30 object-cover rounded-lg"
-          />
-        </div>
-        <div className="mt-2 text-black text-xl">Quán nhậu</div>
-      </div>
-
-      <div className="category-item flex-shrink-0 w-40 flex flex-col items-center text-center">
-        <div className="h-40 flex items-center justify-center">
-          <img
-            src="https://res.cloudinary.com/dnslrwedn/image/upload/v1726238854/Group_1000002666_avvhnl.png"
-            alt="Hải sản"
-            className="w-20 h-30 object-cover rounded-lg"
-          />
-        </div>
-        <div className="mt-2 text-black text-xl">Hải sản</div>
-      </div>
-    </Slider>
+    <>
+      <Slider {...settings} className="overflow-hidden">
+        {categories.map((category, index) => (
+          <div key={index}>
+            <CategoryItem
+              imgSrc={category.imgSrc}
+              altText={category.altText}
+              title={category.title}
+            />
+          </div>
+        ))}
+      </Slider>
+    </>
   );
 }
