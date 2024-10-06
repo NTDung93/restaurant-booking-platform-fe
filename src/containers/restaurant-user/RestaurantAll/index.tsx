@@ -1,6 +1,7 @@
+import { RESTAURANT_DETAIL_ROUTE } from '@/common/constants/routerConstant';
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
-import Hero from '@/components/restaurant-user/Hero';
+import HeroBanner from '@/components/restaurant-user/HeroBanner';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,7 +9,7 @@ const RestaurantAll: React.FC = () => {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
-    navigate('/res-detail');
+    navigate(RESTAURANT_DETAIL_ROUTE);
   };
 
   const cards = Array.from({ length: 12 }, (_, i) => (
@@ -56,7 +57,7 @@ const RestaurantAll: React.FC = () => {
     <div className="flex flex-col min-h-screen">
       <div className="flex-grow">
         <Header />
-        <Hero />
+        <HeroBanner />
         <div className="bg-white p-4 shadow-md mt-4 ">
           <div className="container mx-auto w-4/5">
             <div className="text-xl font-bold mb-4">Lọc Kết Quả</div>

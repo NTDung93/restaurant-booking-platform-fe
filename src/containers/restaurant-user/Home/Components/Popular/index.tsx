@@ -3,6 +3,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { RESTAURANT_DETAIL_ROUTE } from '@/common/constants/routerConstant';
 
 export default function Popular() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function Popular() {
   };
 
   const handleNavigation = () => {
-    navigate('/res-detail');
+    navigate(RESTAURANT_DETAIL_ROUTE);
   };
 
   const cards = Array.from({ length: 8 }, (_, i) => (

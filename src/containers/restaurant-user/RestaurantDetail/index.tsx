@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import { PrevArrow, NextArrow } from '@/components/Arrow';
 
 import Header from '@/components/restaurant-user/Header';
-import Hero from '@/components/restaurant-user/Hero';
+import HeroBanner from '@/components/restaurant-user/HeroBanner';
 
 import Footer from '@/components/restaurant-user/Footer';
 import Interest from './components/Interest';
@@ -48,7 +48,7 @@ const RestaurantDetail: React.FC = () => {
     <div className="flex flex-col min-h-screen">
       <div className="flex-grow">
         <Header />
-        <Hero />
+        <HeroBanner />
         <div className="w-full max-w-screen-xl mx-auto flex flex-col md:flex-row md:h-[600px] px-4">
           <div className="md:w-3/5 w-full h-full p-4 mb-4 md:mb-0 rounded-lg flex items-center justify-center relative">
             <Slider {...settings} className="w-full h-full" ref={sliderRef}>

@@ -3,7 +3,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import Modal from '../ModalSearch';
 // Import magnifying glass icon from react-icons
 
-const Hero: React.FC = () => {
+const HeroBanner: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalWidth, setModalWidth] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -52,4 +52,4 @@ const Hero: React.FC = () => {
   );
 };
 
-export default Hero;
+export default HeroBanner;

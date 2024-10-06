@@ -3,6 +3,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { RESTAURANT_DETAIL_ROUTE } from '@/common/constants/routerConstant';
 
 export default function Plan() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export default function Plan() {
   };
 
   const handleNavigation = () => {
-    navigate('/res-detail');
+    navigate(RESTAURANT_DETAIL_ROUTE);
   };
 
   const cards = Array.from({ length: 8 }, (_, i) => (
@@ -95,7 +96,7 @@ export default function Plan() {
             Hẹn hò
           </button>
           <button className="px-4 py-2 text-sm md:text-lg font-normal bg-gray-200 rounded-full hover:bg-gray-300 transition mb-2">
-            Meeting
+            Cuộc họp
           </button>
         </div>
       </div>
