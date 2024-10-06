@@ -53,11 +53,18 @@ export default function PopularRestaurants() {
   ));
 
   return (
-    <div className="w-[80%] mx-auto mt-12">
-      <div className="text-center mb-4">
-        <div className="text-black text-4xl font-bold ">Nhà hàng nổi bật</div>
+    <div className="mobile:max-md:w-[90%] mobile:max-md:overflow-hidden w-[80%] mx-auto lg:mt-12">
+      <div className="text-center mb-4 mobile:max-md:mt-8">
+        <div className="mobile:max-md:text-3xl text-black text-4xl font-bold ">
+          Nhà hàng nổi bật
+        </div>
       </div>
-      <Slider {...settings}>{cards}</Slider>
+      <div className="hidden lg:block">
+        <Slider {...settings}>{cards}</Slider>
+      </div>
+      <div className="block lg:hidden mobile:max-md:carousel mobile:max-md:carousel-center rounded-box max-w-md space-x-0">
+        {cards}
+      </div>
     </div>
   );
 }

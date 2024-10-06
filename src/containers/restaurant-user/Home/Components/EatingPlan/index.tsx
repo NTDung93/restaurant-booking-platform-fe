@@ -55,8 +55,8 @@ export default function EatingPlan() {
   ));
 
   return (
-    <div className="w-[80%] mx-auto lg:mt-24 mt-10">
-      <div className="text-left pl-4">
+    <div className="mobile:max-md:w-[90%] mobile:max-md:overflow-hidden w-[80%] mx-auto lg:mt-24 mt-10">
+      <div className="text-left pl-2 lg:pl-4">
         <h2 className="text-xl md:text-3xl font-semibold text-black mb-4">
           Lên kế hoạch cho bữa ăn nhanh chóng
         </h2>
@@ -73,12 +73,17 @@ export default function EatingPlan() {
           <button className="px-4 py-2 text-sm md:text-lg font-normal bg-gray-200 rounded-full hover:bg-gray-300 transition">
             Hẹn hò
           </button>
-          <button className="px-4 py-2 text-sm md:text-lg font-normal bg-gray-200 rounded-full hover:bg-gray-300 transition">
+          <button className="hidden lg:block px-4 py-2 text-sm md:text-lg font-normal bg-gray-200 rounded-full hover:bg-gray-300 transition">
             Cuộc họp
           </button>
         </div>
       </div>
-      <Slider {...settings}>{cards}</Slider>
+      <div className="hidden lg:block">
+        <Slider {...settings}>{cards}</Slider>
+      </div>
+      <div className="block lg:hidden mobile:max-md:carousel mobile:max-md:carousel-center rounded-box max-w-md space-x-0">
+        {cards}
+      </div>
     </div>
   );
 }

@@ -27,7 +27,7 @@ export default function VoucherCarousel() {
   };
 
   return (
-    <div className="w-10/12 md:w-4/5 mx-auto mt-10">
+    <div className="mobile:max-md:w-[90%] w-10/12 md:w-4/5 mx-auto mt-10">
       <Slider {...settings}>
         <div className="px-2">
           <img

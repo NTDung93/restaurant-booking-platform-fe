@@ -10,7 +10,6 @@ import IntroVideo from '@/containers/restaurant-user/Home/Components/IntroVideo'
 import VoucherCarousel from '@/containers/restaurant-user/Home/Components/VoucherCarousel';
 import RestaurantGallery from './Components/RestaurantGallery';
 import CategoryMobile from './Components/CategoryCarousel';
-import FullBleedCarousel from './Components/FullBleedCarousel';
 
 export default function Home() {
   return (
@@ -18,6 +17,7 @@ export default function Home() {
       <div className="flex-grow">
         <Header />
         <HeroBanner />
+
         <div className="hidden sm:block">
           <Category />
         </div>
@@ -27,15 +27,7 @@ export default function Home() {
         </div>
 
         <VoucherCarousel />
-
-        <div className="hidden sm:block">
-          <PopularRestaurants />
-        </div>
-
-        <div className="block sm:hidden">
-          <FullBleedCarousel />
-        </div>
-
+        <PopularRestaurants />
         <IntroVideo />
         <RestaurantGallery />
         <EatingPlan />

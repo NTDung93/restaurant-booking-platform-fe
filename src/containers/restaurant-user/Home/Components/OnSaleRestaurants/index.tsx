@@ -55,11 +55,18 @@ export default function OnSaleRestaurants() {
   ));
 
   return (
-    <div className="w-[80%] mx-auto p-4 mt-12 mb-12">
+    <div className="mobile:max-md:w-[90%] mobile:max-md:overflow-hidden w-[80%] mx-auto mt-8 lg:mt-16 mb-14">
       <div className="text-center mb-4">
-        <div className="text-black text-4xl font-bold ">Đang giảm giá</div>
+        <div className="mobile:max-md:text-3xl text-black text-4xl font-bold ">
+          Đang giảm giá
+        </div>
       </div>
-      <Slider {...settings}>{cards}</Slider>
+      <div className="hidden lg:block">
+        <Slider {...settings}>{cards}</Slider>
+      </div>
+      <div className="block lg:hidden mobile:max-md:carousel mobile:max-md:carousel-center rounded-box max-w-md space-x-0">
+        {cards}
+      </div>
     </div>
   );
 }

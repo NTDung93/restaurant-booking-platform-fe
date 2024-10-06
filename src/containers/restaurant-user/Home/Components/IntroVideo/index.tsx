@@ -1,13 +1,50 @@
+import { useEffect, useRef, useState } from 'react';
+
 export default function IntroVideo() {
+  const videoRef = useRef(null);
+  const [isVideoVisible, setIsVideoVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          setIsVideoVisible(true);
+        } else {
+          setIsVideoVisible(false);
+        }
+      },
+      { threshold: 0.5 }, // 50% of the video must be visible
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => {
+      if (videoRef.current) {
+        observer.unobserve(videoRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className="w-[80%] mx-auto lg:mt-20 mt-10">
+    <div className="mobile:max-md:w-[90%] w-[80%] mx-auto lg:mt-20 mt-10">
       <div className="flex flex-col md:flex-row">
-        <div className="w-full md:w-1/2 h-60 md:h-96 bg-gray-300 flex items-center justify-center">
-          <img
-            src="https://res.cloudinary.com/dnslrwedn/image/upload/v1727065395/image_15_kkeucl.png"
-            alt="Restaurant Experience"
-            className="w-full h-full object-cover"
-          />
+        <div
+          className="w-full md:w-1/2 h-60 md:h-96 bg-gray-300 flex items-center justify-center"
+          ref={videoRef}
+        >
+          {isVideoVisible && (
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/NmrnXic2eUs?autoplay=1&mute=1"
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          )}
         </div>
         <div className="w-full md:w-1/2 h-auto lg:p-4 pt-4">
           <div className="w-full text-black text-lg md:text-2xl font-bold">
