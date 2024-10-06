@@ -1,6 +1,6 @@
-export default function Image() {
+export default function RestaurantGallery() {
   return (
-    <div className="w-4/5 mx-auto mt-2 mb-20">
+    <div className="hidden lg:block w-4/5 mx-auto mt-2">
       <div className="grid grid-cols-1 md:grid-cols-5 w-full md:h-[600px] gap-2">
         <div className="hidden md:col-span-2 md:flex flex-col gap-2">
           <div className="flex-1 flex flex-col md:flex-row">

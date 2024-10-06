@@ -3,12 +3,12 @@ import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
 import HeroBanner from '@/components/restaurant-user/HeroBanner';
 
-import Plan from '@/containers/restaurant-user/Home/Components/Plan';
-import Popular from '@/containers/restaurant-user/Home/Components/Popular';
-import Sales from '@/containers/restaurant-user/Home/Components/Sales';
-import Video from '@/containers/restaurant-user/Home/Components/Video';
+import EatingPlan from '@/containers/restaurant-user/Home/Components/EatingPlan';
+import PopularRestaurants from '@/containers/restaurant-user/Home/Components/PopularRestaurants';
+import OnSaleRestaurants from '@/containers/restaurant-user/Home/Components/OnSaleRestaurants';
+import IntroVideo from '@/containers/restaurant-user/Home/Components/IntroVideo';
 import VoucherCarousel from '@/containers/restaurant-user/Home/Components/VoucherCarousel';
-import Image from './Components/ImagePage';
+import RestaurantGallery from './Components/RestaurantGallery';
 import CategoryMobile from './Components/CategoryCarousel';
 
 export default function Home() {
@@ -17,6 +17,7 @@ export default function Home() {
       <div className="flex-grow">
         <Header />
         <HeroBanner />
+
         <div className="hidden sm:block">
           <Category />
         </div>
@@ -24,12 +25,13 @@ export default function Home() {
         <div className="block sm:hidden">
           <CategoryMobile />
         </div>
+
         <VoucherCarousel />
-        <Popular />
-        <Video />
-        <Image />
-        <Plan />
-        <Sales />
+        <PopularRestaurants />
+        <IntroVideo />
+        <RestaurantGallery />
+        <EatingPlan />
+        <OnSaleRestaurants />
       </div>
       <Footer />
     </div>

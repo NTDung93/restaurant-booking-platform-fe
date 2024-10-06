@@ -4,9 +4,10 @@ import 'slick-carousel/slick/slick-theme.css';
 
 export default function VoucherCarousel() {
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
-    speed: 500,
+    autoplay: true,
+    autoplaySpeed: 3000,
     slidesToShow: 3,
     slidesToScroll: 1,
     responsive: [
@@ -26,7 +27,7 @@ export default function VoucherCarousel() {
   };
 
   return (
-    <div className="w-10/12 md:w-4/5 mx-auto mt-5">
+    <div className="mobile:max-md:w-[90%] w-10/12 md:w-4/5 mx-auto mt-10">
       <Slider {...settings}>
         <div className="px-2">
           <img

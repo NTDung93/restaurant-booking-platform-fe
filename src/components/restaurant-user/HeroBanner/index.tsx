@@ -20,7 +20,7 @@ const HeroBanner: React.FC = () => {
 
   return (
     <>
-      <div className="relative w-full h-[40vh] mb-10 md:mb-20">
+      <div className="relative w-full h-[40vh] mb-10 md:mb-14">
         <img
           className="absolute inset-0 w-full h-full object-cover opacity-90"
           src="https://res.cloudinary.com/dnslrwedn/image/upload/v1726239414/nha-hang-the-log-restaurant-222_uqjc8t.jpg"
