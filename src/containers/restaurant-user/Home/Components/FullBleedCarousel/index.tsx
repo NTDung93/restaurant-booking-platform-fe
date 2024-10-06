@@ -1,46 +1,15 @@
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import { RESTAURANT_DETAIL_ROUTE } from '@/common/constants/routerConstant';
 
-export default function Sales() {
+export default function FullBleedCarousel() {
   const navigate = useNavigate();
-  const [slidesToShow, setSlidesToShow] = useState(4);
-  const cardMaxWidth = 400;
-
-  useEffect(() => {
-    const handleResize = () => {
-      const screenWidth = window.innerWidth;
-      const cardsToShow = Math.floor(screenWidth / cardMaxWidth);
-      setSlidesToShow(cardsToShow > 0 ? cardsToShow : 1);
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: slidesToShow,
-    slidesToScroll: slidesToShow,
-    autoplay: true,
-    autoplaySpeed: 3000,
-  };
 
   const handleNavigation = () => {
     navigate(RESTAURANT_DETAIL_ROUTE);
   };
 
   const cards = Array.from({ length: 8 }, (_, i) => (
-    <div key={i} className="p-4 max-w-[400px]">
+    <div key={i} className="carousel-item p-2 max-w-[300px]">
       <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
         <div className="w-full h-60 bg-zinc-300"></div>
         <div className="p-4">
@@ -77,11 +46,13 @@ export default function Sales() {
   ));
 
   return (
-    <div className="w-[80%] mx-auto p-4 mb-10">
-      <div className="text-center mb-8 mt-8">
-        <div className="text-black text-4xl font-bold ">Đang giảm giá</div>
+    <div className="w-[90%] mx-auto overflow-hidden">
+      <div className="text-center mb-4 mt-8">
+        <div className="text-black text-3xl font-bold ">Nhà hàng nổi bật</div>
       </div>
-      <Slider {...settings}>{cards}</Slider>
+      <div className="carousel carousel-center rounded-box max-w-md space-x-2">
+        {cards}
+      </div>
     </div>
   );
 }

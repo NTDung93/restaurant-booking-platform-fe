@@ -8,7 +8,7 @@ export default function CategoryMobile() {
     dots: false, // Disable dots for navigation if not needed
     infinite: true,
     speed: 500,
-    slidesToShow: 2, // You can set this based on your preference or screen size
+    slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
