@@ -1,6 +1,28 @@
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
 import CategoryItem from '../CategoryItem';
 
-export default function Category() {
+export default function CategoryMobile() {
+  const settings = {
+    dots: false, // Disable dots for navigation if not needed
+    infinite: true,
+    speed: 500,
+    slidesToShow: 2, // You can set this based on your preference or screen size
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    responsive: [
+      {
+        breakpoint: 768, // Mobile screens
+        settings: {
+          slidesToShow: 2, // Show 2 items at a time on mobile
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   const categories = [
     {
       imgSrc:
@@ -29,10 +51,10 @@ export default function Category() {
   ];
 
   return (
-    <div className="w-full h-auto flex flex-wrap justify-center items-center space-x-0 sm:space-x-8 relative">
-      <div className="w-4/5 h-auto flex flex-col sm:flex-row flex-wrap justify-between items-center mx-auto space-y-4 sm:space-y-0 sm:space-x-4 relative">
+    <>
+      <Slider {...settings} className="overflow-hidden">
         {categories.map((category, index) => (
-          <div key={index} className="w-full sm:w-1/5">
+          <div key={index}>
             <CategoryItem
               imgSrc={category.imgSrc}
               altText={category.altText}
@@ -40,7 +62,7 @@ export default function Category() {
             />
           </div>
         ))}
-      </div>
-    </div>
+      </Slider>
+    </>
   );
 }

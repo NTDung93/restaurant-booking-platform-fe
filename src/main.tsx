@@ -22,6 +22,7 @@ import BlogPage from './app/[locale]/restaurant-user/Blog/page';
 import AboutUsPage from './app/[locale]/restaurant-user/AboutUs/page';
 import HomePageRestaurant from './app/[locale]/restaurant-admin/Home/page';
 import ManageTableBookingAllPage from './app/[locale]/restaurant-admin/ManageTableBookingAll/page';
+import { RESTAURANT_DETAIL_ROUTE } from './common/constants/routerConstant';
 
 const router = createBrowserRouter([
   {
@@ -60,7 +61,7 @@ const router = createBrowserRouter([
     element: <SignUpPage />,
   },
   {
-    path: '/res-detail',
+    path: RESTAURANT_DETAIL_ROUTE,
     element: <RestaurantDetailPage />,
   },
   {

@@ -23,6 +23,27 @@ export const signIn = createAppAsyncThunk(
   },
 );
 
+export const refreshToken = createAppAsyncThunk(
+  `${TypePrefix}/refreshToken`,
+  async () => {
+    const response = await callApi(
+      {
+        method: 'post',
+        url: '/auth/refresh-token',
+      },
+      false,
+      true,
+    );
+
+    const userToken: UserToken = {
+      accessToken: response.access_token,
+      refreshToken: response.refresh_token,
+    };
+
+    return userToken;
+  },
+);
+
 export const getUserInfo = createAppAsyncThunk(
   `${TypePrefix}/getUserInfo`,
   async () => {
