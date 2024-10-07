@@ -1,7 +1,8 @@
-import { AccountSignIn, User } from '@/common/models/user';
+import { AccountSignIn, AccountSignUp, User } from '@/common/models/user';
 import { createAppAsyncThunk } from '@/libs/redux/createAppAsyncThunk';
 import { UserToken } from '@/common/models/user';
 import callApi from '@/utils/api';
+import Cookies from 'js-cookie';
 
 const TypePrefix = 'user';
 
@@ -10,7 +11,7 @@ export const signIn = createAppAsyncThunk(
   async (data: AccountSignIn) => {
     const response = await callApi({
       method: 'post',
-      url: 'http://localhost:8080/api/v1/auth/login',
+      url: '/auth/login',
       data: data,
     });
 
@@ -22,6 +23,26 @@ export const signIn = createAppAsyncThunk(
     return userToken;
   },
 );
+export const signUp = createAppAsyncThunk(
+  `${TypePrefix}/signup`,
+  async (data: AccountSignUp) => {
+    const response = await callApi({
+      method: 'post',
+      url: '/auth/register/user',
+      data: data,
+    });
+
+    const userToken: UserToken = {
+      accessToken: response.access_token,
+      refreshToken: response.refresh_token,
+    };
+
+    Cookies.set('access-token', userToken.accessToken);
+    Cookies.set('refresh-token', userToken.refreshToken);
+
+    return userToken;
+  },
+);
 
 export const refreshToken = createAppAsyncThunk(
   `${TypePrefix}/refreshToken`,
@@ -29,7 +50,7 @@ export const refreshToken = createAppAsyncThunk(
     const response = await callApi(
       {
         method: 'post',
-        url: '/auth/refresh-token',
+        url: '/auth/refresh_token',
       },
       false,
       true,
@@ -50,7 +71,7 @@ export const getUserInfo = createAppAsyncThunk(
     const response = await callApi(
       {
         method: 'get',
-        url: '/auth/user/info',
+        url: '/auth/info',
       },
       true,
     );
@@ -60,3 +81,11 @@ export const getUserInfo = createAppAsyncThunk(
     return userInfo;
   },
 );
+export const logout = createAppAsyncThunk(`${TypePrefix}/logout`, async () => {
+  await callApi({
+    method: 'get',
+    url: 'http://localhost:8080/logout',
+  });
+  Cookies.remove('access-token');
+  Cookies.remove('refresh-token');
+});
