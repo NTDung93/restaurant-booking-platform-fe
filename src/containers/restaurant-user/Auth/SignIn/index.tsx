@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { signIn } from './thunks';
+
 import { ReduxDispatch } from '@/libs/redux/store';
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
 import { pick } from 'lodash';
 import { useState } from 'react';
+import { signIn } from '../thunks';
 
 const SignIn: React.FC = () => {
   const [userNameOrEmailOrPhone, setUserNameOrEmailOrPhone] =
@@ -84,13 +85,14 @@ const SignIn: React.FC = () => {
               >
                 Đăng nhập
               </button>
-              <span className="text-white text-sm sm:text-base mb-3 sm:mb-4">
+              <span className="text-white text-sm sm:text-base mb-3 sm:mb-4 text-center block">
                 Chưa có tài khoản?
               </span>
 
+
               <span
                 onClick={handleSignUp}
-                className="text-white underline cursor-pointer text-sm sm:text-base"
+                className="text-white text-sm sm:text-base mb-3 sm:mb-4 text-center block underline cursor-pointer"
               >
                 Đăng ký
               </span>

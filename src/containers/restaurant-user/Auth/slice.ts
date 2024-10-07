@@ -3,7 +3,7 @@ import { User, UserToken } from '@/common/models/user';
 import {
   getUserInfo,
   signIn,
-} from '@/containers/restaurant-user/SignIn/thunks';
+} from '@/containers/restaurant-user/Auth/thunks';
 import {
   ActionReducerMapBuilder,
   PayloadAction,

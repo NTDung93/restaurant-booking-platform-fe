@@ -22,11 +22,11 @@ import BlogPage from './app/[locale]/restaurant-user/Blog/page';
 import AboutUsPage from './app/[locale]/restaurant-user/AboutUs/page';
 import HomePageRestaurant from './app/[locale]/restaurant-admin/Home/page';
 import ManageTableBookingAllPage from './app/[locale]/restaurant-admin/ManageTableBookingAll/page';
-import { RESTAURANT_DETAIL_ROUTE } from './common/constants/routerConstant';
+import { ABOUT_US, ACCESS_DENIED, BLOG, CONFIRM, COUNTER, HOME, RESTAURANT, RESTAURANT_ADMIN_ALL_TABLE_BOOKING, RESTAURANT_ADMIN_HOME, RESTAURANT_DETAIL_ROUTE, SIGN_IN, SIGN_UP, USER, USER_FAVOR, USER_PASS } from './common/constants/routerConstant';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: HOME,
     element: <HomePage />,
     errorElement: <NotFoundPage />,
   },
@@ -41,23 +41,23 @@ const router = createBrowserRouter([
   //   ],
   // },
   {
-    path: '/user',
+    path: USER,
     element: <User />,
   },
   {
-    path: '/user-pass',
+    path: USER_PASS,
     element: <UserPass />,
   },
   {
-    path: '/user-favorite',
+    path: USER_FAVOR,
     element: <UserFavor />,
   },
   {
-    path: '/signin',
+    path: SIGN_IN,
     element: <SignInPage />,
   },
   {
-    path: '/signup',
+    path: SIGN_UP,
     element: <SignUpPage />,
   },
   {
@@ -65,35 +65,35 @@ const router = createBrowserRouter([
     element: <RestaurantDetailPage />,
   },
   {
-    path: '/comfirm',
+    path: CONFIRM,
     element: <ComfirmPage />,
   },
   {
-    path: '/blog',
+    path: BLOG,
     element: <BlogPage />,
   },
   {
-    path: '/restaurant',
+    path: RESTAURANT,
     element: <Restaurant />,
   },
   {
-    path: '/about-us',
+    path: ABOUT_US,
     element: <AboutUsPage />,
   },
   {
-    path: '/counter',
+    path: COUNTER,
     element: <CounterPage />,
   },
   {
-    path: '/access-denied',
+    path: ACCESS_DENIED,
     element: <AccessDeniedPage />,
   },
   {
-    path: '/manage/home',
+    path: RESTAURANT_ADMIN_HOME,
     element: <HomePageRestaurant />,
   },
   {
-    path: '/manage/all-table-booking',
+    path: RESTAURANT_ADMIN_ALL_TABLE_BOOKING,
     element: <ManageTableBookingAllPage />,
   },
 ]);
