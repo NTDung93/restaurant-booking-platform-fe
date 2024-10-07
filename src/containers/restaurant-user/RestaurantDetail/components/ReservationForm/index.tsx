@@ -46,7 +46,7 @@ const ReservationForm: React.FC = () => {
         </div>
         <div className="flex justify-center">
           <button
-            onClick={handleReservation} 
+            onClick={handleReservation}
             className="bg-[#312525] text-white px-6 py-2 rounded-lg font-medium text-lg hover:bg-amber-600 transition duration-300"
           >
             ĐẶT BÀN

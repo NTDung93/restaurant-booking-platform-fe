@@ -28,7 +28,7 @@ export const signUp = createAppAsyncThunk(
   async (data: AccountSignUp) => {
     const response = await callApi({
       method: 'post',
-      url: '/auth/register/user', 
+      url: '/auth/register/user',
       data: data,
     });
 
@@ -81,16 +81,11 @@ export const getUserInfo = createAppAsyncThunk(
     return userInfo;
   },
 );
-export const logout = createAppAsyncThunk(
-  `${TypePrefix}/logout`,
-  async () => {
-
-    await callApi({
-      method: 'get',
-      url: 'http://localhost:8080/logout',
-    });
-    Cookies.remove('access-token');  
-    Cookies.remove('refresh-token');  
-  },
-);
-
+export const logout = createAppAsyncThunk(`${TypePrefix}/logout`, async () => {
+  await callApi({
+    method: 'get',
+    url: 'http://localhost:8080/logout',
+  });
+  Cookies.remove('access-token');
+  Cookies.remove('refresh-token');
+});

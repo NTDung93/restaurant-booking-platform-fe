@@ -5,7 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserInfo, logout } from '@/containers/restaurant-user/Auth/thunks';
 import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
 import { ReduxDispatch } from '@/libs/redux/store';
-import { ABOUT_US, BLOG, HOME, RESTAURANT, SIGN_IN } from '@/common/constants/routerConstant';
+import {
+  ABOUT_US,
+  BLOG,
+  HOME,
+  RESTAURANT,
+  SIGN_IN,
+} from '@/common/constants/routerConstant';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -88,19 +94,20 @@ export default function Header() {
                 </span>
                 <div
                   className="relative w-[40px] md:w-[50px] h-[40px] md:h-[49px] bg-[#d9d9d9] rounded-full flex items-center justify-center cursor-pointer"
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)} 
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 >
                   <UserOutlined style={{ fontSize: '24px' }} />
                 </div>
 
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-[200px] bg-white shadow-lg rounded-lg overflow-hidden z-50"
-                       style={{ top: '100%' }} 
+                  <div
+                    className="absolute right-0 mt-2 w-[200px] bg-white shadow-lg rounded-lg overflow-hidden z-50"
+                    style={{ top: '100%' }}
                   >
                     <Link
                       to="/user"
                       className="block w-full text-left px-4 py-2 text-black hover:bg-gray-100"
-                      onClick={() => setIsDropdownOpen(false)} 
+                      onClick={() => setIsDropdownOpen(false)}
                     >
                       Tài khoản của tôi
                     </Link>

@@ -22,7 +22,23 @@ import BlogPage from './app/[locale]/restaurant-user/Blog/page';
 import AboutUsPage from './app/[locale]/restaurant-user/AboutUs/page';
 import HomePageRestaurant from './app/[locale]/restaurant-admin/Home/page';
 import ManageTableBookingAllPage from './app/[locale]/restaurant-admin/ManageTableBookingAll/page';
-import { ABOUT_US, ACCESS_DENIED, BLOG, CONFIRM, COUNTER, HOME, RESTAURANT, RESTAURANT_ADMIN_ALL_TABLE_BOOKING, RESTAURANT_ADMIN_HOME, RESTAURANT_DETAIL_ROUTE, SIGN_IN, SIGN_UP, USER, USER_FAVOR, USER_PASS } from './common/constants/routerConstant';
+import {
+  ABOUT_US,
+  ACCESS_DENIED,
+  BLOG,
+  CONFIRM,
+  COUNTER,
+  HOME,
+  RESTAURANT,
+  RESTAURANT_ADMIN_ALL_TABLE_BOOKING,
+  RESTAURANT_ADMIN_HOME,
+  RESTAURANT_DETAIL_ROUTE,
+  SIGN_IN,
+  SIGN_UP,
+  USER,
+  USER_FAVOR,
+  USER_PASS,
+} from './common/constants/routerConstant';
 
 const router = createBrowserRouter([
   {

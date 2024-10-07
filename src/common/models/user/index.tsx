@@ -22,7 +22,7 @@ export interface AccountSignUp {
   email: string;
   password: string;
   fullName: string;
-  phone: string
+  phone: string;
   gender: string;
 }
 

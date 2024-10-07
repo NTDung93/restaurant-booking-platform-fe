@@ -89,7 +89,6 @@ const SignIn: React.FC = () => {
                 Chưa có tài khoản?
               </span>
 
-
               <span
                 onClick={handleSignUp}
                 className="text-white text-sm sm:text-base mb-3 sm:mb-4 text-center block underline cursor-pointer"
