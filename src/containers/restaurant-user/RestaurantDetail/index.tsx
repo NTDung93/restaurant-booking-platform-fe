@@ -60,14 +60,13 @@ const RestaurantDetail: React.FC = () => {
                   <img
                     src={image}
                     alt={`Slide ${index}`}
-                    className="object-cover w-full h-[577.5px] rounded-lg"
+                    className="object-cover w-full h-[577px] rounded-lg"
                   />
                 </div>
               ))}
             </Slider>
           </div>
-
-          <div className="md:w-1/5 w-full flex flex-col mt-2">
+          <div className="hidden md:flex md:w-1/5 w-full flex-col mt-2">
             {images.slice(0, 3).map((image, index) => (
               <div
                 key={index}
@@ -85,7 +84,7 @@ const RestaurantDetail: React.FC = () => {
             ))}
           </div>
 
-          <div className="md:w-1/5 w-full flex flex-col mt-2">
+          <div className="hidden md:flex md:w-1/5 w-full flex-col mt-2">
             {images.slice(3).map((image, index) => (
               <div
                 key={index + 3}
@@ -103,12 +102,10 @@ const RestaurantDetail: React.FC = () => {
             ))}
           </div>
         </div>
-
         <div className="w-full max-w-screen-xl mx-auto flex flex-col md:flex-row mt-10 px-4">
           <RestaurantInfo />
           <ReservationForm />
         </div>
-
         <MenuSection />
         <VoucherSection />
         <CommentSection />

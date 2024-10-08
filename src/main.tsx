@@ -23,26 +23,26 @@ import AboutUsPage from './app/[locale]/restaurant-user/AboutUs/page';
 import HomePageRestaurant from './app/[locale]/restaurant-admin/Home/page';
 import ManageTableBookingAllPage from './app/[locale]/restaurant-admin/ManageTableBookingAll/page';
 import {
-  ABOUT_US,
-  ACCESS_DENIED,
-  BLOG,
-  CONFIRM,
-  COUNTER,
-  HOME,
-  RESTAURANT,
-  RESTAURANT_ADMIN_ALL_TABLE_BOOKING,
-  RESTAURANT_ADMIN_HOME,
+  ABOUT_US_ROUTE,
+  ACCESS_DENIED_ROUTE,
+  BLOG_ROUTE,
+  CONFIRM_ROUTE,
+  COUNTER_ROUTE,
+  HOME_ROUTE,
+  RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE,
+  RESTAURANT_ADMIN_HOME_ROUTE,
   RESTAURANT_DETAIL_ROUTE,
-  SIGN_IN,
-  SIGN_UP,
-  USER,
-  USER_FAVOR,
-  USER_PASS,
+  RESTAURANT_ROUTE,
+  SIGN_IN_ROUTE,
+  SIGN_UP_ROUTE,
+  USER_FAVOR_ROUTE,
+  USER_PASS_ROUTE,
+  USER_ROUTE,
 } from './common/constants/routerConstant';
 
 const router = createBrowserRouter([
   {
-    path: HOME,
+    path: HOME_ROUTE,
     element: <HomePage />,
     errorElement: <NotFoundPage />,
   },
@@ -57,23 +57,23 @@ const router = createBrowserRouter([
   //   ],
   // },
   {
-    path: USER,
+    path: USER_ROUTE,
     element: <User />,
   },
   {
-    path: USER_PASS,
+    path: USER_PASS_ROUTE,
     element: <UserPass />,
   },
   {
-    path: USER_FAVOR,
+    path: USER_FAVOR_ROUTE,
     element: <UserFavor />,
   },
   {
-    path: SIGN_IN,
+    path: SIGN_IN_ROUTE,
     element: <SignInPage />,
   },
   {
-    path: SIGN_UP,
+    path: SIGN_UP_ROUTE,
     element: <SignUpPage />,
   },
   {
@@ -81,35 +81,35 @@ const router = createBrowserRouter([
     element: <RestaurantDetailPage />,
   },
   {
-    path: CONFIRM,
+    path: CONFIRM_ROUTE,
     element: <ComfirmPage />,
   },
   {
-    path: BLOG,
+    path: BLOG_ROUTE,
     element: <BlogPage />,
   },
   {
-    path: RESTAURANT,
+    path: RESTAURANT_ROUTE,
     element: <Restaurant />,
   },
   {
-    path: ABOUT_US,
+    path: ABOUT_US_ROUTE,
     element: <AboutUsPage />,
   },
   {
-    path: COUNTER,
+    path: COUNTER_ROUTE,
     element: <CounterPage />,
   },
   {
-    path: ACCESS_DENIED,
+    path: ACCESS_DENIED_ROUTE,
     element: <AccessDeniedPage />,
   },
   {
-    path: RESTAURANT_ADMIN_HOME,
+    path: RESTAURANT_ADMIN_HOME_ROUTE,
     element: <HomePageRestaurant />,
   },
   {
-    path: RESTAURANT_ADMIN_ALL_TABLE_BOOKING,
+    path: RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE,
     element: <ManageTableBookingAllPage />,
   },
 ]);

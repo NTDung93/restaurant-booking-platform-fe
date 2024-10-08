@@ -1,33 +1,33 @@
 const RESTAURANT_DETAIL_ROUTE = '/restaurant-detail';
-const RESTAURANT = '/restaurant';
-const USER = '/user';
-const USER_PASS = '/user-pass';
-const USER_FAVOR = '/user-favorite';
-const SIGN_IN = '/signin';
-const SIGN_UP = '/signup';
-const CONFIRM = '/confirm';
-const BLOG = '/blog';
-const ABOUT_US = '/about-us';
-const COUNTER = '/counter';
-const ACCESS_DENIED = '/access-denied';
-const RESTAURANT_ADMIN_HOME = '/HomePageRestaurant';
-const RESTAURANT_ADMIN_ALL_TABLE_BOOKING = '/manage/all-table-booking';
-const HOME = '/';
+const RESTAURANT_ROUTE = '/restaurant';
+const USER_ROUTE = '/user';
+const USER_PASS_ROUTE = '/user-pass';
+const USER_FAVOR_ROUTE = '/user-favorite';
+const SIGN_IN_ROUTE = '/signin';
+const SIGN_UP_ROUTE = '/signup';
+const CONFIRM_ROUTE = '/confirm';
+const BLOG_ROUTE = '/blog';
+const ABOUT_US_ROUTE = '/about-us';
+const COUNTER_ROUTE = '/counter';
+const ACCESS_DENIED_ROUTE = '/access-denied';
+const RESTAURANT_ADMIN_HOME_ROUTE = '/manage/home';
+const RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE = '/manage/all-table-booking';
+const HOME_ROUTE = '/';
 
 export {
   RESTAURANT_DETAIL_ROUTE,
-  RESTAURANT,
-  USER,
-  USER_PASS,
-  USER_FAVOR,
-  SIGN_IN,
-  SIGN_UP,
-  CONFIRM,
-  BLOG,
-  ABOUT_US,
-  COUNTER,
-  ACCESS_DENIED,
-  RESTAURANT_ADMIN_HOME,
-  RESTAURANT_ADMIN_ALL_TABLE_BOOKING,
-  HOME,
+  RESTAURANT_ROUTE,
+  USER_ROUTE,
+  USER_PASS_ROUTE,
+  USER_FAVOR_ROUTE,
+  SIGN_IN_ROUTE,
+  SIGN_UP_ROUTE,
+  CONFIRM_ROUTE,
+  BLOG_ROUTE,
+  ABOUT_US_ROUTE,
+  COUNTER_ROUTE,
+  ACCESS_DENIED_ROUTE,
+  RESTAURANT_ADMIN_HOME_ROUTE,
+  RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE,
+  HOME_ROUTE,
 };

@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import Modal from '../ModalSearch';
-// Import magnifying glass icon from react-icons
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+// import Slider from 'react-slick';
 
 const HeroBanner: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -29,7 +31,6 @@ const HeroBanner: React.FC = () => {
 
         <div className="absolute bottom-[-30px] md:bottom-[-50px] left-1/2 transform -translate-x-1/2 w-full max-w-screen-lg px-2 md:px-4">
           <div className="bg-white shadow-lg rounded-lg flex items-center p-3 md:p-6">
-            {/* Search Input */}
             <div className="relative flex-grow w-full bg-white border h-12 rounded-lg">
               <input
                 ref={inputRef}
@@ -38,7 +39,6 @@ const HeroBanner: React.FC = () => {
                 className="w-full h-full px-4 py-2 pr-10 outline-none text-gray-600 text-sm md:text-base"
                 onFocus={openModal}
               />
-              {/* Magnifying glass icon inside input */}
               <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
                 <SearchOutlined />
               </div>
