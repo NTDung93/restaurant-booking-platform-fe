@@ -7,6 +7,7 @@ import Header from '@/components/restaurant-user/Header';
 import { pick } from 'lodash';
 import { useState } from 'react';
 import { signIn } from '../thunks';
+import { SIGN_UP } from '@/common/constants/routerConstant';
 
 const SignIn: React.FC = () => {
   const [userNameOrEmailOrPhone, setUserNameOrEmailOrPhone] =
@@ -16,7 +17,7 @@ const SignIn: React.FC = () => {
   const navigate = useNavigate();
 
   const handleSignUp = () => {
-    navigate('/signup');
+    navigate(SIGN_UP);
   };
 
   const onFinish = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -30,8 +31,6 @@ const SignIn: React.FC = () => {
 
     if (signIn.fulfilled.match(resultAction)) {
       navigate('/');
-    } else {
-      console.error('Login failed');
     }
   };
 

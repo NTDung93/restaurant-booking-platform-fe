@@ -49,6 +49,7 @@ export default function Header() {
               className={`md:flex space-x-4 md:space-x-10 ml-0 ${isMenuOpen ? 'flex' : 'hidden'} md:block flex-col md:flex-row absolute md:static left-0 top-[80px] w-full md:w-auto bg-[#312525] md:bg-transparent`}
               style={{ marginLeft: '0px' }}
             >
+              <a></a>
               <Link
                 to={HOME}
                 className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
