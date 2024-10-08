@@ -1,3 +1,4 @@
+import { RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE } from '@/common/constants/routerConstant';
 import { Link } from 'react-router-dom';
 
 export default function Menu() {
@@ -7,7 +8,7 @@ export default function Menu() {
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-white">Quản lý Đặt bàn</h2>
           <div className="space-y-2 text-xl font-medium text-black">
-            <Link to="/manage/all-table-booking">Tất cả</Link>
+            <Link to={RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE}>Tất cả</Link>
             <p>Bàn đang đợi</p>
             <p>Bàn hoàn thành</p>
             <p>Bàn hủy</p>

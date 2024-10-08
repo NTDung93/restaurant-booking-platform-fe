@@ -17,7 +17,7 @@ export default function Confirm() {
     { title: string; quantity: number }[]
   >([]);
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
-    useState<string>(''); // Trạng thái cho phương thức thanh toán
+    useState<string>('');
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isFoodModalOpen, setIsFoodModalOpen] = useState<boolean>(false);
@@ -128,7 +128,7 @@ export default function Confirm() {
 
   const clearSelectedFoods = () => {
     setSelectedFoods([]);
-    setSelectedPaymentMethod(''); // Reset phương thức thanh toán khi xóa món ăn
+    setSelectedPaymentMethod('');
   };
 
   const removeVoucher = () => {
@@ -140,7 +140,7 @@ export default function Confirm() {
   };
 
   const handlePaymentMethodChange = (method: string) => {
-    setSelectedPaymentMethod(method); // Cập nhật phương thức thanh toán đã chọn
+    setSelectedPaymentMethod(method);
   };
 
   return (
@@ -244,7 +244,7 @@ export default function Confirm() {
               </div>
             )}
 
-            {selectedFoods.length > 0 && ( // Hiển thị phần chọn phương thức thanh toán nếu có món ăn
+            {selectedFoods.length > 0 && (
               <div className="mt-6">
                 <h2 className="text-lg font-semibold">
                   Phương thức thanh toán
