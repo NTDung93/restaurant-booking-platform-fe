@@ -1,9 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
-import Modal from '../ModalSearch';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-// import Slider from 'react-slick';
+import LocationPopupSearch from '@/containers/restaurant-user/Home/Components/LocationPopupSearch';
 
 const HeroBanner: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -47,7 +46,11 @@ const HeroBanner: React.FC = () => {
         </div>
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={closeModal} width={modalWidth} />
+      <LocationPopupSearch
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        width={modalWidth}
+      />
     </>
   );
 };

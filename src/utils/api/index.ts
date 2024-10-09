@@ -41,3 +41,17 @@ async function checkStatus(response: AxiosResponse) {
 
   throw error;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const objectToQueryString = <T extends Record<string, any>>(
+  data: T,
+): string => {
+  const params = new URLSearchParams();
+  Object.keys(data).forEach((key) => {
+    const value = data[key];
+    if (value !== undefined && value !== null) {
+      params.append(key, value.toString());
+    }
+  });
+  return params.toString();
+};
