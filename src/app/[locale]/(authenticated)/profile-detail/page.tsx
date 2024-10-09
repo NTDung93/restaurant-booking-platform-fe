@@ -1,4 +1,4 @@
-import ProfileDetail from '@/containers/restaurant-user/ProfileDetail';
+import ProfileDetail from '@/containers/location-user/ProfileDetail';
 
 export default function ProfileDetailPage() {
   return <ProfileDetail />;
