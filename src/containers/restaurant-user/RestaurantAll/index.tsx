@@ -3,55 +3,32 @@ import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
 import HeroBanner from '@/components/restaurant-user/HeroBanner';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { selectLocationSearchResult } from '../Home/selectors';
+import LocationCardItem from '@/components/restaurant-user/LocationCardItem';
 
 const RestaurantAll: React.FC = () => {
   const navigate = useNavigate();
+  const responsePagination = useSelector(selectLocationSearchResult);
+  let cards = undefined;
 
-  const handleNavigation = () => {
-    navigate(RESTAURANT_DETAIL_ROUTE);
-  };
-
-  const cards = Array.from({ length: 12 }, (_, i) => (
-    <div key={i} className="p-4 w-full md:w-1/3 lg:w-1/4">
-      <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
-        <div className="w-full h-60 bg-zinc-300"></div>
-        <div className="p-4">
-          <div className="text-amber-500 text-base font-normal font-['Roboto']">
-            150.000 - 2.000.000 VNĐ
-          </div>
-          <div
-            className="flex items-center mt-2 cursor-pointer hover:text-amber-600 hover:underline"
-            onClick={handleNavigation}
-          >
-            <div className="text-black text-2xl font-bold font-['Roboto']">
-              Nhà hàng PUPU
-            </div>
-          </div>
-          <div className="text-zinc-500 text-base font-normal font-['Be Vietnam Pro'] mt-2">
-            Location: Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ
-            Đức, Hồ Chí Minh 700000
-          </div>
-          <div className="flex justify-between items-center mt-4">
-            <div className="text-black text-sm font-medium font-['Roboto']">
-              Đánh giá
-            </div>
-            <div className="text-black text-sm font-medium font-['Roboto']">
-              Lượt đặt : 300050
-            </div>
-          </div>
-          <div className="flex justify-center mt-4">
-            <button
-              className="bg-amber-500 text-white text-lg font-medium px-4 py-2 rounded-full transition-transform transform hover:scale-105 hover:bg-amber-600"
-              onClick={handleNavigation}
-            >
-              ĐẶT BÀN NGAY
-            </button>
-          </div>
-        </div>
+  if (responsePagination) {
+    cards = responsePagination!.content.map((location) => (
+      <div key={location.id} className="w-full sm:w-1/2 lg:w-1/4 p-2">
+        <LocationCardItem
+          key={location.id}
+          imageUrl={location.image}
+          name={location.name}
+          address={location.address}
+          rating={location.rating}
+          booking={location.view}
+          category={location.categoryName}
+          onClick={() => navigate(RESTAURANT_DETAIL_ROUTE)}
+        />
       </div>
-    </div>
-  ));
+    ));
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -95,8 +72,14 @@ const RestaurantAll: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="container mx-auto p-4 w-4/5">
-          <div className="flex flex-wrap -mx-4 w-full">{cards}</div>
+        <div className="container py-2 mx-auto w-4/5">
+          {responsePagination && responsePagination.content.length > 0 ? (
+            <div className="flex flex-wrap -mx-4">{cards}</div>
+          ) : (
+            <div className="p-4">
+              <div>No search results to display.</div>
+            </div>
+          )}
         </div>
       </div>
       <Footer />
