@@ -1,7 +1,7 @@
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
-import CategoryItem from '../CategoryItem';
+import CategoryItem from '../../../../../components/restaurant-user/CategoryItem';
 
 export default function CategoryMobile() {
   const settings = {
