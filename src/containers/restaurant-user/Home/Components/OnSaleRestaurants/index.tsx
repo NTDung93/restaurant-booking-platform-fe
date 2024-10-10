@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { RESTAURANT_DETAIL_ROUTE } from '@/common/constants/routerConstant';
-import LocationCardItem from '@/components/LocationCardItem';
+import LocationCardItem from '@/components/restaurant-user/LocationCardItem';
 
 export default function OnSaleRestaurants() {
   const navigate = useNavigate();

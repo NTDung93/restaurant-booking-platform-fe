@@ -1,4 +1,4 @@
-import CategoryItem from '../CategoryItem';
+import CategoryItem from '../../../../../components/restaurant-user/CategoryItem';
 
 export default function Category() {
   const categories = [

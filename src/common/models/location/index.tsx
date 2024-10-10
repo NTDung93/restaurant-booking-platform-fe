@@ -4,13 +4,10 @@ export interface LocationSearchCriteria {
   sortBy: string;
   sortDir: string;
   status: string[];
-  name: string;
-  brandName: string;
-  categoryName: string[];
-  tagName: string[];
+  searchText: string;
   searchNearBy: boolean;
-  latitude: number | null;
-  longitude: number | null;
+  latitude?: number | undefined;
+  longitude?: number | undefined;
 }
 
 export interface LocationResponseLazy {
