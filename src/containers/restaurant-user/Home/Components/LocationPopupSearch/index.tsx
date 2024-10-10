@@ -5,7 +5,10 @@ import {
   DEFAULT_SORT_DIR,
   DEFAULT_STATUS,
 } from '@/common/constants/paginationConstant';
-import { RESTAURANT_DETAIL_ROUTE } from '@/common/constants/routerConstant';
+import {
+  RESTAURANT_DETAIL_ROUTE,
+  RESTAURANT_ROUTE,
+} from '@/common/constants/routerConstant';
 import { debounce } from 'lodash';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -115,12 +118,19 @@ const LocationPopupSearch: React.FC<ModalProps> = ({
     };
   }, [searchText, debouncedSearch]);
 
-  const handleNavigation = () => {
+  const handleRestaurantDetailNavigation = () => {
     navigate(RESTAURANT_DETAIL_ROUTE);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
+  };
+
+  const handleSearchButtonOnClick = () => {
+    if (responsePagination) {
+      // navigate(RESTAURANT_ROUTE, { state: { responsePagination } });
+      navigate(RESTAURANT_ROUTE);
+    }
   };
 
   if (!isOpen) return null;
@@ -164,7 +174,10 @@ const LocationPopupSearch: React.FC<ModalProps> = ({
               value={searchText}
               onChange={handleInputChange}
             />
-            <button className="cursor-pointer w-1/4 h-12 bg-amber-600 text-white text-base font-medium flex items-center justify-center rounded-r-lg border border-neutral-400">
+            <button
+              className="cursor-pointer w-1/4 h-12 bg-amber-600 text-white text-base font-medium flex items-center justify-center rounded-r-lg border border-neutral-400"
+              onClick={handleSearchButtonOnClick}
+            >
               Tìm kiếm
             </button>
           </div>
@@ -182,7 +195,7 @@ const LocationPopupSearch: React.FC<ModalProps> = ({
                 <LocationPopupSearchItem
                   key={location.id}
                   location={location}
-                  onClick={handleNavigation}
+                  onClick={handleRestaurantDetailNavigation}
                 />
               ))
             ) : (

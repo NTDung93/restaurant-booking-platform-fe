@@ -15,6 +15,7 @@
     "@ant-design/icons": "^5.4.0",
     "@ant-design/nextjs-registry": "^1.0.0",
     "@reduxjs/toolkit": "^2.2.6",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "antd": "^5.19.4",
     "axios": "^1.7.4",
     "chart.js": "^4.4.4",
