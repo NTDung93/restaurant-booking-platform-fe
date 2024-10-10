@@ -23,7 +23,7 @@ const RestaurantAll: React.FC = () => {
           address={location.address}
           rating={location.rating}
           booking={location.view}
-          category={''}
+          category={location.categoryName}
           onClick={() => navigate(RESTAURANT_DETAIL_ROUTE)}
         />
       </div>

@@ -13,6 +13,7 @@ export interface LocationSearchCriteria {
 export interface LocationResponseLazy {
   id: number;
   name: string;
+  categoryName: string[];
   address: string;
   phone: string;
   onSuggest: number;

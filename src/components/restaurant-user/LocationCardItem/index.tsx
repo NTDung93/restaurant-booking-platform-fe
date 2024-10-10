@@ -5,7 +5,7 @@ import { Rate } from 'antd';
 interface LocationCardItemProps {
   imageUrl: string;
   name: string;
-  category: string;
+  category: string[];
   address: string;
   rating: number;
   booking: number;
@@ -42,7 +42,7 @@ export default function LocationCardItem({
           </div>
           <div className="text-sm lg:text-base mt-2">
             <span className="text-amber-500 font-semibold">Loại hình: </span>
-            <span>{category}</span>
+            <span className="text-zinc-500">{category}</span>
           </div>
           <div className="h-12 flex text-zinc-500 text-sm lg:text-base mt-2">
             <span className="mr-1 lg:mr-2">
