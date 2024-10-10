@@ -128,7 +128,7 @@ const LocationPopupSearch: React.FC<ModalProps> = ({
 
   const handleSearchButtonOnClick = () => {
     if (responsePagination) {
-      // navigate(RESTAURANT_ROUTE, { state: { responsePagination } });
+      onClose();
       navigate(RESTAURANT_ROUTE);
     }
   };
