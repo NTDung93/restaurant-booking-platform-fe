@@ -1,5 +1,5 @@
-import Header from '@/components/location-admin/Header';
-import Menu from '@/components/location-admin/Menu';
+import Header from '@/components/restaurant-admin/Header';
+import Menu from '@/components/restaurant-admin/Menu';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -11,7 +11,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import Image from '@/components/location-admin/Img';
+import Image from '@/components/restaurant-admin/Img';
 
 ChartJS.register(
   CategoryScale,

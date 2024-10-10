@@ -4,24 +4,24 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // import ProfilesPage from './app/[locale]/(authenticated)/profiles/page';
 import NotFoundPage from './app/[locale]/not-found/page';
 // import ProfileDetailPage from './app/[locale]/(authenticated)/profile-detail/page';
-import SignInPage from '@/app/[locale]/location-user/SignIn/page';
+import SignInPage from './app/[locale]/restaurant-user/SignIn/page';
 import { Provider } from 'react-redux';
 import CounterPage from './app/[locale]/counter/page';
 import { store } from './libs/redux/store';
 import AuthProvider from './components/Auth/AuthProvider';
 import AccessDeniedPage from './app/[locale]/access-denied/page';
-import HomePage from '@/app/[locale]/location-user/Home/page';
-import SignUpPage from '@/app/[locale]/location-user/SignUp/page';
-import LocationDetailPage from '@/app/[locale]/location-user/LocationDetail/page';
-import Restaurant from '@/app/[locale]/location-user/Location/page';
-import User from '@/app/[locale]/location-user/User/page';
-import UserPass from '@/app/[locale]/location-user/UserPassword/page';
-import UserFavor from '@/app/[locale]/location-user/UserFavorite/page';
-import ConfirmPage from '@/app/[locale]/location-user/Confirm/page';
-import BlogPage from '@/app/[locale]/location-user/Blog/page';
-import AboutUsPage from '@/app/[locale]/location-user/AboutUs/page';
-import HomePageLocation from '@/app/[locale]/location-admin/Home/page';
-import ManageTableBookingAllPage from '@/app/[locale]/location-admin/ManageTableBookingAll/page';
+import HomePage from './app/[locale]/restaurant-user/Home/page';
+import SignUpPage from './app/[locale]/restaurant-user/SignUp/page';
+import RestaurantDetailPage from './app/[locale]/restaurant-user/RestaurantDetail/page';
+import Restaurant from './app/[locale]/restaurant-user/Restaurant/page';
+import User from './app/[locale]/restaurant-user/User/page';
+import UserPass from './app/[locale]/restaurant-user/UserPassword/page';
+import UserFavor from './app/[locale]/restaurant-user/UserFavorite/page';
+import ComfirmPage from './app/[locale]/restaurant-user/Confirm/page';
+import BlogPage from './app/[locale]/restaurant-user/Blog/page';
+import AboutUsPage from './app/[locale]/restaurant-user/AboutUs/page';
+import HomePageRestaurant from './app/[locale]/restaurant-admin/Home/page';
+import ManageTableBookingAllPage from './app/[locale]/restaurant-admin/ManageTableBookingAll/page';
 import {
   ABOUT_US_ROUTE,
   ACCESS_DENIED_ROUTE,
@@ -78,11 +78,11 @@ const router = createBrowserRouter([
   },
   {
     path: RESTAURANT_DETAIL_ROUTE,
-    element: <LocationDetailPage />,
+    element: <RestaurantDetailPage />,
   },
   {
     path: CONFIRM_ROUTE,
-    element: <ConfirmPage />,
+    element: <ComfirmPage />,
   },
   {
     path: BLOG_ROUTE,
@@ -106,7 +106,7 @@ const router = createBrowserRouter([
   },
   {
     path: RESTAURANT_ADMIN_HOME_ROUTE,
-    element: <HomePageLocation />,
+    element: <HomePageRestaurant />,
   },
   {
     path: RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE,

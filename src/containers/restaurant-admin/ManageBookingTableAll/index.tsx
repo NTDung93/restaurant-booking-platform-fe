@@ -1,6 +1,6 @@
-import Header from '@/components/location-admin/Header';
-import Image from '@/components/location-admin/Img';
-import Menu from '@/components/location-admin/Menu';
+import Header from '@/components/restaurant-admin/Header';
+import Image from '@/components/restaurant-admin/Img';
+import Menu from '@/components/restaurant-admin/Menu';
 
 export default function ManageBookingTableAll() {
   return (

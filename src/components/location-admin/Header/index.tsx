@@ -1,4 +1,3 @@
-import { HOME_ROUTE } from '@/common/constants/routerConstant';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +7,7 @@ export default function Header() {
       <header className="w-full h-[80px] md:h-[100px] bg-[#312525] fixed top-0 left-0 z-50">
         <div className="max-w-[98.5%]  mx-auto h-full flex items-center justify-between">
           <div className="flex items-center space-x-2 md:space-x-4">
-            <Link to={HOME_ROUTE}>
+            <Link to="/">
               <img
                 className="w-[150px] h-auto"
                 src="https://res.cloudinary.com/dnslrwedn/image/upload/v1727033229/SKEDEAT_logo_tr%E1%BA%AFng-01_rrkx3o.png"
@@ -21,7 +20,7 @@ export default function Header() {
             >
               <a href="#"> </a>
               <Link
-                to={HOME_ROUTE}
+                to="/"
                 className="text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0"
               >
                 Kênh nhà hàng

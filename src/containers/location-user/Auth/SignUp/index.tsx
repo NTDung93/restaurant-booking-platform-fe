@@ -6,12 +6,12 @@ import Header from '@/components/location-user/Header';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { ReduxDispatch } from '@/libs/redux/store';
-import { SIGN_IN_ROUTE } from '@/common/constants/routerConstant';
 
 export default function SignUp() {
   const dispatch = useDispatch<ReduxDispatch>();
   const navigate = useNavigate();
 
+  // State để lưu trữ thông tin từ form
   const [formData, setFormData] = useState<AccountSignUp>({
     username: '',
     email: '',
@@ -23,6 +23,7 @@ export default function SignUp() {
 
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  // Hàm xử lý khi nhập dữ liệu vào input
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -35,14 +36,17 @@ export default function SignUp() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Kiểm tra xem mật khẩu có khớp không
     if (formData.password !== confirmPassword) {
       alert('Mật khẩu không khớp!');
       return;
     }
 
     try {
+      // Gọi thunk đăng ký
       await dispatch(signUp(formData));
-      navigate(SIGN_IN_ROUTE);
+      // Chuyển hướng đến trang đăng nhập
+      navigate('/signin');
     } catch (error) {
       console.error('Đăng ký thất bại:', error);
       alert('Đăng ký thất bại! Vui lòng kiểm tra lại thông tin.');
@@ -50,7 +54,7 @@ export default function SignUp() {
   };
 
   const handleSignIn = () => {
-    navigate(SIGN_IN_ROUTE);
+    navigate('/signin');
   };
 
   return (
@@ -58,6 +62,7 @@ export default function SignUp() {
       <div className="flex-grow">
         <Header />
 
+        {/* Main */}
         <div
           className="flex flex-col justify-center items-center h-screen px-4"
           style={{
@@ -66,12 +71,14 @@ export default function SignUp() {
           }}
         >
           <div className="max-w-[95%] sm:max-w-[85%] md:max-w-[75%] lg:max-w-[65%] w-full mx-auto flex flex-col items-center bg-white shadow-lg rounded-lg overflow-hidden">
+            {/* Form Section */}
             <div className="w-full h-full p-6 sm:p-8 md:p-10 lg:p-12 bg-[#d86500] text-white flex flex-col justify-center items-center">
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8">
                 Đăng ký
               </h2>
 
               <form className="w-full" onSubmit={handleSubmit}>
+                {/* Grid Layout */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="w-full mb-4 sm:mb-6">
                     <label className="text-lg sm:text-xl font-medium mb-2 block">

@@ -1,5 +1,5 @@
-const RESTAURANT_DETAIL_ROUTE = '/location-detail';
-const RESTAURANT_ROUTE = '/location';
+const RESTAURANT_DETAIL_ROUTE = '/restaurant-detail';
+const RESTAURANT_ROUTE = '/restaurant';
 const USER_ROUTE = '/user';
 const USER_PASS_ROUTE = '/user-pass';
 const USER_FAVOR_ROUTE = '/user-favorite';
