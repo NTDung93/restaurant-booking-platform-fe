@@ -1,6 +1,6 @@
 export const getFirstImageUrl = (imageStr: string): string => {
   const defaultImage =
-    'https://e7.pngegg.com/pngimages/249/952/png-clipart-orange-and-white-location-icon-map-computer-icons-location-logo-text-orange-thumbnail.png';
+    'https://img.freepik.com/free-photo/dinner-table-with-foods-soft-drinks-restaurant_114579-3319.jpg?t=st=1728653521~exp=1728657121~hmac=32d8bd096f99eeed1a269054bae3059e692d7b0a354806a69bf9088c6a0a7856&w=740';
 
   if (!imageStr) return defaultImage;
 

@@ -18,7 +18,6 @@ export const getUserLocation = (): Promise<LocationResult> =>
         (position) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
-          console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
           resolve({
             searchNearBy: true,
             location: { latitude, longitude },
