@@ -44,12 +44,13 @@ export default function OnSaleRestaurants() {
     <LocationCardItem
       key={i}
       name={'Nhà hàng APIPI'}
-      category={'Nhà hàng lẩu'}
+      category={['Nhà hàng lẩu']}
       address={
         'Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Hồ Chí Minh 700000'
       }
       rating={3.5}
       booking={20000}
+      imageUrl={''}
       onClick={handleNavigation}
     />
   ));
