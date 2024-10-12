@@ -51,7 +51,6 @@ export default function OnSaleRestaurants() {
       }
       rating={3.5}
       booking={20000}
-      imageUrl={''}
       onClick={handleNavigation}
     />
   ));
