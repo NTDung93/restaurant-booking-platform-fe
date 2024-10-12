@@ -51,7 +51,7 @@ export default function EatingPlan() {
       }
       rating={3.5}
       booking={20000}
-      imageUrl={''}
+
       onClick={handleNavigation}
     />
   ));
