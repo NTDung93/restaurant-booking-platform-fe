@@ -7,7 +7,7 @@ import Header from '@/components/location-user/Header';
 import { pick } from 'lodash';
 import { useState } from 'react';
 import { signIn } from '../thunks';
-import { SIGN_UP } from '@/common/constants/routerConstant';
+import { SIGN_UP_ROUTE } from '@/common/constants/routerConstant';
 
 const SignIn: React.FC = () => {
   const [userNameOrEmailOrPhone, setUserNameOrEmailOrPhone] =
@@ -17,7 +17,7 @@ const SignIn: React.FC = () => {
   const navigate = useNavigate();
 
   const handleSignUp = () => {
-    navigate(SIGN_UP);
+    navigate(SIGN_UP_ROUTE);
   };
 
   const onFinish = async (e: React.FormEvent<HTMLFormElement>) => {

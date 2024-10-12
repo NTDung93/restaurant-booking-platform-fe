@@ -6,11 +6,11 @@ import { getUserInfo, logout } from '@/containers/location-user/Auth/thunks';
 import { selectUserInfo } from '@/containers/location-user/Auth/selector';
 import { ReduxDispatch } from '@/libs/redux/store';
 import {
-  ABOUT_US,
-  BLOG,
-  HOME,
-  RESTAURANT,
-  SIGN_IN,
+  ABOUT_US_ROUTE,
+  BLOG_ROUTE,
+  HOME_ROUTE,
+  RESTAURANT_ROUTE,
+  SIGN_IN_ROUTE,
 } from '@/common/constants/routerConstant';
 
 export default function Header() {
@@ -38,7 +38,7 @@ export default function Header() {
       <header className="w-full h-[80px] md:h-[100px] bg-[#312525] fixed top-0 left-0 z-50">
         <div className="max-w-[90%] md:max-w-[80%] mx-auto h-full flex items-center justify-between">
           <div className="flex items-center space-x-2 md:space-x-4">
-            <Link to={HOME} onClick={handleLinkClick}>
+            <Link to={HOME_ROUTE} onClick={handleLinkClick}>
               <img
                 className="w-[150px] h-auto"
                 src="https://res.cloudinary.com/dnslrwedn/image/upload/v1727033229/SKEDEAT_logo_tr%E1%BA%AFng-01_rrkx3o.png"
@@ -51,28 +51,28 @@ export default function Header() {
             >
               <a></a>
               <Link
-                to={HOME}
+                to={HOME_ROUTE}
                 className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
                 onClick={handleLinkClick}
               >
                 Trang chủ
               </Link>
               <Link
-                to={ABOUT_US}
+                to={ABOUT_US_ROUTE}
                 className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/about-us' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
                 onClick={handleLinkClick}
               >
                 Về chúng tôi
               </Link>
               <Link
-                to={BLOG}
+                to={BLOG_ROUTE}
                 className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/blog' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
                 onClick={handleLinkClick}
               >
                 Blogs
               </Link>
               <Link
-                to={RESTAURANT}
+                to={RESTAURANT_ROUTE}
                 className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/restaurant' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
                 onClick={handleLinkClick}
               >
@@ -123,7 +123,7 @@ export default function Header() {
               </div>
             ) : (
               <Link
-                to={SIGN_IN}
+                to={SIGN_IN_ROUTE}
                 className={`text-lg md:text-xl ${location.pathname === '/' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
               >
                 Đăng nhập

@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { RESTAURANT_DETAIL_ROUTE } from '@/common/constants/routerConstant';
-import LocationCardItem from '@/components/LocationCardItem';
+import LocationCardItem from '@/components/restaurant-user/LocationCardItem';
 
 export default function OnSaleRestaurants() {
   const navigate = useNavigate();
@@ -44,7 +44,8 @@ export default function OnSaleRestaurants() {
     <LocationCardItem
       key={i}
       name={'Nhà hàng APIPI'}
-      category={'Nhà hàng lẩu'}
+      imageUrl=""
+      category={['Nhà hàng lẩu']}
       address={
         'Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Hồ Chí Minh 700000'
       }
