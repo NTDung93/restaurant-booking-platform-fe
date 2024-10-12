@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ReservationData } from '../ReservationInfo';
 
 interface EditReservationModalProps {
   isOpen: boolean;
@@ -7,21 +8,12 @@ interface EditReservationModalProps {
   reservation: ReservationData;
 }
 
-interface ReservationData {
-  location: string;
-  adults: number;
-  children: number;
-  date: string;
-  time: string;
-}
-
 const EditReservationModal: React.FC<EditReservationModalProps> = ({
   isOpen,
   onClose,
   onSave,
   reservation,
 }) => {
-  const [location, setLocation] = useState(reservation.location);
   const [adults, setAdults] = useState(reservation.adults);
   const [children, setChildren] = useState(reservation.children);
   const [date, setDate] = useState(reservation.date);
@@ -29,7 +21,8 @@ const EditReservationModal: React.FC<EditReservationModalProps> = ({
 
   const handleSave = () => {
     onSave({
-      location,
+      restaurantName: reservation.restaurantName,
+      location: reservation.location,
       adults,
       children,
       date,
@@ -46,70 +39,92 @@ const EditReservationModal: React.FC<EditReservationModalProps> = ({
         <h2 className="text-xl font-semibold mb-4">
           Chỉnh sửa thông tin đặt chỗ
         </h2>
+        <div className="max-h-60 overflow-y-auto">
+          <div className="mb-4">
+            <label
+              htmlFor="restaurantName"
+              className="block text-gray-700 font-medium"
+            >
+              Tên nhà hàng
+            </label>
+            <input
+              type="text"
+              id="restaurantName"
+              value={reservation.restaurantName}
+              readOnly
+              className="w-full px-4 py-2 border rounded-md bg-gray-200"
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="location"
+              className="block text-gray-700 font-medium"
+            >
+              Địa điểm
+            </label>
+            <input
+              type="text"
+              id="location"
+              value={reservation.location}
+              readOnly
+              className="w-full px-4 py-2 border rounded-md bg-gray-200"
+            />
+          </div>
 
-        <div className="mb-4">
-          <label htmlFor="location" className="block text-gray-700 font-medium">
-            Địa điểm
-          </label>
-          <input
-            type="text"
-            id="location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md"
-          />
-        </div>
+          <div className="mb-4">
+            <label htmlFor="adults" className="block text-gray-700 font-medium">
+              Người lớn
+            </label>
+            <input
+              type="number"
+              id="adults"
+              value={adults}
+              onChange={(e) => setAdults(parseInt(e.target.value))}
+              className="w-full px-4 py-2 border rounded-md"
+            />
+          </div>
 
-        <div className="mb-4">
-          <label htmlFor="adults" className="block text-gray-700 font-medium">
-            Người lớn
-          </label>
-          <input
-            type="number"
-            id="adults"
-            value={adults}
-            onChange={(e) => setAdults(parseInt(e.target.value))}
-            className="w-full px-4 py-2 border rounded-md"
-          />
-        </div>
+          <div className="mb-4">
+            <label
+              htmlFor="children"
+              className="block text-gray-700 font-medium"
+            >
+              Trẻ em
+            </label>
+            <input
+              type="number"
+              id="children"
+              value={children}
+              onChange={(e) => setChildren(parseInt(e.target.value))}
+              className="w-full px-4 py-2 border rounded-md"
+            />
+          </div>
 
-        <div className="mb-4">
-          <label htmlFor="children" className="block text-gray-700 font-medium">
-            Trẻ em
-          </label>
-          <input
-            type="number"
-            id="children"
-            value={children}
-            onChange={(e) => setChildren(parseInt(e.target.value))}
-            className="w-full px-4 py-2 border rounded-md"
-          />
-        </div>
+          <div className="mb-4">
+            <label htmlFor="date" className="block text-gray-700 font-medium">
+              Ngày
+            </label>
+            <input
+              type="date"
+              id="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-full px-4 py-2 border rounded-md"
+            />
+          </div>
 
-        <div className="mb-4">
-          <label htmlFor="date" className="block text-gray-700 font-medium">
-            Ngày
-          </label>
-          <input
-            type="date"
-            id="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="time" className="block text-gray-700 font-medium">
-            Thời gian
-          </label>
-          <input
-            type="time"
-            id="time"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md"
-          />
+          <div className="mb-4">
+            <label htmlFor="time" className="block text-gray-700 font-medium">
+              Thời gian
+            </label>
+            <input
+              type="time"
+              id="time"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              className="w-full px-4 py-2 border rounded-md"
+            />
+          </div>
         </div>
 
         <div className="flex justify-end space-x-4">

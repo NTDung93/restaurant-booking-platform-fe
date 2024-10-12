@@ -1,11 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
+import { useParams } from 'react-router-dom';
 
 import { PrevArrow, NextArrow } from '@/components/Arrow';
-
 import Header from '@/components/restaurant-user/Header';
 import HeroBanner from '@/components/restaurant-user/HeroBanner';
-
 import Footer from '@/components/restaurant-user/Footer';
 import Interest from './components/Interest';
 import VoucherSection from './components/VoucherSection';
@@ -13,19 +13,38 @@ import RestaurantInfo from './components/RestaurantInfo';
 import ReservationForm from './components/ReservationForm';
 import CommentSection from './components/CommentSection';
 import MenuSection from './components/MenuSection';
-
-const images: string[] = [
-  'https://th.bing.com/th/id/OIP.pgdXkU8beYpa682VgWl_YgHaE7?w=289&h=193&c=7&r=0&o=5&pid=1.7',
-  'https://th.bing.com/th/id/OIP.4qYMNFgBVmHdBT38W0bhigHaE8?w=279&h=186&c=7&r=0&o=5&pid=1.7',
-  'https://th.bing.com/th/id/OIP.bOtKagLFpyyGAGJ_viBhrAHaFj?w=330&h=198&c=7&r=0&o=5&pid=1.7',
-  'https://th.bing.com/th/id/OIP.qcBSaNlQcjlgQG4-Cy1J8wHaE8?w=290&h=193&c=7&r=0&o=5&pid=1.7',
-  'http://ts3.mm.bing.net/th?id=OIP.YkWIKXQcc3f7puhCdPnp7gHaE7&pid=15.1',
-  'http://ts2.mm.bing.net/th?id=OIP.rIhZBu4pqP4cOgW8tuQzlQHaEc&pid=15.1',
-];
+import { fetchLocationDetail } from '@/containers/restaurant-user/Home/thunks';
+import { selectLocationDetail } from '@/containers/restaurant-user/Home/selectors';
+import { ReduxDispatch } from '@/libs/redux/store';
 
 const RestaurantDetail: React.FC = () => {
+  const dispatch = useDispatch<ReduxDispatch>();
+  const locationDetail = useSelector(selectLocationDetail);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const sliderRef = useRef<Slider>(null);
+  const { id } = useParams<{ id: string }>();
+  const numericLocationId = Number(id);
+
+  useEffect(() => {
+    dispatch(fetchLocationDetail(numericLocationId));
+  }, [dispatch, numericLocationId]);
+
+  const [images, setImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    const imageString: string | undefined = Array.isArray(locationDetail?.image)
+      ? locationDetail?.image.join(',')
+      : locationDetail?.image;
+
+    if (imageString) {
+      const processedImages = imageString
+        .replace(/^\[|\]$/g, '')
+        .split(',')
+        .map((url) => url.trim());
+
+      setImages(processedImages);
+    }
+  }, [locationDetail]);
 
   const settings = {
     infinite: true,
@@ -66,6 +85,7 @@ const RestaurantDetail: React.FC = () => {
               ))}
             </Slider>
           </div>
+
           <div className="hidden md:flex md:w-1/5 w-full flex-col mt-2">
             {images.slice(0, 3).map((image, index) => (
               <div
@@ -102,6 +122,7 @@ const RestaurantDetail: React.FC = () => {
             ))}
           </div>
         </div>
+
         <div className="w-full max-w-screen-xl mx-auto flex flex-col md:flex-row mt-10 px-4">
           <RestaurantInfo />
           <ReservationForm />

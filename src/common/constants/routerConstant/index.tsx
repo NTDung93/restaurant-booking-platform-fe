@@ -1,4 +1,4 @@
-const RESTAURANT_DETAIL_ROUTE = '/restaurant-detail';
+const RESTAURANT_DETAIL_ROUTE = '/restaurant-detail/:id';
 const RESTAURANT_ROUTE = '/restaurant';
 const USER_ROUTE = '/user';
 const USER_PASS_ROUTE = '/user-pass';

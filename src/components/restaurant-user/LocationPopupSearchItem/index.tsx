@@ -5,7 +5,7 @@ import React from 'react';
 
 interface ResultCardProps {
   location: LocationResponseLazy;
-  onClick: () => void;
+  onClick: (id: string) => void;
 }
 
 const LocationPopupSearchItem: React.FC<ResultCardProps> = ({
@@ -14,7 +14,7 @@ const LocationPopupSearchItem: React.FC<ResultCardProps> = ({
 }) => (
   <div
     className="cursor-pointer bg-white shadow rounded-lg border border-neutral-500 w-full p-4 flex flex-col gap-2 mb-4"
-    onClick={onClick}
+    onClick={() => onClick(location.id.toString())}
   >
     <div className="flex items-center gap-2 border-b border-neutral-500 pb-2">
       <img

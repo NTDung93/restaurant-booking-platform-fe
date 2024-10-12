@@ -41,6 +41,7 @@ export default function PopularRestaurants() {
   const cards = Array.from({ length: 8 }, (_, i) => (
     <LocationCardItem
       key={i}
+      imageUrl={''}
       name={'Nhà hàng APIPI'}
       category={['Nhà hàng lẩu']}
       address={
