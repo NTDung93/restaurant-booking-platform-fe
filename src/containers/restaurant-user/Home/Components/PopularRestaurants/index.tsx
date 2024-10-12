@@ -49,7 +49,6 @@ export default function PopularRestaurants() {
       }
       rating={3.5}
       booking={20000}
-
       onClick={handleNavigation}
     />
   ));
