@@ -1,22 +1,27 @@
 import { ApiStatus } from '@/common/enums/apiStatus';
-import { LocationResponseLazy } from '@/common/models/location';
+import {
+  LocationResponseLazy,
+  LocationResponseLazyDetail,
+} from '@/common/models/location';
 import { ResponseEntityPagination } from '@/common/models/pagination';
 import {
   ActionReducerMapBuilder,
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit';
-import { searchLocation } from './thunks';
+import { fetchLocationDetail, searchLocation } from './thunks';
 
 export interface LocationSliceState {
   locationsPaginationResponse:
     | ResponseEntityPagination<LocationResponseLazy>
     | undefined;
+  locationDetail: LocationResponseLazyDetail | undefined;
   status: ApiStatus;
 }
 
 const initialState: LocationSliceState = {
   locationsPaginationResponse: undefined,
+  locationDetail: undefined,
   status: ApiStatus.Idle,
 };
 
@@ -26,6 +31,7 @@ const locationSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     setLocationPaginationResponse(builder);
+    setLocationDetailResponse(builder);
   },
 });
 
@@ -47,6 +53,27 @@ function setLocationPaginationResponse(
       },
     )
     .addCase(searchLocation.rejected, (state: LocationSliceState) => {
+      state.status = ApiStatus.Failed;
+    });
+}
+function setLocationDetailResponse(
+  builder: ActionReducerMapBuilder<LocationSliceState>,
+) {
+  builder
+    .addCase(fetchLocationDetail.pending, (state: LocationSliceState) => {
+      state.status = ApiStatus.Loading;
+    })
+    .addCase(
+      fetchLocationDetail.fulfilled,
+      (
+        state: LocationSliceState,
+        action: PayloadAction<LocationResponseLazyDetail>,
+      ) => {
+        state.status = ApiStatus.Fulfilled;
+        state.locationDetail = action.payload;
+      },
+    )
+    .addCase(fetchLocationDetail.rejected, (state: LocationSliceState) => {
       state.status = ApiStatus.Failed;
     });
 }

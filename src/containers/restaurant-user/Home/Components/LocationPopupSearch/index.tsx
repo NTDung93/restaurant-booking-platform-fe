@@ -104,7 +104,7 @@ const LocationPopupSearch: React.FC<ModalProps> = ({
       } catch (error) {
         console.error('Error during searchLocation dispatch:', error);
       }
-    }, 500), // 1 second delay before the API call is triggered
+    }, 500),
     [searchNearBy, latitude, longitude, dispatch],
   );
 
@@ -118,8 +118,9 @@ const LocationPopupSearch: React.FC<ModalProps> = ({
     };
   }, [searchText, debouncedSearch]);
 
-  const handleRestaurantDetailNavigation = () => {
-    navigate(RESTAURANT_DETAIL_ROUTE);
+  const handleRestaurantDetailNavigation = (id: string) => {
+    onClose(); // Đóng modal trước khi điều hướng
+    navigate(RESTAURANT_DETAIL_ROUTE.replace(':id', id));
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -195,7 +196,9 @@ const LocationPopupSearch: React.FC<ModalProps> = ({
                 <LocationPopupSearchItem
                   key={location.id}
                   location={location}
-                  onClick={handleRestaurantDetailNavigation}
+                  onClick={() =>
+                    handleRestaurantDetailNavigation(location.id.toString())
+                  }
                 />
               ))
             ) : (

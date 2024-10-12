@@ -1,4 +1,3 @@
-import { RESTAURANT_DETAIL_ROUTE } from '@/common/constants/routerConstant';
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
 import HeroBanner from '@/components/restaurant-user/HeroBanner';
@@ -7,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { selectLocationSearchResult } from '../Home/selectors';
 import LocationCardItem from '@/components/restaurant-user/LocationCardItem';
+import { RESTAURANT_DETAIL_ROUTE } from '@/common/constants/routerConstant';
 
 const RestaurantAll: React.FC = () => {
   const navigate = useNavigate();
@@ -24,7 +24,11 @@ const RestaurantAll: React.FC = () => {
           rating={location.rating}
           booking={location.view}
           category={location.categoryName}
-          onClick={() => navigate(RESTAURANT_DETAIL_ROUTE)}
+          onClick={() =>
+            navigate(
+              RESTAURANT_DETAIL_ROUTE.replace(':id', location.id.toString()),
+            )
+          }
         />
       </div>
     ));

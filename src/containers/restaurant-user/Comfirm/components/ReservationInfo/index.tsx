@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EditReservationModal from '../EditReservationModal';
 
-interface ReservationData {
+export interface ReservationData {
+  restaurantName: string;
   location: string;
   adults: number;
   children: number;
@@ -11,7 +12,8 @@ interface ReservationData {
 
 const ReservationInfo: React.FC = () => {
   const [reservation, setReservation] = useState<ReservationData>({
-    location: 'Dìn Ký Cù Lao Xanh - Trần Văn Trà Quận 7',
+    restaurantName: 'Nhà hàng Dìn Ký Cù Lao Xanh',
+    location: 'Trần Văn Trà, Quận 7, TP.HCM',
     adults: 2,
     children: 0,
     date: '2024-09-12',
@@ -29,6 +31,18 @@ const ReservationInfo: React.FC = () => {
     setIsEditModalOpen(false);
   };
 
+  useEffect(() => {
+    if (isEditModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isEditModalOpen]);
+
   return (
     <div className="relative">
       <button
@@ -41,6 +55,10 @@ const ReservationInfo: React.FC = () => {
       <h2 className="text-xl font-semibold mb-4">Thông tin đặt chỗ</h2>
       <div className="mb-4 p-4 bg-gray-100 rounded-md">
         <p className="text-gray-700">
+          <span className="font-semibold">Nhà hàng:</span>{' '}
+          {reservation.restaurantName}
+        </p>
+        <p className="text-gray-700">
           <span className="font-semibold">Địa điểm:</span>{' '}
           {reservation.location}
         </p>
@@ -49,7 +67,7 @@ const ReservationInfo: React.FC = () => {
           người lớn, {reservation.children} trẻ em
         </p>
         <p className="text-gray-700">
-          <span className="font-semibold">Thời gian:</span> Thứ năm, ngày{' '}
+          <span className="font-semibold">Thời gian:</span> Ngày{' '}
           {reservation.date} {reservation.time}
         </p>
       </div>

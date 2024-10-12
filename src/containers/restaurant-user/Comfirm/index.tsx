@@ -1,6 +1,6 @@
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SelectionModal from './components/VoucherPromotionModal';
 import UserInfo from './components/UserInfo';
 import ReservationInfo from './components/ReservationInfo';
@@ -83,24 +83,6 @@ export default function Confirm() {
       title: 'Spaghetti Carbonaraa',
       price: 150000,
     },
-    {
-      imageSrc:
-        'https://th.bing.com/th/id/OIP.KQUpxubSc9mPUSdiEvKlYQHaJs?w=203&h=266&c=7&r=0&o=5&pid=1.7',
-      title: 'Caesar Salad',
-      price: 120000,
-    },
-    {
-      imageSrc:
-        'https://th.bing.com/th/id/OIP.L1pROo7Zi8y4vpqqV_fP8wHaEK?w=287&h=180&c=7&r=0&o=5&pid=1.7',
-      title: 'Beef Steak',
-      price: 350000,
-    },
-    {
-      imageSrc:
-        'https://th.bing.com/th/id/OIP.Sl0Mk8Amead7kzFSQxPA0gAAAA?w=203&h=268&c=7&r=0&o=5&pid=1.7',
-      title: 'Spaghetti Carbonara',
-      price: 150000,
-    },
   ];
 
   const handleShowModal = () => {
@@ -142,6 +124,19 @@ export default function Confirm() {
   const handlePaymentMethodChange = (method: string) => {
     setSelectedPaymentMethod(method);
   };
+  useEffect(() => {
+    // Lock scroll when any modal is open
+    if (isModalOpen || isFoodModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      // Cleanup function to ensure scroll is reset
+      document.body.style.overflow = 'unset';
+    };
+  }, [isModalOpen, isFoodModalOpen]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -149,138 +144,159 @@ export default function Confirm() {
         <Header />
         <div className="max-w-4xl mx-auto p-6 bg-white shadow-md mt-10">
           <form className="space-y-6">
-            <UserInfo
-              name={name}
-              phone={phone}
-              email={email}
-              onEmailChange={setEmail}
-              notes={notes}
-              onNotesChange={setNotes}
-            />
-            <ReservationInfo />
-            <button
-              type="button"
-              onClick={() => setIsFoodModalOpen(true)}
-              className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600"
-            >
-              Chọn món ăn
-            </button>
+            {/* Use flex and gap to create a two-column layout */}
+            <div className="flex flex-col lg:flex-row gap-10">
+              {/* Left Column */}
+              <div className="lg:w-1/2 space-y-6">
+                <UserInfo
+                  name={name}
+                  phone={phone}
+                  email={email}
+                  onEmailChange={setEmail}
+                  notes={notes}
+                  onNotesChange={setNotes}
+                />
 
-            {selectedFoods.length > 0 && (
-              <div className="mt-4 flex justify-between items-center">
-                <p className="text-gray-700">
-                  <span className="font-semibold">Món ăn đã chọn:</span>
-                </p>
                 <button
-                  onClick={clearSelectedFoods}
-                  className="text-red-500 underline hover:text-red-600"
+                  type="button"
+                  onClick={() => setIsFoodModalOpen(true)}
+                  className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600"
                 >
-                  Xóa tất cả
+                  Chọn món ăn
+                </button>
+
+                {selectedFoods.length > 0 && (
+                  <>
+                    <div className="mt-4 flex justify-between items-center">
+                      <p className="text-gray-700">
+                        <span className="font-semibold">Món ăn đã chọn:</span>
+                      </p>
+                      <button
+                        onClick={clearSelectedFoods}
+                        className="text-red-500 underline hover:text-red-600"
+                      >
+                        Xóa tất cả
+                      </button>
+                    </div>
+                    <div className="mt-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {selectedFoods.map(({ title, quantity }) => {
+                          const foodItem = availableFoods.find(
+                            (food) => food.title === title,
+                          );
+                          return (
+                            foodItem && (
+                              <div
+                                key={foodItem.title}
+                                className="flex flex-col items-center border p-2 rounded-md shadow-md"
+                              >
+                                <img
+                                  src={foodItem.imageSrc}
+                                  alt={foodItem.title}
+                                  className="w-32 h-32 rounded-md mb-2"
+                                />
+                                <p className="font-semibold">
+                                  {foodItem.title}
+                                </p>
+                                <p>Số lượng: {quantity}</p>
+                              </div>
+                            )
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              <div className="lg:w-1/2 space-y-6">
+                <ReservationInfo />
+
+                <button
+                  type="button"
+                  onClick={handleShowModal}
+                  className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+                >
+                  Chọn voucher hoặc promotion
+                </button>
+
+                {voucher && (
+                  <div className="mt-4 flex justify-between items-center">
+                    <p className="text-gray-700">
+                      <span className="font-semibold">Voucher đã chọn:</span>{' '}
+                      {voucher}
+                    </p>
+                    <button
+                      onClick={removeVoucher}
+                      className="text-red-500 underline hover:text-red-600"
+                    >
+                      Xóa
+                    </button>
+                  </div>
+                )}
+
+                {promotion && (
+                  <div className="mt-4 flex justify-between items-center">
+                    <p className="text-gray-700">
+                      <span className="font-semibold">Promotion đã chọn:</span>{' '}
+                      {promotion}
+                    </p>
+                    <button
+                      onClick={removePromotion}
+                      className="text-red-500 underline hover:text-red-600"
+                    >
+                      Xóa
+                    </button>
+                  </div>
+                )}
+
+                {selectedFoods.length > 0 && (
+                  <div className="mt-6">
+                    <h2 className="text-lg font-semibold">
+                      Phương thức thanh toán
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                      <button
+                        type="button"
+                        onClick={() => handlePaymentMethodChange('ZaloPay')}
+                        className={`flex items-center py-2 rounded-md ${
+                          selectedPaymentMethod === 'ZaloPay'
+                            ? 'bg-green-500 text-white'
+                            : 'bg-gray-200'
+                        }`}
+                      >
+                        <img
+                          src="https://th.bing.com/th/id/OIP.e9A-iydJ2iR7AhuC3PacrwHaHa?w=166&h=180&c=7&r=0&o=5&pid=1.7"
+                          alt="ZaloPay"
+                          className="w-20 h-20 mb-2 rounded-lg ml-2 mr-2"
+                        />
+                        ZaloPay
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handlePaymentMethodChange('MoMo')}
+                        className={`flex items-center py-2 rounded-md ${
+                          selectedPaymentMethod === 'MoMo'
+                            ? 'bg-green-500 text-white'
+                            : 'bg-gray-200'
+                        }`}
+                      >
+                        <img
+                          src="https://th.bing.com/th/id/OIP.1GNvjAZu4hlbE0bWflshGwHaHa?w=169&h=180&c=7&r=0&o=5&pid=1.7"
+                          alt="MoMo"
+                          className="w-20 h-20 mb-2 rounded-lg mr-2 ml-2"
+                        />
+                        MoMo
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                <button className="w-full bg-gray-400 text-white py-2 rounded-md">
+                  Xác nhận
                 </button>
               </div>
-            )}
-
-            {selectedFoods.length > 0 && (
-              <div className="mt-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {selectedFoods.map(({ title, quantity }) => {
-                    const foodItem = availableFoods.find(
-                      (food) => food.title === title,
-                    );
-                    return (
-                      foodItem && (
-                        <div
-                          key={foodItem.title}
-                          className="flex flex-col items-center border p-2 rounded-md shadow-md"
-                        >
-                          <img
-                            src={foodItem.imageSrc}
-                            alt={foodItem.title}
-                            className="w-32 h-32 rounded-md mb-2"
-                          />
-                          <p className="font-semibold">{foodItem.title}</p>
-                          <p>Số lượng: {quantity}</p>
-                        </div>
-                      )
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
-            <button
-              type="button"
-              onClick={handleShowModal}
-              className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
-            >
-              Chọn voucher hoặc promotion
-            </button>
-            {voucher && (
-              <div className="mt-4 flex justify-between items-center">
-                <p className="text-gray-700">
-                  <span className="font-semibold">Voucher đã chọn:</span>{' '}
-                  {voucher}
-                </p>
-                <button
-                  onClick={removeVoucher}
-                  className="text-red-500 underline hover:text-red-600"
-                >
-                  Xóa
-                </button>
-              </div>
-            )}
-            {promotion && (
-              <div className="mt-4 flex justify-between items-center">
-                <p className="text-gray-700">
-                  <span className="font-semibold">Promotion đã chọn:</span>{' '}
-                  {promotion}
-                </p>
-                <button
-                  onClick={removePromotion}
-                  className="text-red-500 underline hover:text-red-600"
-                >
-                  Xóa
-                </button>
-              </div>
-            )}
-
-            {selectedFoods.length > 0 && (
-              <div className="mt-6">
-                <h2 className="text-lg font-semibold">
-                  Phương thức thanh toán
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                  <button
-                    type="button"
-                    onClick={() => handlePaymentMethodChange('ZaloPay')}
-                    className={`flex  items-center py-2 rounded-md ${selectedPaymentMethod === 'ZaloPay' ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
-                  >
-                    <img
-                      src="https://th.bing.com/th/id/OIP.e9A-iydJ2iR7AhuC3PacrwHaHa?w=166&h=180&c=7&r=0&o=5&pid=1.7"
-                      alt="ZaloPay"
-                      className="w-20 h-20 mb-2 rounded-lg mr-10 ml-10"
-                    />
-                    ZaloPay
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handlePaymentMethodChange('MoMo')}
-                    className={`flex items-center py-2 rounded-md ${selectedPaymentMethod === 'MoMo' ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
-                  >
-                    <img
-                      src="https://th.bing.com/th/id/OIP.1GNvjAZu4hlbE0bWflshGwHaHa?w=169&h=180&c=7&r=0&o=5&pid=1.7"
-                      alt="MoMo"
-                      className="w-20 h-20 mb-2 rounded-lg mr-10 ml-10"
-                    />
-                    MoMo
-                  </button>
-                </div>
-              </div>
-            )}
-
-            <button className="w-full bg-gray-400 text-white py-2 rounded-md">
-              Xác nhận
-            </button>
+            </div>
           </form>
         </div>
       </div>

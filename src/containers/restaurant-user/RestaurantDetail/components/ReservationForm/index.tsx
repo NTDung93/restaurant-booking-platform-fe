@@ -1,11 +1,15 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ReservationForm: React.FC = () => {
-  const navigate = useNavigate(); // Khởi tạo hook useNavigate
+  const navigate = useNavigate();
+
+  // State để lưu trữ giá trị ngày và thời gian
+  const [reservationDate, setReservationDate] = useState('');
+  const [reservationTime, setReservationTime] = useState('');
 
   const handleReservation = () => {
-    // Khi nhấn nút đặt bàn, điều hướng đến trang "/confirm"
+    // Bạn có thể xử lý logic đặt bàn ở đây
     navigate('/confirm');
   };
 
@@ -37,11 +41,24 @@ const ReservationForm: React.FC = () => {
         </div>
         <div className="bg-zinc-300 p-4 rounded-lg shadow-md">
           <label className="block text-lg md:text-xl font-medium text-black mb-2">
+            Ngày đến:
+          </label>
+          <input
+            type="date"
+            className="w-full p-2 bg-white text-black rounded-lg border border-gray-300"
+            value={reservationDate}
+            onChange={(e) => setReservationDate(e.target.value)} // Cập nhật giá trị ngày
+          />
+        </div>
+        <div className="bg-zinc-300 p-4 rounded-lg shadow-md">
+          <label className="block text-lg md:text-xl font-medium text-black mb-2">
             Thời gian đến:
           </label>
           <input
-            type="datetime-local"
+            type="time"
             className="w-full p-2 bg-white text-black rounded-lg border border-gray-300"
+            value={reservationTime}
+            onChange={(e) => setReservationTime(e.target.value)} // Cập nhật giá trị thời gian
           />
         </div>
         <div className="flex justify-center">

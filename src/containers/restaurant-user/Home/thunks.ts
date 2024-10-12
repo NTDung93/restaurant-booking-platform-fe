@@ -14,3 +14,11 @@ export const searchLocation = createAppAsyncThunk(
     });
   },
 );
+export const fetchLocationDetail = createAppAsyncThunk(
+  `${TypePrefix}/fetchLocationDetail`,
+  async (locationId: number) =>
+    await callApi({
+      method: 'get',
+      url: `/locations/${locationId}`,
+    }),
+);
