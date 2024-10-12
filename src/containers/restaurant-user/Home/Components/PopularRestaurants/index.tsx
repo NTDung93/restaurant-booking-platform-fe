@@ -43,7 +43,7 @@ export default function PopularRestaurants() {
       key={i}
       imageUrl={''}
       name={'Nhà hàng APIPI'}
-      category={['Nhà hàng']}
+      category={['Nhà hàng lẩu']}
       address={
         'Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Hồ Chí Minh 700000'
       }
