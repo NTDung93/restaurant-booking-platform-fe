@@ -1,4 +1,4 @@
-import Blog from '@/containers/location-user/Blog';
+import Blog from '@/containers/restaurant-user/Blog';
 
 export default function BlogPage() {
   return <Blog />;

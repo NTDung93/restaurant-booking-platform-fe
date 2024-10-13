@@ -14,11 +14,39 @@ export const searchLocation = createAppAsyncThunk(
     });
   },
 );
+
 export const fetchLocationDetail = createAppAsyncThunk(
   `${TypePrefix}/fetchLocationDetail`,
   async (locationId: number) =>
     await callApi({
       method: 'get',
       url: `/locations/${locationId}`,
+    }),
+);
+
+export const fetchPopularLocations = createAppAsyncThunk(
+  `${TypePrefix}/fetchPopularLocations`,
+  async () =>
+    await callApi({
+      method: 'get',
+      url: `/locations/recommend`,
+    }),
+);
+
+export const fetchLocationsByTag = createAppAsyncThunk(
+  `${TypePrefix}/fetchLocationsByTag`,
+  async (tagName: string) =>
+    await callApi({
+      method: 'get',
+      url: `/locations/tag?tagName=${tagName}`,
+    }),
+);
+
+export const fetchOnSaleLocations = createAppAsyncThunk(
+  `${TypePrefix}/fetchOnSaleLocations`,
+  async () =>
+    await callApi({
+      method: 'get',
+      url: `/locations/ads-type?adsType=FLASH_SALE`,
     }),
 );

@@ -1,4 +1,4 @@
-import UserDetail from '@/containers/location-user/User';
+import UserDetail from '@/containers/restaurant-user/User';
 
 export default function User() {
   return <UserDetail />;

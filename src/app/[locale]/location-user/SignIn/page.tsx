@@ -1,4 +1,4 @@
-import SignIn from '@/containers/location-user/Auth/SignIn';
+import SignIn from '@/containers/restaurant-user/Auth/SignIn';
 
 export default function SignInPage() {
   return <SignIn />;
