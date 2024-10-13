@@ -2,8 +2,6 @@ import { UserOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserInfo, logout } from '@/containers/location-user/Auth/thunks';
-import { selectUserInfo } from '@/containers/location-user/Auth/selector';
 import { ReduxDispatch } from '@/libs/redux/store';
 import {
   ABOUT_US_ROUTE,
@@ -12,6 +10,8 @@ import {
   RESTAURANT_ROUTE,
   SIGN_IN_ROUTE,
 } from '@/common/constants/routerConstant';
+import { getUserInfo, logout } from '@/containers/restaurant-user/Auth/thunks';
+import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

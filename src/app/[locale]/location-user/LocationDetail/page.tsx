@@ -1,5 +1,5 @@
-import LocationDetail from '../../../../containers/location-user/LocationDetail';
+import RestaurantDetail from "@/containers/restaurant-user/RestaurantDetail";
 
 export default function LocationDetailPage() {
-  return <LocationDetail />;
+  return <RestaurantDetail />;
 }
