@@ -12,16 +12,19 @@ import {
 import { debounce } from 'lodash';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReduxDispatch } from '@/libs/redux/store';
 import { searchLocation } from '../../thunks';
 import { getUserLocation, LocationResult } from '@/utils/location';
-import {
-  LocationResponseLazy,
-  LocationSearchCriteria,
-} from '@/common/models/location';
+import { LocationSearchCriteria } from '@/common/models/location';
 import LocationPopupSearchItem from '@/components/restaurant-user/LocationPopupSearchItem';
-import { ResponseEntityPagination } from '@/common/models/pagination';
+import { Flex, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { ApiStatus } from '@/common/enums/apiStatus';
+import {
+  selectLocationSearchResult,
+  selectLocationStatus,
+} from '../../selectors';
 
 interface ModalProps {
   isOpen: boolean;
@@ -41,8 +44,9 @@ const LocationPopupSearch: React.FC<ModalProps> = ({
   const [searchNearBy, setSearchNearBy] = useState<boolean>(false);
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
-  const [responsePagination, setResponsePagination] =
-    useState<ResponseEntityPagination<LocationResponseLazy>>();
+  const searchLocationStatus = useSelector(selectLocationStatus);
+  const responsePagination = useSelector(selectLocationSearchResult);
+  const loading = searchLocationStatus === ApiStatus.Loading;
 
   useEffect(() => {
     if (isOpen) {
@@ -89,17 +93,7 @@ const LocationPopupSearch: React.FC<ModalProps> = ({
       };
 
       try {
-        const resultAction = await dispatch(
-          searchLocation(locationSearchCriteria),
-        );
-
-        if (searchLocation.fulfilled.match(resultAction)) {
-          const data: ResponseEntityPagination<LocationResponseLazy> =
-            resultAction.payload;
-          setResponsePagination(data);
-        } else {
-          console.error('Search failed:', resultAction.error);
-        }
+        dispatch(searchLocation(locationSearchCriteria));
       } catch (error) {
         console.error('Error during searchLocation dispatch:', error);
       }
@@ -186,24 +180,43 @@ const LocationPopupSearch: React.FC<ModalProps> = ({
             Tìm kiếm nổi bật
           </div>
 
-          <div
-            className="mt-4 flex-1 overflow-auto"
-            style={{ maxHeight: 'calc(8 * 4rem)' }}
-          >
-            {responsePagination && responsePagination!.content.length > 0 ? (
-              responsePagination!.content.map((location) => (
-                <LocationPopupSearchItem
-                  key={location.id}
-                  location={location}
-                  onClick={() =>
-                    handleRestaurantDetailNavigation(location.id.toString())
-                  }
-                />
-              ))
-            ) : (
-              <div className="text-gray-500">No results found.</div>
-            )}
-          </div>
+          {loading && (
+            <Flex
+              align="center"
+              gap="middle"
+              className="place-content-center my-10"
+            >
+              <Spin
+                indicator={
+                  <LoadingOutlined
+                    style={{ fontSize: 50, color: 'orange' }}
+                    spin
+                  />
+                }
+              />
+            </Flex>
+          )}
+
+          {!loading && (
+            <div
+              className="mt-4 flex-1 overflow-auto"
+              style={{ maxHeight: 'calc(8 * 4rem)' }}
+            >
+              {responsePagination && responsePagination!.content.length > 0 ? (
+                responsePagination!.content.map((location) => (
+                  <LocationPopupSearchItem
+                    key={location.id}
+                    location={location}
+                    onClick={() =>
+                      handleRestaurantDetailNavigation(location.id.toString())
+                    }
+                  />
+                ))
+              ) : (
+                <div className="text-gray-500">No results found.</div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

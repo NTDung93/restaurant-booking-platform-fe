@@ -14,3 +14,6 @@ export const selectLocationsByTag = (state: ReduxState) =>
 
 export const selectOnSaleLocations = (state: ReduxState) =>
   state.location.onSaleLocationsResponse;
+
+export const selectLocationStatus = (state: ReduxState) =>
+  state.location.status;
