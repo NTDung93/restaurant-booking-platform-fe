@@ -1,6 +1,6 @@
-import { AccountSignUp } from '@/common/models/user'; // Nhập model
+import { AccountSignUp } from '@/common/models/user';
 import { useDispatch } from 'react-redux';
-import { signUp } from '@/containers/restaurant-user/Auth/thunks'; // Nhập thunk đăng ký
+import { signUp } from '@/containers/restaurant-user/Auth/thunks';
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
 import { useNavigate } from 'react-router-dom';

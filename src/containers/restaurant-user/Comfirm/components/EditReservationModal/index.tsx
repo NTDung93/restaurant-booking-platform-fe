@@ -20,14 +20,23 @@ const EditReservationModal: React.FC<EditReservationModalProps> = ({
   const [time, setTime] = useState(reservation.time);
 
   const handleSave = () => {
-    onSave({
+    const updatedReservation: ReservationData = {
       restaurantName: reservation.restaurantName,
       location: reservation.location,
       adults,
       children,
       date,
       time,
-    });
+    };
+
+    localStorage.setItem('restaurantName', updatedReservation.restaurantName);
+    localStorage.setItem('address', updatedReservation.location);
+    localStorage.setItem('adults', String(updatedReservation.adults));
+    localStorage.setItem('children', String(updatedReservation.children));
+    localStorage.setItem('date', updatedReservation.date);
+    localStorage.setItem('time', updatedReservation.time);
+
+    onSave(updatedReservation);
     onClose();
   };
 

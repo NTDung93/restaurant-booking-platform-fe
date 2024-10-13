@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   EnvironmentOutlined,
@@ -16,6 +16,13 @@ const RestaurantInfo: React.FC = () => {
   const description = locationDetail?.description || 'Mô tả nhà hàng';
 
   const descriptionParagraphs = description.split('\n');
+
+  useEffect(() => {
+    if (locationDetail) {
+      localStorage.setItem('restaurantName', name);
+      localStorage.setItem('address', address);
+    }
+  }, [locationDetail, name, address]);
 
   return (
     <div className="md:w-3/5 w-full text-white p-4">

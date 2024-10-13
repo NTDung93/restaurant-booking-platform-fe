@@ -1,16 +1,11 @@
+import { Food } from '@/common/models/food';
 import React, { useState } from 'react';
-
-interface FoodItem {
-  imageSrc: string;
-  title: string;
-  price: number;
-}
 
 interface FoodSelectionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  availableFoods: FoodItem[];
-  onFoodSelect: (selectedFoods: { title: string; quantity: number }[]) => void;
+  availableFoods: Food[];
+  onFoodSelect: (selectedFoods: { name: string; quantity: number }[]) => void;
 }
 
 const FoodSelectionModal: React.FC<FoodSelectionModalProps> = ({
@@ -19,7 +14,6 @@ const FoodSelectionModal: React.FC<FoodSelectionModalProps> = ({
   availableFoods,
   onFoodSelect,
 }) => {
-  // State to track selected foods and their quantities
   const [foodQuantities, setFoodQuantities] = useState<{
     [key: string]: number;
   }>({});
@@ -36,15 +30,15 @@ const FoodSelectionModal: React.FC<FoodSelectionModalProps> = ({
       const newQuantity = (prev[foodTitle] || 0) - 1;
       return {
         ...prev,
-        [foodTitle]: newQuantity < 0 ? 0 : newQuantity, // Prevent negative quantities
+        [foodTitle]: newQuantity < 0 ? 0 : newQuantity,
       };
     });
   };
 
   const handleConfirmSelection = () => {
     const selectedFoods = Object.entries(foodQuantities)
-      .filter(([, quantity]) => quantity > 0) // Only include items with a positive quantity
-      .map(([title, quantity]) => ({ title, quantity }));
+      .filter(([, quantity]) => quantity > 0)
+      .map(([name, quantity]) => ({ name, quantity }));
 
     onFoodSelect(selectedFoods);
     onClose();
@@ -63,27 +57,25 @@ const FoodSelectionModal: React.FC<FoodSelectionModalProps> = ({
               className="flex flex-col justify-between items-center border p-4 rounded-md cursor-pointer hover:bg-gray-100"
             >
               <img
-                src={food.imageSrc}
-                alt={food.title}
+                src={food.image}
+                alt={food.name}
                 className="w-24 h-24 mb-4 rounded-md"
               />
               <div className="text-center">
-                <p className="font-semibold">{food.title}</p>
+                <p className="font-semibold">{food.name}</p>
                 <p className="text-gray-600">
                   {food.price.toLocaleString()} VND
                 </p>
                 <div className="flex items-center justify-center mt-2">
                   <button
-                    onClick={() => handleDecrement(food.title)}
+                    onClick={() => handleDecrement(food.name)}
                     className="bg-gray-300 hover:bg-gray-400 rounded-l-md px-4 py-1"
                   >
                     -
                   </button>
-                  <span className="mx-2">
-                    {foodQuantities[food.title] || 0}
-                  </span>
+                  <span className="mx-2">{foodQuantities[food.name] || 0}</span>
                   <button
-                    onClick={() => handleIncrement(food.title)}
+                    onClick={() => handleIncrement(food.name)}
                     className="bg-gray-300 hover:bg-gray-400 rounded-r-md px-4 py-1"
                   >
                     +
