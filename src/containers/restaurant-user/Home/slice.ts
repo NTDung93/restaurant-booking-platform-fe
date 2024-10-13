@@ -31,6 +31,7 @@ export interface LocationSliceState {
   onSaleLocationsResponse:
     | ResponseEntityPagination<LocationResponseLazy>
     | undefined;
+  searchLocationStatus: ApiStatus;
   status: ApiStatus;
 }
 
@@ -40,6 +41,7 @@ const initialState: LocationSliceState = {
   popularLocationsResponse: undefined,
   locationsByTagResponse: undefined,
   onSaleLocationsResponse: undefined,
+  searchLocationStatus: ApiStatus.Idle,
   status: ApiStatus.Idle,
 };
 
@@ -61,7 +63,7 @@ function setLocationPaginationResponse(
 ) {
   builder
     .addCase(searchLocation.pending, (state: LocationSliceState) => {
-      state.status = ApiStatus.Loading;
+      state.searchLocationStatus = ApiStatus.Loading;
     })
     .addCase(
       searchLocation.fulfilled,
@@ -69,12 +71,12 @@ function setLocationPaginationResponse(
         state: LocationSliceState,
         action: PayloadAction<ResponseEntityPagination<LocationResponseLazy>>,
       ) => {
-        state.status = ApiStatus.Fulfilled;
+        state.searchLocationStatus = ApiStatus.Fulfilled;
         state.locationsPaginationResponse = action.payload;
       },
     )
     .addCase(searchLocation.rejected, (state: LocationSliceState) => {
-      state.status = ApiStatus.Failed;
+      state.searchLocationStatus = ApiStatus.Failed;
     });
 }
 

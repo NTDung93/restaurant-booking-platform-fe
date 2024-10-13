@@ -23,7 +23,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { ApiStatus } from '@/common/enums/apiStatus';
 import {
   selectLocationSearchResult,
-  selectLocationStatus,
+  selectSearchLocationStatus,
 } from '../../selectors';
 
 interface ModalProps {
@@ -44,7 +44,7 @@ const LocationPopupSearch: React.FC<ModalProps> = ({
   const [searchNearBy, setSearchNearBy] = useState<boolean>(false);
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
-  const searchLocationStatus = useSelector(selectLocationStatus);
+  const searchLocationStatus = useSelector(selectSearchLocationStatus);
   const responsePagination = useSelector(selectLocationSearchResult);
   const loading = searchLocationStatus === ApiStatus.Loading;
 
