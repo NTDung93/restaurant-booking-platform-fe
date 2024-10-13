@@ -94,7 +94,6 @@ const LocationPopupSearch: React.FC<ModalProps> = ({
         );
 
         if (searchLocation.fulfilled.match(resultAction)) {
-          console.log('Search result:', resultAction.payload);
           const data: ResponseEntityPagination<LocationResponseLazy> =
             resultAction.payload;
           setResponsePagination(data);
@@ -104,7 +103,7 @@ const LocationPopupSearch: React.FC<ModalProps> = ({
       } catch (error) {
         console.error('Error during searchLocation dispatch:', error);
       }
-    }, 500),
+    }, 300),
     [searchNearBy, latitude, longitude, dispatch],
   );
 

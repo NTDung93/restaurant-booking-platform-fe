@@ -4,15 +4,15 @@ import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { RESTAURANT_DETAIL_ROUTE } from '@/common/constants/routerConstant';
-import LocationCardItem from '@/components/restaurant-user/LocationCardItem';
-import { useDispatch } from 'react-redux';
 import { ReduxDispatch } from '@/libs/redux/store';
+import { useDispatch } from 'react-redux';
 import { ResponseEntityPagination } from '@/common/models/pagination';
 import { LocationResponseLazy } from '@/common/models/location';
 import Toast, { ToastType } from '@/components/Toast';
-import { fetchOnSaleLocations } from '../../thunks';
+import { fetchLocationsByTag } from '../../thunks';
+import LocationCardItem from '@/components/restaurant-user/LocationCardItem';
 
-export default function OnSaleRestaurants() {
+export default function LocationsByTag() {
   let cards = undefined;
   const navigate = useNavigate();
   const [slidesToShow, setSlidesToShow] = useState(4);
@@ -22,6 +22,7 @@ export default function OnSaleRestaurants() {
     useState<ResponseEntityPagination<LocationResponseLazy>>();
   const [toastMessage, setToastMessage] = useState('');
   const [toastType, setToastType] = useState<ToastType>('success');
+  const [tagName, setTagName] = useState('Ăn sáng');
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,11 +34,17 @@ export default function OnSaleRestaurants() {
     handleResize();
     window.addEventListener('resize', handleResize);
 
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        const resultAction = await dispatch(fetchOnSaleLocations());
+        const resultAction = await dispatch(fetchLocationsByTag(tagName));
 
-        if (fetchOnSaleLocations.fulfilled.match(resultAction)) {
+        if (fetchLocationsByTag.fulfilled.match(resultAction)) {
           const data: ResponseEntityPagination<LocationResponseLazy> =
             resultAction.payload;
           setResponsePagination(data);
@@ -54,11 +61,11 @@ export default function OnSaleRestaurants() {
     };
 
     fetchData();
+  }, [dispatch, tagName]);
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const handleTagChange = (tag: string) => {
+    setTagName(tag);
+  };
 
   if (responsePagination) {
     cards = responsePagination!.content.map((location) => (
@@ -90,12 +97,29 @@ export default function OnSaleRestaurants() {
   };
 
   return (
-    <div className="mobile:max-md:w-[90%] mobile:max-md:overflow-hidden w-[80%] mx-auto mt-8 lg:mt-12 mb-10">
+    <div className="mobile:max-md:w-[90%] mobile:max-md:overflow-hidden w-[80%] mx-auto lg:mt-12 mt-10">
       {toastMessage && <Toast type={toastType} message={toastMessage} />}
 
-      <div className="text-center mb-4">
-        <div className="mobile:max-md:text-3xl text-black text-4xl font-bold ">
-          Đang giảm giá
+      <div className="text-left pl-2 lg:pl-4">
+        <h2 className="text-xl md:text-3xl font-semibold text-black mb-4">
+          Lên kế hoạch cho bữa ăn nhanh chóng
+        </h2>
+        <div className="flex flex-wrap justify-start gap-4 mb-4">
+          {['Ăn sáng', 'Ăn trưa', 'Ăn tối', 'Hẹn hò', 'Gặp mặt'].map(
+            (tag, index) => (
+              <button
+                key={tag}
+                className={`px-4 py-2 text-sm md:text-lg font-normal rounded-full border ${
+                  tagName === tag
+                    ? 'border-gray-600 bg-amber-500 text-white border-none'
+                    : 'border-gray-400 bg-gray-200'
+                } hover:bg-amber-500 transition hover:text-white ${index === 4 ? 'hidden lg:block' : ''}`}
+                onClick={() => handleTagChange(tag)}
+              >
+                {tag}
+              </button>
+            ),
+          )}
         </div>
       </div>
       <div className="hidden lg:block">
