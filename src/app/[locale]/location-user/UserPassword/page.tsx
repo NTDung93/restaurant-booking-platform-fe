@@ -1,4 +1,4 @@
-import UserPassword from '@/containers/location-user/UserPassword';
+import UserPassword from '@/containers/restaurant-user/UserPassword';
 
 export default function UserPass() {
   return <UserPassword />;
