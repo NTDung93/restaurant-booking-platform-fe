@@ -2,7 +2,7 @@ import Category from '@/containers/restaurant-user/Home/Components/Category';
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
 import HeroBanner from '@/components/restaurant-user/HeroBanner';
-import EatingPlan from '@/containers/restaurant-user/Home/Components/EatingPlan';
+import EatingPlan from '@/containers/restaurant-user/Home/Components/LocationsByTag';
 import PopularRestaurants from '@/containers/restaurant-user/Home/Components/PopularRestaurants';
 import OnSaleRestaurants from '@/containers/restaurant-user/Home/Components/OnSaleRestaurants';
 import IntroVideo from '@/containers/restaurant-user/Home/Components/IntroVideo';
