@@ -11,6 +11,8 @@ import { LocationResponseLazy } from '@/common/models/location';
 import Toast, { ToastType } from '@/components/Toast';
 import { fetchLocationsByTag } from '../../thunks';
 import LocationCardItem from '@/components/restaurant-user/LocationCardItem';
+import { Flex, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 export default function LocationsByTag() {
   let cards = undefined;
@@ -23,6 +25,7 @@ export default function LocationsByTag() {
   const [toastMessage, setToastMessage] = useState('');
   const [toastType, setToastType] = useState<ToastType>('success');
   const [tagName, setTagName] = useState('Ăn sáng');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -45,6 +48,7 @@ export default function LocationsByTag() {
         const resultAction = await dispatch(fetchLocationsByTag(tagName));
 
         if (fetchLocationsByTag.fulfilled.match(resultAction)) {
+          setLoading(false);
           const data: ResponseEntityPagination<LocationResponseLazy> =
             resultAction.payload;
           setResponsePagination(data);
@@ -122,6 +126,21 @@ export default function LocationsByTag() {
           )}
         </div>
       </div>
+
+      {loading && (
+        <Flex
+          align="center"
+          gap="middle"
+          className="place-content-center mt-14"
+        >
+          <Spin
+            indicator={
+              <LoadingOutlined style={{ fontSize: 50, color: 'orange' }} spin />
+            }
+          />
+        </Flex>
+      )}
+
       <div className="hidden lg:block">
         <Slider {...settings}>{cards}</Slider>
       </div>
