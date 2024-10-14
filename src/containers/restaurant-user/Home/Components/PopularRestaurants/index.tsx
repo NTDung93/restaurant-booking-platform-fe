@@ -11,6 +11,8 @@ import { ResponseEntityPagination } from '@/common/models/pagination';
 import { LocationResponseLazy } from '@/common/models/location';
 import { fetchPopularLocations } from '../../thunks';
 import Toast, { ToastType } from '@/components/Toast';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Flex, Spin } from 'antd';
 
 export default function PopularRestaurants() {
   let cards = undefined;
@@ -22,6 +24,7 @@ export default function PopularRestaurants() {
     useState<ResponseEntityPagination<LocationResponseLazy>>();
   const [toastMessage, setToastMessage] = useState('');
   const [toastType, setToastType] = useState<ToastType>('success');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -38,6 +41,7 @@ export default function PopularRestaurants() {
         const resultAction = await dispatch(fetchPopularLocations());
 
         if (fetchPopularLocations.fulfilled.match(resultAction)) {
+          setLoading(false);
           const data: ResponseEntityPagination<LocationResponseLazy> =
             resultAction.payload;
           setResponsePagination(data);
@@ -91,13 +95,28 @@ export default function PopularRestaurants() {
 
   return (
     <div className="mobile:max-md:w-[90%] mobile:max-md:overflow-hidden w-[80%] mx-auto lg:mt-12">
-      {toastMessage && <Toast type={toastType} message={toastMessage} />}
+      {<Toast type={toastType} message={toastMessage} />}
 
       <div className="text-center mb-4 mobile:max-md:mt-8">
         <div className="mobile:max-md:text-3xl text-black text-4xl font-bold ">
           Nhà hàng nổi bật
         </div>
       </div>
+
+      {loading && (
+        <Flex
+          align="center"
+          gap="middle"
+          className="place-content-center mt-14"
+        >
+          <Spin
+            indicator={
+              <LoadingOutlined style={{ fontSize: 50, color: 'orange' }} spin />
+            }
+          />
+        </Flex>
+      )}
+
       <div className="hidden lg:block">
         <Slider {...settings}>{cards}</Slider>
       </div>

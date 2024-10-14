@@ -11,6 +11,8 @@ import { ResponseEntityPagination } from '@/common/models/pagination';
 import { LocationResponseLazy } from '@/common/models/location';
 import Toast, { ToastType } from '@/components/Toast';
 import { fetchOnSaleLocations } from '../../thunks';
+import { Flex, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 export default function OnSaleRestaurants() {
   let cards = undefined;
@@ -22,6 +24,7 @@ export default function OnSaleRestaurants() {
     useState<ResponseEntityPagination<LocationResponseLazy>>();
   const [toastMessage, setToastMessage] = useState('');
   const [toastType, setToastType] = useState<ToastType>('success');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -38,6 +41,7 @@ export default function OnSaleRestaurants() {
         const resultAction = await dispatch(fetchOnSaleLocations());
 
         if (fetchOnSaleLocations.fulfilled.match(resultAction)) {
+          setLoading(false);
           const data: ResponseEntityPagination<LocationResponseLazy> =
             resultAction.payload;
           setResponsePagination(data);
@@ -98,6 +102,21 @@ export default function OnSaleRestaurants() {
           Đang giảm giá
         </div>
       </div>
+
+      {loading && (
+        <Flex
+          align="center"
+          gap="middle"
+          className="place-content-center mt-14"
+        >
+          <Spin
+            indicator={
+              <LoadingOutlined style={{ fontSize: 50, color: 'orange' }} spin />
+            }
+          />
+        </Flex>
+      )}
+
       <div className="hidden lg:block">
         <Slider {...settings}>{cards}</Slider>
       </div>
