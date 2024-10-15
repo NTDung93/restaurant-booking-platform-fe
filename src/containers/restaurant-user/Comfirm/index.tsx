@@ -1,7 +1,6 @@
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
 import { useEffect, useState } from 'react';
-import SelectionModal from './components/VoucherPromotionModal';
 import UserInfo from './components/UserInfo';
 import ReservationInfo, { ReservationData } from './components/ReservationInfo';
 import FoodSelectionModal from './components/FoodSelectionModal';
@@ -11,9 +10,16 @@ import { fetchFoodByLocation } from './components/FoodSelectionModal/thunks';
 import { createBooking } from './thunks';
 import { ReduxDispatch } from '@/libs/redux/store';
 
+// import VoucherModal from './components/VoucherModal';
+import PromotionModal from './components/PromotionModal';
+import { selectPromotionByLocation } from './components/PromotionModal/selector';
+import { fetchPromotionByLocation } from './components/PromotionModal/thunks';
+
 export default function Confirm() {
   const dispatch = useDispatch<ReduxDispatch>();
   const foodsPaginationResponse = useSelector(selectFoodByLocation);
+  const promotions = useSelector(selectPromotionByLocation);
+
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -33,58 +39,35 @@ export default function Confirm() {
     date: localStorage.getItem('date') || '',
     time: localStorage.getItem('time') || '',
   });
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  // const [isVoucherModalOpen, setIsVoucherModalOpen] = useState<boolean>(false);
+  const [isPromotionModalOpen, setIsPromotionModalOpen] =
+    useState<boolean>(false);
   const [isFoodModalOpen, setIsFoodModalOpen] = useState<boolean>(false);
 
-  const availableVouchers = [
-    {
-      imageSrc: '/images/kimbap.jpg',
-      title: 'Voucher Kimbap chiên',
-      originalPrice: 45000,
-      discountedPrice: 33000,
-      discountAmount: 12000,
-    },
-    {
-      imageSrc: '/images/burger.jpg',
-      title: 'Voucher Burger gà',
-      originalPrice: 55000,
-      discountedPrice: 40000,
-      discountAmount: 15000,
-    },
-    {
-      imageSrc: '/images/pizza.jpg',
-      title: 'Voucher Pizza hải sản',
-      originalPrice: 95000,
-      discountedPrice: 80000,
-      discountAmount: 15000,
-    },
-  ];
-
-  const availablePromotions = [
-    {
-      title: 'Promotion 1',
-      description: 'Giảm 10% cho đơn hàng trên 200.000đ',
-      imageSrc: '/images/promotion1.jpg',
-    },
-    {
-      title: 'Promotion 2',
-      description: 'Tặng 1 nước uống miễn phí',
-      imageSrc: '/images/promotion2.jpg',
-    },
-    {
-      title: 'Promotion 3',
-      description: 'Giảm 50% cho lần đặt tiếp theo',
-      imageSrc: '/images/promotion3.jpg',
-    },
-  ];
-
-  const handleShowModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  // const availableVouchers = [
+  //   {
+  //     imageSrc: '/images/kimbap.jpg',
+  //     title: 'Voucher Kimbap chiên',
+  //     originalPrice: 45000,
+  //     discountedPrice: 33000,
+  //     discountAmount: 12000,
+  //   },
+  //   {
+  //     imageSrc: '/images/burger.jpg',
+  //     title: 'Voucher Burger gà',
+  //     originalPrice: 55000,
+  //     discountedPrice: 40000,
+  //     discountAmount: 15000,
+  //   },
+  //   {
+  //     imageSrc: '/images/pizza.jpg',
+  //     title: 'Voucher Pizza hải sản',
+  //     originalPrice: 95000,
+  //     discountedPrice: 80000,
+  //     discountAmount: 15000,
+  //   },
+  // ];
 
   const handleFoodSelect = (
     selectedFoods: { name: string; quantity: number }[],
@@ -93,9 +76,9 @@ export default function Confirm() {
     setIsFoodModalOpen(false);
   };
 
-  const handleVoucherSelect = (selectedVoucher: string) => {
-    setVoucher(selectedVoucher);
-  };
+  // const handleVoucherSelect = (selectedVoucher: string) => {
+  //   setVoucher(selectedVoucher);
+  // };
 
   const handlePromotionSelect = (selectedPromotion: string) => {
     setPromotion(selectedPromotion);
@@ -118,24 +101,26 @@ export default function Confirm() {
     setSelectedPaymentMethod(method);
   };
 
-  useEffect(() => {
-    if (isModalOpen || isFoodModalOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+  // useEffect(() => {
+  //   if (isVoucherModalOpen || isPromotionModalOpen || isFoodModalOpen) {
+  //     document.body.style.overflow = 'hidden';
+  //   } else {
+  //     document.body.style.overflow = 'unset';
+  //   }
 
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isModalOpen, isFoodModalOpen]);
+  //   return () => {
+  //     document.body.style.overflow = 'unset';
+  //   };
+  // }, [isVoucherModalOpen, isPromotionModalOpen, isFoodModalOpen]);
 
   useEffect(() => {
     const locationId = localStorage.getItem('locationId');
     if (locationId) {
       dispatch(fetchFoodByLocation(parseInt(locationId)));
+      dispatch(fetchPromotionByLocation(parseInt(locationId)));
     }
   }, [dispatch]);
+
   const handleConfirmBooking = () => {
     const locationId = localStorage.getItem('locationId');
 
@@ -157,6 +142,11 @@ export default function Confirm() {
           foodBooking !== null,
       );
 
+    const selectedPromotion = (
+      Array.isArray(promotions) ? promotions : []
+    ).find((promo) => promo.title === promotion);
+    const promotionId = selectedPromotion ? selectedPromotion.id : 0;
+
     const bookingData = {
       id: 0,
       name,
@@ -168,7 +158,7 @@ export default function Confirm() {
       numberOfChildren: reservationData.children,
       locationId: parseInt(locationId || '0'),
       voucherId: 0,
-      promotionId: 0,
+      promotionId: promotionId,
       foodBookings,
     };
 
@@ -215,32 +205,137 @@ export default function Confirm() {
                         Xóa tất cả
                       </button>
                     </div>
-                    <div className="mt-4">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {selectedFoods.map(({ name, quantity }) => {
-                          const foodItem =
-                            foodsPaginationResponse?.content?.find(
-                              (food) => food.name === name,
-                            );
-                          return (
-                            foodItem && (
-                              <div
-                                key={foodItem.id}
-                                className="flex flex-col items-center border p-2 rounded-md shadow-md"
-                              >
+                    <div className="mt-4 flex flex-col gap-4">
+                      {selectedFoods.map(({ name, quantity }) => {
+                        const foodItem = foodsPaginationResponse?.content?.find(
+                          (food) => food.name === name,
+                        );
+                        return (
+                          foodItem && (
+                            <div
+                              key={foodItem.id}
+                              className="flex justify-between items-center border p-2 rounded-md shadow-md"
+                            >
+                              <div className="flex items-center gap-4">
                                 <img
                                   src={foodItem.image}
                                   alt={foodItem.name}
-                                  className="w-32 h-32 rounded-md mb-2"
+                                  className="w-20 h-20 rounded-md"
                                 />
                                 <p className="font-semibold">{foodItem.name}</p>
+                              </div>
+                              <div className="flex flex-col items-end">
+                                <p className="text-gray-500">
+                                  Giá: {foodItem.price.toLocaleString()} VND
+                                </p>
                                 <p>Số lượng: {quantity}</p>
                               </div>
-                            )
-                          );
-                        })}
-                      </div>
+                            </div>
+                          )
+                        );
+                      })}
                     </div>
+                    <div className="mt-4">
+                      <h3 className="text-lg font-semibold">Tổng giá trị:</h3>
+                      <p className="text-xl font-bold">
+                        {selectedFoods
+                          .reduce((total, { name, quantity }) => {
+                            const foodItem =
+                              foodsPaginationResponse?.content?.find(
+                                (food) => food.name === name,
+                              );
+                            return total + (foodItem?.price || 0) * quantity;
+                          }, 0)
+                          .toLocaleString()}{' '}
+                        VND
+                      </p>
+                    </div>
+
+                    {promotion && (
+                      <>
+                        {(() => {
+                          const selectedPromotion = (
+                            Array.isArray(promotions) ? promotions : []
+                          ).find((promo) => promo.title === promotion);
+
+                          if (selectedPromotion) {
+                            const { discountValue, maxDiscount } =
+                              selectedPromotion;
+                            const total = selectedFoods.reduce(
+                              (total, { name, quantity }) => {
+                                const foodItem =
+                                  foodsPaginationResponse?.content?.find(
+                                    (food) => food.name === name,
+                                  );
+                                return (
+                                  total + (foodItem?.price || 0) * quantity
+                                );
+                              },
+                              0,
+                            );
+
+                            const discountAmount = total * discountValue;
+                            const finalDiscount =
+                              discountAmount > maxDiscount
+                                ? maxDiscount
+                                : discountAmount;
+
+                            return (
+                              <p className="text-xl font-bold text-red-500">
+                                Giảm giá: -{finalDiscount.toLocaleString()} VND
+                              </p>
+                            );
+                          }
+
+                          return null;
+                        })()}
+                      </>
+                    )}
+
+                    {promotion && (
+                      <div className="mt-2">
+                        <h4 className="text-lg font-semibold">
+                          Tổng sau khi giảm giá:
+                        </h4>
+                        {(() => {
+                          const selectedPromotion = (
+                            Array.isArray(promotions) ? promotions : []
+                          ).find((promo) => promo.title === promotion);
+
+                          if (selectedPromotion) {
+                            const { discountValue, maxDiscount } =
+                              selectedPromotion;
+                            const total = selectedFoods.reduce(
+                              (total, { name, quantity }) => {
+                                const foodItem =
+                                  foodsPaginationResponse?.content?.find(
+                                    (food) => food.name === name,
+                                  );
+                                return (
+                                  total + (foodItem?.price || 0) * quantity
+                                );
+                              },
+                              0,
+                            );
+
+                            const discountAmount = total * discountValue;
+                            const finalDiscount =
+                              discountAmount > maxDiscount
+                                ? maxDiscount
+                                : discountAmount;
+                            const totalAfterDiscount = total - finalDiscount;
+
+                            return (
+                              <p className="text-xl font-bold">
+                                {totalAfterDiscount.toLocaleString()} VND
+                              </p>
+                            );
+                          }
+
+                          return null;
+                        })()}
+                      </div>
+                    )}
                   </>
                 )}
               </div>
@@ -248,13 +343,13 @@ export default function Confirm() {
               <div className="lg:w-1/2 space-y-6">
                 <ReservationInfo onReservationChange={setReservationData} />
 
-                <button
+                {/* <button
                   type="button"
-                  onClick={handleShowModal}
+                  onClick={() => setIsVoucherModalOpen(true)}
                   className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
                 >
-                  Chọn voucher hoặc promotion
-                </button>
+                  Chọn voucher
+                </button> */}
 
                 {voucher && (
                   <div className="mt-4 flex justify-between items-center">
@@ -271,19 +366,33 @@ export default function Confirm() {
                   </div>
                 )}
 
-                {promotion && (
-                  <div className="mt-4 flex justify-between items-center">
-                    <p className="text-gray-700">
-                      <span className="font-semibold">Promotion đã chọn:</span>{' '}
-                      {promotion}
-                    </p>
+                {selectedFoods.length > 0 && (
+                  <>
                     <button
-                      onClick={removePromotion}
-                      className="text-red-500 underline hover:text-red-600"
+                      type="button"
+                      onClick={() => setIsPromotionModalOpen(true)}
+                      className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
                     >
-                      Xóa
+                      Chọn promotion
                     </button>
-                  </div>
+
+                    {promotion && (
+                      <div className="mt-4 flex justify-between items-center">
+                        <p className="text-gray-700">
+                          <span className="font-semibold">
+                            Promotion đã chọn:
+                          </span>{' '}
+                          {promotion}
+                        </p>
+                        <button
+                          onClick={removePromotion}
+                          className="text-red-500 underline hover:text-red-600"
+                        >
+                          Xóa
+                        </button>
+                      </div>
+                    )}
+                  </>
                 )}
 
                 {selectedFoods.length > 0 && (
@@ -327,7 +436,6 @@ export default function Confirm() {
                     </div>
                   </div>
                 )}
-
                 <button
                   type="button"
                   onClick={handleConfirmBooking}
@@ -341,20 +449,27 @@ export default function Confirm() {
         </div>
       </div>
 
-      <SelectionModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        availableVouchers={availableVouchers}
-        availablePromotions={availablePromotions}
-        onVoucherSelect={handleVoucherSelect}
-        onPromotionSelect={handlePromotionSelect}
-      />
       <FoodSelectionModal
         isOpen={isFoodModalOpen}
         onClose={() => setIsFoodModalOpen(false)}
         availableFoods={foodsPaginationResponse?.content || []}
         onFoodSelect={handleFoodSelect}
       />
+
+      {/* <VoucherModal
+        isOpen={isVoucherModalOpen}
+        onClose={() => setIsVoucherModalOpen(false)}
+        availableVouchers={availableVouchers}
+        onVoucherSelect={handleVoucherSelect}
+      /> */}
+
+      <PromotionModal
+        isOpen={isPromotionModalOpen}
+        onClose={() => setIsPromotionModalOpen(false)}
+        availablePromotions={Array.isArray(promotions) ? promotions : []}
+        onPromotionSelect={handlePromotionSelect}
+      />
+
       <Footer />
     </div>
   );

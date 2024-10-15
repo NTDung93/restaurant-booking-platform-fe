@@ -7,11 +7,14 @@ const TypePrefix = 'location-booking';
 export const createBooking = createAppAsyncThunk(
   `${TypePrefix}/createBooking`,
   async (bookingData: Booking) => {
-    const response = await callApi({
-      method: 'post',
-      url: '/location-bookings',
-      data: bookingData,
-    });
+    const response = await callApi(
+      {
+        method: 'post',
+        url: '/location-bookings',
+        data: bookingData,
+      },
+      true,
+    );
     return response.data;
   },
 );
