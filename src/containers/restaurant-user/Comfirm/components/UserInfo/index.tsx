@@ -2,7 +2,9 @@ import React from 'react';
 
 interface UserInfoProps {
   name: string;
+  onNameChange: (name: string) => void;
   phone: string;
+  onPhoneChange: (phone: string) => void;
   email: string;
   onEmailChange: (email: string) => void;
   notes: string;
@@ -11,7 +13,9 @@ interface UserInfoProps {
 
 const UserInfo: React.FC<UserInfoProps> = ({
   name,
+  onNameChange,
   phone,
+  onPhoneChange,
   email,
   onEmailChange,
   notes,
@@ -26,9 +30,10 @@ const UserInfo: React.FC<UserInfoProps> = ({
       <input
         type="text"
         id="name"
+        placeholder="Nhập tên liên lạc"
         value={name}
-        disabled
-        className="w-full px-4 py-2 border rounded-md bg-gray-200 text-gray-700"
+        onChange={(e) => onNameChange(e.target.value)}
+        className="w-full px-4 py-2 border rounded-md  text-gray-700"
       />
     </div>
     <div className="mb-4">
@@ -38,9 +43,10 @@ const UserInfo: React.FC<UserInfoProps> = ({
       <input
         type="text"
         id="phone"
+        placeholder="Nhập số điện thoại"
         value={phone}
-        disabled
-        className="w-full px-4 py-2 border rounded-md bg-gray-200 text-gray-700"
+        onChange={(e) => onPhoneChange(e.target.value)}
+        className="w-full px-4 py-2 border rounded-md  text-gray-700"
       />
     </div>
     <div className="mb-4">

@@ -26,7 +26,10 @@ const RestaurantDetail: React.FC = () => {
   const numericLocationId = Number(id);
 
   useEffect(() => {
-    dispatch(fetchLocationDetail(numericLocationId));
+    if (numericLocationId) {
+      localStorage.setItem('locationId', String(numericLocationId));
+      dispatch(fetchLocationDetail(numericLocationId));
+    }
   }, [dispatch, numericLocationId]);
 
   const [images, setImages] = useState<string[]>([]);

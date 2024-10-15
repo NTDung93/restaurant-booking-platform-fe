@@ -10,14 +10,20 @@ export interface ReservationData {
   time: string;
 }
 
-const ReservationInfo: React.FC = () => {
+interface ReservationInfoProps {
+  onReservationChange: (reservation: ReservationData) => void;
+}
+
+const ReservationInfo: React.FC<ReservationInfoProps> = ({
+  onReservationChange,
+}) => {
   const [reservation, setReservation] = useState<ReservationData>({
-    restaurantName: 'Nhà hàng Dìn Ký Cù Lao Xanh',
-    location: 'Trần Văn Trà, Quận 7, TP.HCM',
-    adults: 2,
-    children: 0,
-    date: '2024-09-12',
-    time: '21:00',
+    restaurantName: localStorage.getItem('restaurantName') || '',
+    location: localStorage.getItem('address') || '',
+    adults: Number(localStorage.getItem('adults')) || 0,
+    children: Number(localStorage.getItem('children')) || 0,
+    date: localStorage.getItem('date') || '',
+    time: localStorage.getItem('time') || '',
   });
 
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
@@ -29,6 +35,7 @@ const ReservationInfo: React.FC = () => {
   const handleSaveReservation = (updatedReservation: ReservationData) => {
     setReservation(updatedReservation);
     setIsEditModalOpen(false);
+    onReservationChange(updatedReservation);
   };
 
   useEffect(() => {
