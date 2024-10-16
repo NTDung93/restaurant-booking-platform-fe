@@ -2,7 +2,8 @@ import { UserOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserInfo, logout } from '@/containers/restaurant-user/Auth/thunks';
+import Cookies from 'js-cookie';
+import { getUserInfo } from '@/containers/restaurant-user/Auth/thunks';
 import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
 import { ReduxDispatch } from '@/libs/redux/store';
 import {
@@ -15,7 +16,7 @@ import {
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Thêm state cho dropdown
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const location = useLocation();
   const dispatch = useDispatch<ReduxDispatch>();
   const userInfo = useSelector(selectUserInfo);
@@ -29,7 +30,8 @@ export default function Header() {
   }, [dispatch]);
 
   const handleLogout = async () => {
-    await dispatch(logout());
+    Cookies.remove('access-token');
+    Cookies.remove('refresh-token');
     window.location.reload();
   };
 
@@ -82,16 +84,8 @@ export default function Header() {
             </nav>
           </div>
           <div className="flex items-center space-x-2 md:space-x-4">
-            <div className="hidden md:flex items-center flex-grow mx-4">
-              <input
-                type="text"
-                placeholder="Tìm kiếm..."
-                className="w-full p-2 text-black placeholder-gray-400 rounded-md"
-              />
-            </div>
             {userInfo ? (
               <div className="relative flex items-center">
-                {/* Chỉ hiển thị lời chào trên màn hình lớn */}
                 <span className="hidden md:inline-block text-lg md:text-xl text-[#D86500] mr-2">
                   Xin chào, {userInfo.userName}
                 </span>
