@@ -29,16 +29,20 @@ import {
   CONFIRM_ROUTE,
   COUNTER_ROUTE,
   HOME_ROUTE,
+  PAYMENT_ROUTE,
   RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE,
   RESTAURANT_ADMIN_HOME_ROUTE,
   RESTAURANT_DETAIL_ROUTE,
   RESTAURANT_ROUTE,
   SIGN_IN_ROUTE,
   SIGN_UP_ROUTE,
+  SUCCESSS_ROUTE,
   USER_FAVOR_ROUTE,
   USER_PASS_ROUTE,
   USER_ROUTE,
 } from './common/constants/routerConstant';
+import SuccessPage from './app/[locale]/restaurant-user/Success/page';
+import PaymentPage from './app/[locale]/restaurant-user/Payment/page';
 
 const router = createBrowserRouter([
   {
@@ -83,6 +87,14 @@ const router = createBrowserRouter([
   {
     path: CONFIRM_ROUTE,
     element: <ComfirmPage />,
+  },
+  {
+    path: SUCCESSS_ROUTE,
+    element: <SuccessPage />,
+  },
+  {
+    path: PAYMENT_ROUTE,
+    element: <PaymentPage />,
   },
   {
     path: BLOG_ROUTE,
