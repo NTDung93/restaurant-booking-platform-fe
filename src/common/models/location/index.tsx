@@ -4,7 +4,7 @@ export interface LocationSearchCriteria {
   sortBy: string;
   sortDir: string;
   status: string[];
-  searchText: string;
+  searchText: string | undefined;
   searchNearBy: boolean;
   latitude?: number | undefined;
   longitude?: number | undefined;

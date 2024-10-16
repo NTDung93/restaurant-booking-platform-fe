@@ -1,17 +1,77 @@
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
 import HeroBanner from '@/components/restaurant-user/HeroBanner';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { selectLocationSearchResult } from '../Home/selectors';
 import LocationCardItem from '@/components/restaurant-user/LocationCardItem';
 import { RESTAURANT_DETAIL_ROUTE } from '@/common/constants/routerConstant';
+import { LocationSearchCriteria } from '@/common/models/location';
+import {
+  DEFAULT_PAGE_NO,
+  DEFAULT_PAGE_SIZE,
+  DEFAULT_SORT_BY,
+  DEFAULT_SORT_DIR,
+  DEFAULT_STATUS,
+} from '@/common/constants/paginationConstant';
+import { searchLocation } from '../Home/thunks';
+import { ReduxDispatch } from '@/libs/redux/store';
+import { getUserLocation, LocationResult } from '@/utils/location';
 
 const RestaurantAll: React.FC = () => {
   const navigate = useNavigate();
   const responsePagination = useSelector(selectLocationSearchResult);
+  const dispatch = useDispatch<ReduxDispatch>();
+  const [searchNearBy, setSearchNearBy] = useState<boolean>(false);
+  const [latitude, setLatitude] = useState<number | null>(null);
+  const [longitude, setLongitude] = useState<number | null>(null);
   let cards = undefined;
+
+  // if user doesn't search anything, show all locations
+  useEffect(() => {
+    if (!responsePagination) {
+      const fetchLocation = async () => {
+        try {
+          const result: LocationResult = await getUserLocation();
+          setSearchNearBy(result.searchNearBy);
+          if (result.searchNearBy && result.location) {
+            setLatitude(result.location.latitude);
+            setLongitude(result.location.longitude);
+          } else {
+            setLatitude(null);
+            setLongitude(null);
+          }
+        } catch (error) {
+          console.error('Error fetching user location:', error);
+          setSearchNearBy(false);
+          setLatitude(null);
+          setLongitude(null);
+        }
+      };
+
+      fetchLocation();
+
+      const locationSearchCriteria: LocationSearchCriteria = {
+        pageNo: DEFAULT_PAGE_NO,
+        pageSize: DEFAULT_PAGE_SIZE,
+        sortBy: DEFAULT_SORT_BY,
+        sortDir: DEFAULT_SORT_DIR,
+        status: DEFAULT_STATUS,
+        searchNearBy: searchNearBy,
+        ...(searchNearBy && latitude && longitude
+          ? { latitude, longitude }
+          : {}),
+        searchText: undefined,
+      };
+
+      try {
+        dispatch(searchLocation(locationSearchCriteria));
+      } catch (error) {
+        console.error('Error during searchLocation dispatch:', error);
+      }
+    }
+  }, []);
 
   if (responsePagination) {
     cards = responsePagination!.content.map((location) => (
