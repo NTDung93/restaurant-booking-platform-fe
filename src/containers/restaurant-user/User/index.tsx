@@ -1,8 +1,19 @@
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
 import MenuUser from '@/components/restaurant-user/MenuUser';
+import { getUserInfo } from '@/containers/restaurant-user/Auth/thunks';
+import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
+import { ReduxDispatch } from '@/libs/redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 export default function UserDetail() {
+  const dispatch = useDispatch<ReduxDispatch>();
+  const userInfo = useSelector(selectUserInfo);
+
+  useEffect(() => {
+    dispatch(getUserInfo());
+  }, [dispatch]);
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -14,15 +25,19 @@ export default function UserDetail() {
             <div className="space-y-6">
               <div className="flex items-center">
                 <p className="w-32 font-medium text-lg">Tên:</p>
-                <p className="text-lg">Đức Anh</p>
+                <p className="text-lg">{userInfo?.fullName}</p>
               </div>
               <div className="flex items-center">
                 <p className="w-32 font-medium text-lg">Email:</p>
-                <p className="text-lg">ducanhhadinh@gmail.com</p>
+                <p className="text-lg">{userInfo?.email}</p>
+              </div>
+              <div className="flex items-center">
+                <p className="w-32 font-medium text-lg">Số điện thoại:</p>
+                <p className="text-lg">{userInfo?.phone}</p>
               </div>
               <div className="flex items-center">
                 <p className="w-32 font-medium text-lg">Điểm:</p>
-                <p className="text-lg">36</p>
+                <p className="text-lg">{userInfo?.point}</p>
               </div>
             </div>
           </div>

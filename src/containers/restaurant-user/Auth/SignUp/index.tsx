@@ -6,7 +6,9 @@ import Header from '@/components/restaurant-user/Header';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { ReduxDispatch } from '@/libs/redux/store';
-import { HOME_ROUTE } from '@/common/constants/routerConstant';
+import { HOME_ROUTE, SIGN_IN_ROUTE } from '@/common/constants/routerConstant';
+import { Spin } from 'antd';
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 
 export default function SignUp() {
   const dispatch = useDispatch<ReduxDispatch>();
@@ -22,6 +24,10 @@ export default function SignUp() {
   });
 
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -40,17 +46,21 @@ export default function SignUp() {
       return;
     }
 
+    setLoading(true);
+
     try {
       await dispatch(signUp(formData));
       navigate(HOME_ROUTE);
     } catch (error) {
       console.error('Đăng ký thất bại:', error);
       alert('Đăng ký thất bại! Vui lòng kiểm tra lại thông tin.');
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleSignIn = () => {
-    navigate(HOME_ROUTE);
+    navigate(SIGN_IN_ROUTE);
   };
 
   return (
@@ -103,12 +113,12 @@ export default function SignUp() {
                     />
                   </div>
 
-                  <div className="w-full mb-4 sm:mb-6">
+                  <div className="w-full mb-4 sm:mb-6 relative">
                     <label className="text-lg sm:text-xl font-medium mb-2 block">
                       Mật khẩu
                     </label>
                     <input
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       name="password"
                       className="w-full p-2 border-b-2 border-white bg-transparent text-white focus:outline-none focus:border-gray-200 transition duration-300"
                       placeholder="Nhập mật khẩu"
@@ -116,23 +126,47 @@ export default function SignUp() {
                       onChange={handleChange}
                       required
                     />
+                    {/* Button để toggle hiển thị mật khẩu */}
+                    <button
+                      type="button"
+                      className="absolute right-3 top-10 text-white focus:outline-none"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <EyeInvisibleOutlined />
+                      ) : (
+                        <EyeOutlined />
+                      )}
+                    </button>
                   </div>
 
-                  <div className="w-full mb-4 sm:mb-6">
+                  <div className="w-full mb-4 sm:mb-6 relative">
                     <label className="text-lg sm:text-xl font-medium mb-2 block">
                       Xác nhận mật khẩu
                     </label>
                     <input
-                      type="password"
+                      type={showConfirmPassword ? 'text' : 'password'}
                       className="w-full p-2 border-b-2 border-white bg-transparent text-white focus:outline-none focus:border-gray-200 transition duration-300"
                       placeholder="Nhập lại mật khẩu"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       required
                     />
+                    <button
+                      type="button"
+                      className="absolute right-3 top-10 text-white focus:outline-none"
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
+                    >
+                      {showConfirmPassword ? (
+                        <EyeInvisibleOutlined />
+                      ) : (
+                        <EyeOutlined />
+                      )}
+                    </button>
                   </div>
 
-                  {/* Thêm các trường khác như fullName, phone, gender ở đây nếu cần */}
                   <div className="w-full mb-4 sm:mb-6">
                     <label className="text-lg sm:text-xl font-medium mb-2 block">
                       Họ tên
@@ -182,8 +216,11 @@ export default function SignUp() {
                   </div>
                 </div>
 
-                <button className="w-full py-2 sm:py-3 bg-white text-[#d86500] font-bold text-base sm:text-lg md:text-xl rounded-lg shadow hover:bg-gray-100 transition duration-300 mb-3 sm:mb-4">
-                  Đăng ký
+                <button
+                  className="w-full py-2 sm:py-3 bg-white text-[#d86500] font-bold text-base sm:text-lg md:text-xl rounded-lg shadow hover:bg-gray-100 transition duration-300 mb-3 sm:mb-4 flex items-center justify-center"
+                  disabled={loading}
+                >
+                  {loading ? <Spin size="small" /> : 'Đăng ký'}
                 </button>
               </form>
 

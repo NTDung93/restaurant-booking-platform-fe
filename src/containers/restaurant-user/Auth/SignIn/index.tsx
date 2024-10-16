@@ -8,12 +8,16 @@ import { pick } from 'lodash';
 import { useState } from 'react';
 import { signIn } from '../thunks';
 import { HOME_ROUTE, SIGN_UP_ROUTE } from '@/common/constants/routerConstant';
+import { Spin } from 'antd';
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'; // Import icon mắt
 
 const SignIn: React.FC = () => {
   const [userNameOrEmailOrPhone, setUserNameOrEmailOrPhone] =
     useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [showPassword, setShowPassword] = useState(false); // State để điều khiển hiển thị mật khẩu
   const dispatch = useDispatch<ReduxDispatch>();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSignUp = () => {
@@ -22,6 +26,7 @@ const SignIn: React.FC = () => {
 
   const onFinish = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
     const accountSignIn = pick({ userNameOrEmailOrPhone, password }, [
       'userNameOrEmailOrPhone',
@@ -32,6 +37,7 @@ const SignIn: React.FC = () => {
     if (signIn.fulfilled.match(resultAction)) {
       navigate(HOME_ROUTE);
     }
+    setLoading(false);
   };
 
   return (
@@ -64,25 +70,34 @@ const SignIn: React.FC = () => {
                 />
               </div>
 
-              <div className="w-full mb-4 sm:mb-6">
+              <div className="w-full mb-4 sm:mb-6 relative">
                 <label className="text-lg sm:text-xl font-medium mb-2 block">
                   Mật khẩu
                 </label>
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'} // Thay đổi type khi showPassword thay đổi
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full p-2 border-b-2 border-white bg-transparent text-white focus:outline-none focus:border-gray-200 transition duration-300"
                   placeholder="Nhập mật khẩu"
                   required
                 />
+                {/* Button để toggle hiển thị mật khẩu */}
+                <button
+                  type="button"
+                  className="absolute right-3 top-10 text-white focus:outline-none"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeInvisibleOutlined /> : <EyeOutlined />}
+                </button>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-2 sm:py-3 bg-white text-[#d86500] font-bold text-base sm:text-lg md:text-xl rounded-lg shadow hover:bg-gray-100 transition duration-300 mb-3 sm:mb-4"
+                className="w-full py-2 sm:py-3 bg-white text-[#d86500] font-bold text-base sm:text-lg md:text-xl rounded-lg shadow hover:bg-gray-100 transition duration-300 mb-3 sm:mb-4 flex items-center justify-center"
+                disabled={loading}
               >
-                Đăng nhập
+                {loading ? <Spin size="small" /> : 'Đăng nhập'}
               </button>
               <span className="text-white text-sm sm:text-base mb-3 sm:mb-4 text-center block">
                 Chưa có tài khoản?

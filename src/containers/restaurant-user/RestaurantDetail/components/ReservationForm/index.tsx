@@ -11,6 +11,9 @@ const ReservationForm: React.FC = () => {
   const [error, setError] = useState<string>('');
 
   const handleReservation = () => {
+    const currentDateTime = new Date();
+    const selectedDateTime = new Date(`${reservationDate}T${reservationTime}`);
+
     if (
       !reservationDate ||
       !reservationTime ||
@@ -18,6 +21,11 @@ const ReservationForm: React.FC = () => {
       numChildren === ''
     ) {
       setError('Vui lòng nhập tất cả các thông tin yêu cầu.');
+      return;
+    }
+
+    if (selectedDateTime < currentDateTime) {
+      setError('Ngày và thời gian không được là quá khứ.');
       return;
     }
 
@@ -30,6 +38,9 @@ const ReservationForm: React.FC = () => {
     localStorage.setItem('adults', String(numAdults));
     localStorage.setItem('children', String(numChildren));
   }, [reservationDate, reservationTime, numAdults, numChildren]);
+
+  const today = new Date();
+  const minDate = today.toISOString().split('T')[0];
 
   return (
     <div className="md:w-2/5 w-full bg-amber-500 text-white p-4 flex flex-col rounded-lg ml-0 md:ml-6">
@@ -47,9 +58,10 @@ const ReservationForm: React.FC = () => {
             className="w-full p-2 bg-white text-black rounded-lg border border-gray-300"
             placeholder="Số người lớn"
             value={numAdults}
-            onChange={(e) =>
-              setNumAdults(e.target.value ? Number(e.target.value) : '')
-            }
+            onChange={(e) => {
+              const value = e.target.value;
+              setNumAdults(value === '' ? '' : Math.max(0, Number(value)));
+            }}
           />
         </div>
         <div className="bg-zinc-300 p-4 rounded-lg shadow-md">
@@ -61,9 +73,10 @@ const ReservationForm: React.FC = () => {
             className="w-full p-2 bg-white text-black rounded-lg border border-gray-300"
             placeholder="Số trẻ em"
             value={numChildren}
-            onChange={(e) =>
-              setNumChildren(e.target.value ? Number(e.target.value) : '')
-            }
+            onChange={(e) => {
+              const value = e.target.value;
+              setNumChildren(value === '' ? '' : Math.max(0, Number(value)));
+            }}
           />
         </div>
         <div className="bg-zinc-300 p-4 rounded-lg shadow-md">
@@ -74,6 +87,7 @@ const ReservationForm: React.FC = () => {
             type="date"
             className="w-full p-2 bg-white text-black rounded-lg border border-gray-300"
             value={reservationDate}
+            min={minDate}
             onChange={(e) => setReservationDate(e.target.value)}
           />
         </div>
@@ -86,6 +100,11 @@ const ReservationForm: React.FC = () => {
             className="w-full p-2 bg-white text-black rounded-lg border border-gray-300"
             value={reservationTime}
             onChange={(e) => setReservationTime(e.target.value)}
+            min={
+              reservationDate
+                ? new Date().toLocaleTimeString('it-IT')
+                : undefined
+            }
           />
         </div>
         <div className="flex justify-center">
