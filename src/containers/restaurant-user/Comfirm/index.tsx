@@ -31,8 +31,8 @@ export default function Confirm() {
   const [selectedFoods, setSelectedFoods] = useState<
     { name: string; quantity: number }[]
   >([]);
-  const [selectedPaymentMethod, setSelectedPaymentMethod] =
-    useState<string>('');
+  // const [selectedPaymentMethod, setSelectedPaymentMethod] =
+  //   useState<string>('');
   const [reservationData, setReservationData] = useState<ReservationData>({
     restaurantName: localStorage.getItem('restaurantName') || '',
     location: localStorage.getItem('address') || '',
@@ -88,7 +88,7 @@ export default function Confirm() {
 
   const clearSelectedFoods = () => {
     setSelectedFoods([]);
-    setSelectedPaymentMethod('');
+    // setSelectedPaymentMethod('');
   };
 
   const removeVoucher = () => {
@@ -99,9 +99,9 @@ export default function Confirm() {
     setPromotion('');
   };
 
-  const handlePaymentMethodChange = (method: string) => {
-    setSelectedPaymentMethod(method);
-  };
+  // const handlePaymentMethodChange = (method: string) => {
+  //   setSelectedPaymentMethod(method);
+  // };
 
   // useEffect(() => {
   //   if (isVoucherModalOpen || isPromotionModalOpen || isFoodModalOpen) {
@@ -401,7 +401,7 @@ export default function Confirm() {
                   </>
                 )}
 
-                {selectedFoods.length > 0 && (
+                {/* {selectedFoods.length > 0 && (
                   <div className="mt-6">
                     <h2 className="text-lg font-semibold">
                       Phương thức thanh toán
@@ -441,7 +441,7 @@ export default function Confirm() {
                       </button>
                     </div>
                   </div>
-                )}
+                )} */}
                 <button
                   type="button"
                   onClick={handleConfirmBooking}
