@@ -84,8 +84,9 @@ export const getUserInfo = createAppAsyncThunk(
 export const logout = createAppAsyncThunk(`${TypePrefix}/logout`, async () => {
   await callApi({
     method: 'get',
-    url: 'http://localhost:8080/logout',
-  });
+    url: '/logout',
+  }),
+    true;
   Cookies.remove('access-token');
   Cookies.remove('refresh-token');
 });
