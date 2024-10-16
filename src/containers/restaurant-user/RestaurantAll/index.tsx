@@ -62,7 +62,7 @@ const RestaurantAll: React.FC = () => {
         ...(searchNearBy && latitude && longitude
           ? { latitude, longitude }
           : {}),
-        searchText: undefined
+        searchText: undefined,
       };
 
       try {
