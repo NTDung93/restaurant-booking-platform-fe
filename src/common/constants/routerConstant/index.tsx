@@ -13,6 +13,8 @@ const ACCESS_DENIED_ROUTE = '/access-denied';
 const RESTAURANT_ADMIN_HOME_ROUTE = '/manage/home';
 const RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE = '/manage/all-table-booking';
 const HOME_ROUTE = '/';
+const SUCCESSS_ROUTE = '/success';
+const PAYMENT_ROUTE = '/payment';
 
 export {
   RESTAURANT_DETAIL_ROUTE,
@@ -30,4 +32,6 @@ export {
   RESTAURANT_ADMIN_HOME_ROUTE,
   RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE,
   HOME_ROUTE,
+  SUCCESSS_ROUTE,
+  PAYMENT_ROUTE,
 };
