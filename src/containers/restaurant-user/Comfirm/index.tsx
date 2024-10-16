@@ -9,6 +9,8 @@ import { selectFoodByLocation } from './components/FoodSelectionModal/selector';
 import { fetchFoodByLocation } from './components/FoodSelectionModal/thunks';
 import { createBooking } from './thunks';
 import { ReduxDispatch } from '@/libs/redux/store';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // import VoucherModal from './components/VoucherModal';
 import PromotionModal from './components/PromotionModal';
@@ -163,6 +165,10 @@ export default function Confirm() {
     };
 
     dispatch(createBooking(bookingData));
+    toast.success('Đặt bàn thành công!', {
+      position: 'top-right',
+      autoClose: 3000,
+    });
   };
 
   return (
@@ -469,7 +475,7 @@ export default function Confirm() {
         availablePromotions={Array.isArray(promotions) ? promotions : []}
         onPromotionSelect={handlePromotionSelect}
       />
-
+      <ToastContainer />
       <Footer />
     </div>
   );

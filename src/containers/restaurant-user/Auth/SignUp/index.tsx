@@ -6,7 +6,7 @@ import Header from '@/components/restaurant-user/Header';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { ReduxDispatch } from '@/libs/redux/store';
-import { SIGN_IN_ROUTE } from '@/common/constants/routerConstant';
+import { HOME_ROUTE } from '@/common/constants/routerConstant';
 
 export default function SignUp() {
   const dispatch = useDispatch<ReduxDispatch>();
@@ -42,7 +42,7 @@ export default function SignUp() {
 
     try {
       await dispatch(signUp(formData));
-      navigate(SIGN_IN_ROUTE);
+      navigate(HOME_ROUTE);
     } catch (error) {
       console.error('Đăng ký thất bại:', error);
       alert('Đăng ký thất bại! Vui lòng kiểm tra lại thông tin.');
@@ -50,7 +50,7 @@ export default function SignUp() {
   };
 
   const handleSignIn = () => {
-    navigate(SIGN_IN_ROUTE);
+    navigate(HOME_ROUTE);
   };
 
   return (

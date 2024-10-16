@@ -58,11 +58,11 @@ export default function Header() {
                 Trang chủ
               </Link>
               <Link
-                to={ABOUT_US_ROUTE}
-                className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/about-us' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
+                to={RESTAURANT_ROUTE}
+                className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/restaurant' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
                 onClick={handleLinkClick}
               >
-                Về chúng tôi
+                Gần bạn
               </Link>
               <Link
                 to={BLOG_ROUTE}
@@ -71,12 +71,13 @@ export default function Header() {
               >
                 Blogs
               </Link>
+
               <Link
-                to={RESTAURANT_ROUTE}
-                className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/restaurant' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
+                to={ABOUT_US_ROUTE}
+                className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/about-us' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
                 onClick={handleLinkClick}
               >
-                Gần bạn
+                Về chúng tôi
               </Link>
             </nav>
           </div>
@@ -90,7 +91,8 @@ export default function Header() {
             </div>
             {userInfo ? (
               <div className="relative flex items-center">
-                <span className="text-lg md:text-xl text-[#D86500] mr-2">
+                {/* Chỉ hiển thị lời chào trên màn hình lớn */}
+                <span className="hidden md:inline-block text-lg md:text-xl text-[#D86500] mr-2">
                   Xin chào, {userInfo.userName}
                 </span>
                 <div
@@ -105,6 +107,9 @@ export default function Header() {
                     className="absolute right-0 mt-2 w-[200px] bg-white shadow-lg rounded-lg overflow-hidden z-50"
                     style={{ top: '100%' }}
                   >
+                    <span className="block text-lg md:hidden text-[#D86500] px-4 py-2">
+                      Xin chào, {userInfo.userName}
+                    </span>
                     <Link
                       to="/user"
                       className="block w-full text-left px-4 py-2 text-black hover:bg-gray-100"
