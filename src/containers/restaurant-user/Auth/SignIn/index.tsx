@@ -9,13 +9,13 @@ import { useState } from 'react';
 import { signIn } from '../thunks';
 import { HOME_ROUTE, SIGN_UP_ROUTE } from '@/common/constants/routerConstant';
 import { Spin } from 'antd';
-import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'; // Import icon mắt
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 
 const SignIn: React.FC = () => {
   const [userNameOrEmailOrPhone, setUserNameOrEmailOrPhone] =
     useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [showPassword, setShowPassword] = useState(false); // State để điều khiển hiển thị mật khẩu
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch<ReduxDispatch>();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();

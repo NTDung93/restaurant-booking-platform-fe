@@ -69,7 +69,7 @@ export default function SignUp() {
         <Header />
 
         <div
-          className="flex flex-col justify-center items-center h-screen px-4"
+          className="flex flex-col justify-center items-center px-4 "
           style={{
             backgroundImage:
               "url('https://res.cloudinary.com/dnslrwedn/image/upload/v1726239862/image_6_cirsev.png')",
