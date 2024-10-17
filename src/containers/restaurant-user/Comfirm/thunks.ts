@@ -15,9 +15,14 @@ export const createBooking = createAppAsyncThunk(
       },
       true,
     );
+
+    localStorage.setItem('id', JSON.stringify(response.id));
+    localStorage.setItem('amount', JSON.stringify(response.amount));
+
     return response.data;
   },
 );
+
 export const fetchBookingByLocation = createAppAsyncThunk(
   `${TypePrefix}/fetchBookingByLocation`,
   async () =>

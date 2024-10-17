@@ -14,6 +14,12 @@ const ReservationForm: React.FC = () => {
     const currentDateTime = new Date();
     const selectedDateTime = new Date(`${reservationDate}T${reservationTime}`);
 
+    const currentTimeInGMT7 = new Date(
+      currentDateTime.getTime() +
+        currentDateTime.getTimezoneOffset() * 60000 +
+        7 * 60 * 60000,
+    );
+
     if (
       !reservationDate ||
       !reservationTime ||
@@ -24,7 +30,7 @@ const ReservationForm: React.FC = () => {
       return;
     }
 
-    if (selectedDateTime < currentDateTime) {
+    if (selectedDateTime < currentTimeInGMT7) {
       setError('Ngày và thời gian không được là quá khứ.');
       return;
     }
@@ -41,6 +47,14 @@ const ReservationForm: React.FC = () => {
 
   const today = new Date();
   const minDate = today.toISOString().split('T')[0];
+
+  // Convert current time to the format HH:MM without seconds
+  const currentTime = new Date()
+    .toLocaleTimeString('it-IT', {
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+    .slice(0, 5);
 
   return (
     <div className="md:w-2/5 w-full bg-amber-500 text-white p-4 flex flex-col rounded-lg ml-0 md:ml-6">
@@ -100,11 +114,7 @@ const ReservationForm: React.FC = () => {
             className="w-full p-2 bg-white text-black rounded-lg border border-gray-300"
             value={reservationTime}
             onChange={(e) => setReservationTime(e.target.value)}
-            min={
-              reservationDate
-                ? new Date().toLocaleTimeString('it-IT')
-                : undefined
-            }
+            min={reservationDate === minDate ? currentTime : undefined}
           />
         </div>
         <div className="flex justify-center">
