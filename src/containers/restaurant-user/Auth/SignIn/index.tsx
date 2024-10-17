@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
+import { notification } from 'antd'; // Import Ant Design's notification
 import { ReduxDispatch } from '@/libs/redux/store';
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
@@ -16,8 +16,8 @@ const SignIn: React.FC = () => {
     useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState(false);
-  const dispatch = useDispatch<ReduxDispatch>();
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch<ReduxDispatch>();
   const navigate = useNavigate();
 
   const handleSignUp = () => {
@@ -36,6 +36,13 @@ const SignIn: React.FC = () => {
 
     if (signIn.fulfilled.match(resultAction)) {
       navigate(HOME_ROUTE);
+    } else {
+      // Show notification for login failure
+      notification.error({
+        message: 'Đăng nhập không thành công',
+        description: 'Sai tài khoản hoặc mật khẩu.',
+        placement: 'topRight', // Position of the notification
+      });
     }
     setLoading(false);
   };
