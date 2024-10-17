@@ -1,6 +1,6 @@
 import { UserOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 import { getUserInfo } from '@/containers/restaurant-user/Auth/thunks';
@@ -20,6 +20,7 @@ export default function Header() {
   const location = useLocation();
   const dispatch = useDispatch<ReduxDispatch>();
   const userInfo = useSelector(selectUserInfo);
+  const navigate = useNavigate();
 
   const handleLinkClick = () => {
     setIsMenuOpen(false);
@@ -32,6 +33,7 @@ export default function Header() {
   const handleLogout = async () => {
     Cookies.remove('access-token');
     Cookies.remove('refresh-token');
+    navigate(HOME_ROUTE);
     window.location.reload();
   };
 

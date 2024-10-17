@@ -522,7 +522,7 @@ export default function Confirm() {
                     type="button"
                     onClick={handlePayment}
                     className={`w-full py-2 rounded-md ${
-                      loading ? 'bg-gray-400' : 'bg-blue-500 text-white'
+                      loading ? 'bg-gray-400' : 'bg-blue-800 text-white'
                     }`}
                     disabled={loading}
                   >
@@ -534,7 +534,7 @@ export default function Confirm() {
                     type="button"
                     onClick={handleConfirmBooking}
                     className={`w-full py-2 rounded-md ${
-                      loading ? 'bg-gray-400' : 'bg-blue-400 text-white'
+                      loading ? 'bg-gray-400' : 'bg-blue-800 text-white'
                     }`}
                     disabled={loading}
                   >

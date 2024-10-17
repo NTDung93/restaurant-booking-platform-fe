@@ -4,7 +4,7 @@ export default function Footer() {
   const navigate = useNavigate();
 
   return (
-    <footer className="w-full bg-[#312525] text-white relative ">
+    <footer className="w-full bg-[#312525] text-white relative  ">
       <div className="max-w-[90%] md:max-w-[80%] mx-auto flex flex-col md:flex-row justify-between py-8 md:py-10 px-4 md:px-5">
         <div className="w-full md:w-1/4 mb-6 md:mb-0">
           <h3 className="text-md md:text-lg font-bold uppercase">
