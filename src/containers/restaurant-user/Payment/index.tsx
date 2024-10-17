@@ -11,6 +11,7 @@ export default function Payment() {
   const [userPhone, setUserPhone] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [date, setDate] = useState('');
+  const [amout, setAmount] = useState('');
   const [selectedFoods, setSelectedFoods] = useState<
     { name: string; quantity: number }[]
   >([]);
@@ -21,11 +22,13 @@ export default function Payment() {
     const storedEmail = localStorage.getItem('userEmail') || '';
     const storedDate = localStorage.getItem('date') || '';
     const storedFoods = localStorage.getItem('selectedFoods');
+    const storedAmount = localStorage.getItem('amount') || '';
 
     setUserName(storedName);
     setUserPhone(storedPhone);
     setUserEmail(storedEmail);
     setDate(storedDate);
+    setAmount(storedAmount);
 
     if (storedFoods) {
       setSelectedFoods(JSON.parse(storedFoods));
@@ -65,7 +68,7 @@ export default function Payment() {
               </div>
               <div className="mb-4">
                 <p>
-                  <strong>Số tiền thanh toán:</strong> 1.200.000 VND
+                  <strong>Số tiền thanh toán:</strong> {amout} VNĐ
                 </p>
               </div>
 

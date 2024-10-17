@@ -75,7 +75,7 @@ const SignIn: React.FC = () => {
                   Mật khẩu
                 </label>
                 <input
-                  type={showPassword ? 'text' : 'password'} 
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full p-2 border-b-2 border-white bg-transparent text-white focus:outline-none focus:border-gray-200 transition duration-300"

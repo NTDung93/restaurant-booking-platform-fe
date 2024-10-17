@@ -19,10 +19,10 @@ export default function Footer() {
         </div>
 
         <div className="w-full md:w-1/4 mb-6 md:mb-0">
-          <h3 className="text-[#ffe8e8] text-md md:text-lg font-bold uppercase">
+          <h3 className=" text-md md:text-lg font-bold uppercase">
             Thông tin pháp lí
           </h3>
-          <ul className="mt-3 md:mt-4 space-y-1 md:space-y-2 text-xs md:text-sm text-[#ffe8e8] font-normal uppercase">
+          <ul className="mt-3 md:mt-4 space-y-1 md:space-y-2 text-xs md:text-sm  font-normal uppercase">
             <li>Điều khoản dịch vụ</li>
             <li>Chính sách bảo mật</li>
             <li>Chính sách hoàn tiền</li>
@@ -31,10 +31,8 @@ export default function Footer() {
         </div>
 
         <div className="w-full md:w-1/4 mb-6 md:mb-0">
-          <h3 className="text-[#e5e8eb] text-md md:text-lg font-bold uppercase">
-            Hỗ trợ
-          </h3>
-          <ul className="mt-3 md:mt-4 space-y-1 md:space-y-2 text-xs md:text-sm text-[#e5e8eb] font-normal uppercase">
+          <h3 className=" text-md md:text-lg font-bold uppercase">Hỗ trợ</h3>
+          <ul className="mt-3 md:mt-4 space-y-1 md:space-y-2 text-xs md:text-sm  font-normal uppercase">
             <li>Câu hỏi thường gặp (FAQ)</li>
             <li>Hỗ trợ trực tuyến</li>
             <li>Đánh giá và phản hồi</li>
@@ -43,10 +41,8 @@ export default function Footer() {
         </div>
 
         <div className="w-full md:w-1/4 mb-6 md:mb-0">
-          <h3 className="text-[#ffe7e7] text-md md:text-lg font-semibold">
-            Liên hệ
-          </h3>
-          <p className="text-[#ffe7e7] text-xs md:text-sm font-light mt-2">
+          <h3 className=" text-md md:text-lg font-semibold">Liên hệ</h3>
+          <p className=" text-xs md:text-sm font-light mt-2">
             Địa chỉ văn phòng: [Địa chỉ văn phòng]
             <br />
             Thông tin liên lạc: [Thông tin liên lạc]
@@ -56,19 +52,19 @@ export default function Footer() {
             Số điện thoại: (+84) 123 456 789
           </p>
           <div className="mt-4">
-            <h4 className="text-[#ffe7e7] text-md md:text-lg font-semibold">
+            <h4 className=" text-md md:text-lg font-semibold">
               Theo dõi chúng tôi trên mạng xã hội:
             </h4>
-            <p className="text-[#ffe7e7] text-xs md:text-sm font-light mt-2">
+            <p className=" text-xs md:text-sm font-light mt-2">
               Facebook: facebook.com/skedeat
               <br />
               Tiktok: Skedeat
             </p>
           </div>
-          <h4 className="text-[#ffe7e7] text-md md:text-lg font-semibold mt-4">
+          <h4 className=" text-md md:text-lg font-semibold mt-4">
             Đăng ký email
           </h4>
-          <p className="text-[#ffe7e7] text-xs md:text-sm font-light mt-2">
+          <p className=" text-xs md:text-sm font-light mt-2">
             Đăng ký nhận email để nhận thông tin mới nhất về các nhà hàng, món
             ăn, và chương trình khuyến mãi độc quyền.
           </p>
