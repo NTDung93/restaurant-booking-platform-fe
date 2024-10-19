@@ -1,6 +1,6 @@
 import { UserOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 import { getUserInfo } from '@/containers/restaurant-user/Auth/thunks';
@@ -10,6 +10,7 @@ import {
   ABOUT_US_ROUTE,
   BLOG_ROUTE,
   HOME_ROUTE,
+  RESTAURANT_ADMIN_HOME_ROUTE,
   RESTAURANT_ROUTE,
   SIGN_IN_ROUTE,
 } from '@/common/constants/routerConstant';
@@ -20,6 +21,7 @@ export default function Header() {
   const location = useLocation();
   const dispatch = useDispatch<ReduxDispatch>();
   const userInfo = useSelector(selectUserInfo);
+  const navigate = useNavigate();
 
   const handleLinkClick = () => {
     setIsMenuOpen(false);
@@ -32,6 +34,7 @@ export default function Header() {
   const handleLogout = async () => {
     Cookies.remove('access-token');
     Cookies.remove('refresh-token');
+    navigate(HOME_ROUTE);
     window.location.reload();
   };
 
@@ -75,7 +78,6 @@ export default function Header() {
               >
                 Blogs
               </Link>
-
               <Link
                 to={ABOUT_US_ROUTE}
                 className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/about-us' ? 'text-[#D86500] font-bold' : 'text-white'} hover:text-[#D86500]`}
@@ -83,6 +85,15 @@ export default function Header() {
               >
                 Về chúng tôi
               </Link>
+              {userInfo?.roleName === 'LOCATION_ADMIN' && (
+                <Link
+                  to={RESTAURANT_ADMIN_HOME_ROUTE}
+                  className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/about-us' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
+                  onClick={handleLinkClick}
+                >
+                  Quản lý
+                </Link>
+              )}
             </nav>
           </div>
           <div className="flex items-center space-x-2 md:space-x-4">

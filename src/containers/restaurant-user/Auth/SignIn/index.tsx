@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
+import { notification } from 'antd'; // Import Ant Design's notification
 import { ReduxDispatch } from '@/libs/redux/store';
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
@@ -9,15 +9,15 @@ import { useState } from 'react';
 import { signIn } from '../thunks';
 import { HOME_ROUTE, SIGN_UP_ROUTE } from '@/common/constants/routerConstant';
 import { Spin } from 'antd';
-import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'; // Import icon mắt
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 
 const SignIn: React.FC = () => {
   const [userNameOrEmailOrPhone, setUserNameOrEmailOrPhone] =
     useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [showPassword, setShowPassword] = useState(false); // State để điều khiển hiển thị mật khẩu
-  const dispatch = useDispatch<ReduxDispatch>();
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch<ReduxDispatch>();
   const navigate = useNavigate();
 
   const handleSignUp = () => {
@@ -36,6 +36,13 @@ const SignIn: React.FC = () => {
 
     if (signIn.fulfilled.match(resultAction)) {
       navigate(HOME_ROUTE);
+    } else {
+      // Show notification for login failure
+      notification.error({
+        message: 'Đăng nhập không thành công',
+        description: 'Sai tài khoản hoặc mật khẩu.',
+        placement: 'topRight', // Position of the notification
+      });
     }
     setLoading(false);
   };
@@ -75,14 +82,13 @@ const SignIn: React.FC = () => {
                   Mật khẩu
                 </label>
                 <input
-                  type={showPassword ? 'text' : 'password'} // Thay đổi type khi showPassword thay đổi
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full p-2 border-b-2 border-white bg-transparent text-white focus:outline-none focus:border-gray-200 transition duration-300"
                   placeholder="Nhập mật khẩu"
                   required
                 />
-                {/* Button để toggle hiển thị mật khẩu */}
                 <button
                   type="button"
                   className="absolute right-3 top-10 text-white focus:outline-none"

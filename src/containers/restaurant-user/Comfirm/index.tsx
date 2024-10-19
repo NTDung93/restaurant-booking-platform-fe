@@ -10,15 +10,23 @@ import { fetchFoodByLocation } from './components/FoodSelectionModal/thunks';
 import { createBooking } from './thunks';
 import { ReduxDispatch } from '@/libs/redux/store';
 import { toast, ToastContainer } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
 
 // import VoucherModal from './components/VoucherModal';
 import PromotionModal from './components/PromotionModal';
 import { selectPromotionByLocation } from './components/PromotionModal/selector';
 import { fetchPromotionByLocation } from './components/PromotionModal/thunks';
+import { Spin } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import {
+  PAYMENT_ROUTE,
+  SUCCESSS_ROUTE,
+} from '@/common/constants/routerConstant';
 
 export default function Confirm() {
   const dispatch = useDispatch<ReduxDispatch>();
+  const navigate = useNavigate();
   const foodsPaginationResponse = useSelector(selectFoodByLocation);
   const promotions = useSelector(selectPromotionByLocation);
 
@@ -26,13 +34,15 @@ export default function Confirm() {
   const [phone, setPhone] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [notes, setNotes] = useState<string>('');
-  const [voucher, setVoucher] = useState<string>('');
+  const [loading, setLoading] = useState(false);
+
+  // const [voucher, setVoucher] = useState<string>('');
   const [promotion, setPromotion] = useState<string>('');
   const [selectedFoods, setSelectedFoods] = useState<
     { name: string; quantity: number }[]
   >([]);
-  // const [selectedPaymentMethod, setSelectedPaymentMethod] =
-  //   useState<string>('');
+  const [selectedPaymentMethod, setSelectedPaymentMethod] =
+    useState<string>('');
   const [reservationData, setReservationData] = useState<ReservationData>({
     restaurantName: localStorage.getItem('restaurantName') || '',
     location: localStorage.getItem('address') || '',
@@ -88,32 +98,39 @@ export default function Confirm() {
 
   const clearSelectedFoods = () => {
     setSelectedFoods([]);
-    // setSelectedPaymentMethod('');
+    setSelectedPaymentMethod('');
   };
 
-  const removeVoucher = () => {
-    setVoucher('');
-  };
+  // const removeVoucher = () => {
+  //   setVoucher('');
+  // };
 
   const removePromotion = () => {
     setPromotion('');
   };
 
-  // const handlePaymentMethodChange = (method: string) => {
-  //   setSelectedPaymentMethod(method);
-  // };
+  const handlePaymentMethodChange = (method: string) => {
+    setSelectedPaymentMethod(method);
+  };
 
-  // useEffect(() => {
-  //   if (isVoucherModalOpen || isPromotionModalOpen || isFoodModalOpen) {
-  //     document.body.style.overflow = 'hidden';
-  //   } else {
-  //     document.body.style.overflow = 'unset';
-  //   }
+  useEffect(() => {
+    if (/*isVoucherModalOpen ||*/ isPromotionModalOpen || isFoodModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
 
-  //   return () => {
-  //     document.body.style.overflow = 'unset';
-  //   };
-  // }, [isVoucherModalOpen, isPromotionModalOpen, isFoodModalOpen]);
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [/*isVoucherModalOpen,*/ isPromotionModalOpen, isFoodModalOpen]);
+  useEffect(() => {
+    if (selectedFoods.length > 0) {
+      localStorage.setItem('selectedFoods', JSON.stringify(selectedFoods));
+    } else {
+      localStorage.removeItem('selectedFoods');
+    }
+  }, [selectedFoods]);
 
   useEffect(() => {
     const locationId = localStorage.getItem('locationId');
@@ -123,52 +140,122 @@ export default function Confirm() {
     }
   }, [dispatch]);
 
-  const handleConfirmBooking = () => {
-    const locationId = localStorage.getItem('locationId');
+  const handlePayment = async () => {
+    setLoading(true);
 
-    const foodBookings = selectedFoods
-      .map((food) => {
-        const foodItem = foodsPaginationResponse?.content?.find(
-          (item) => item.name === food.name,
+    try {
+      const locationId = localStorage.getItem('locationId');
+
+      const foodBookings = selectedFoods
+        .map((food) => {
+          const foodItem = foodsPaginationResponse?.content?.find(
+            (item) => item.name === food.name,
+          );
+          if (foodItem && foodItem.id !== undefined) {
+            return {
+              foodId: foodItem.id,
+              quantity: food.quantity,
+            };
+          }
+          return null;
+        })
+        .filter(
+          (foodBooking): foodBooking is { foodId: number; quantity: number } =>
+            foodBooking !== null,
         );
-        if (foodItem && foodItem.id !== undefined) {
-          return {
-            foodId: foodItem.id,
-            quantity: food.quantity,
-          };
-        }
-        return null;
-      })
-      .filter(
-        (foodBooking): foodBooking is { foodId: number; quantity: number } =>
-          foodBooking !== null,
-      );
 
-    const selectedPromotion = (
-      Array.isArray(promotions) ? promotions : []
-    ).find((promo) => promo.title === promotion);
-    const promotionId = selectedPromotion ? selectedPromotion.id : 0;
+      const selectedPromotion = (
+        Array.isArray(promotions) ? promotions : []
+      ).find((promo) => promo.title === promotion);
+      const promotionId = selectedPromotion ? selectedPromotion.id : 0;
 
-    const bookingData = {
-      id: 0,
-      name,
-      address: 'string',
-      phone,
-      bookingDate: reservationData.date,
-      bookingTime: reservationData.time,
-      numberOfAdult: reservationData.adults,
-      numberOfChildren: reservationData.children,
-      locationId: parseInt(locationId || '0'),
-      voucherId: 0,
-      promotionId: promotionId,
-      foodBookings,
-    };
+      const bookingData = {
+        id: 0,
+        name,
+        address: 'string',
+        phone,
+        bookingDate: reservationData.date,
+        bookingTime: reservationData.time,
+        numberOfAdult: reservationData.adults,
+        numberOfChildren: reservationData.children,
+        locationId: parseInt(locationId || '0'),
+        voucherId: 0,
+        promotionId: promotionId,
+        foodBookings,
+      };
 
-    dispatch(createBooking(bookingData));
-    toast.success('Đặt bàn thành công!', {
-      position: 'top-right',
-      autoClose: 3000,
-    });
+      await dispatch(createBooking(bookingData));
+      toast.success('Đặt bàn thành công!', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
+
+      navigate(PAYMENT_ROUTE);
+    } catch (error) {
+      toast.error('Có lỗi xảy ra. Vui lòng thử lại sau.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleConfirmBooking = async () => {
+    setLoading(true);
+    try {
+      const locationId = localStorage.getItem('locationId');
+
+      const foodBookings = selectedFoods
+        .map((food) => {
+          const foodItem = foodsPaginationResponse?.content?.find(
+            (item) => item.name === food.name,
+          );
+          if (foodItem && foodItem.id !== undefined) {
+            return {
+              foodId: foodItem.id,
+              quantity: food.quantity,
+            };
+          }
+          return null;
+        })
+        .filter(
+          (foodBooking): foodBooking is { foodId: number; quantity: number } =>
+            foodBooking !== null,
+        );
+
+      const selectedPromotion = (
+        Array.isArray(promotions) ? promotions : []
+      ).find((promo) => promo.title === promotion);
+      const promotionId = selectedPromotion ? selectedPromotion.id : 0;
+
+      const bookingData = {
+        id: 0,
+        name,
+        address: 'string',
+        phone,
+        bookingDate: reservationData.date,
+        bookingTime: reservationData.time,
+        numberOfAdult: reservationData.adults,
+        numberOfChildren: reservationData.children,
+        locationId: parseInt(locationId || '0'),
+        voucherId: 0,
+        promotionId: promotionId,
+        foodBookings,
+      };
+
+      await dispatch(createBooking(bookingData));
+      toast.success('Đặt bàn thành công!', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
+
+      navigate(SUCCESSS_ROUTE);
+    } catch (error) {
+      toast.error('Đặt bàn thất bại!', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -356,7 +443,7 @@ export default function Confirm() {
                 >
                   Chọn voucher
                 </button> */}
-
+                {/* 
                 {voucher && (
                   <div className="mt-4 flex justify-between items-center">
                     <p className="text-gray-700">
@@ -370,7 +457,7 @@ export default function Confirm() {
                       Xóa
                     </button>
                   </div>
-                )}
+                )} */}
 
                 {selectedFoods.length > 0 && (
                   <>
@@ -401,12 +488,14 @@ export default function Confirm() {
                   </>
                 )}
 
-                {/* {selectedFoods.length > 0 && (
+                {selectedFoods.length > 0 && (
                   <div className="mt-6">
                     <h2 className="text-lg font-semibold">
                       Phương thức thanh toán
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div className="grid grid-cols-1 gap-4 mt-4">
+                      {' '}
+                      {/* Đổi thành grid-cols-1 */}
                       <button
                         type="button"
                         onClick={() => handlePaymentMethodChange('ZaloPay')}
@@ -421,34 +510,37 @@ export default function Confirm() {
                           alt="ZaloPay"
                           className="w-20 h-20 mb-2 rounded-lg ml-2 mr-2"
                         />
-                        ZaloPay
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handlePaymentMethodChange('MoMo')}
-                        className={`flex items-center py-2 rounded-md ${
-                          selectedPaymentMethod === 'MoMo'
-                            ? 'bg-green-500 text-white'
-                            : 'bg-gray-200'
-                        }`}
-                      >
-                        <img
-                          src="https://th.bing.com/th/id/OIP.1GNvjAZu4hlbE0bWflshGwHaHa?w=169&h=180&c=7&r=0&o=5&pid=1.7"
-                          alt="MoMo"
-                          className="w-20 h-20 mb-2 rounded-lg mr-2 ml-2"
-                        />
-                        MoMo
+                        Ngân hàng
                       </button>
                     </div>
                   </div>
-                )} */}
-                <button
-                  type="button"
-                  onClick={handleConfirmBooking}
-                  className="w-full bg-gray-400 text-white py-2 rounded-md"
-                >
-                  Xác nhận
-                </button>
+                )}
+
+                {selectedFoods.length > 0 ? (
+                  // Nút Thanh toán
+                  <button
+                    type="button"
+                    onClick={handlePayment}
+                    className={`w-full py-2 rounded-md ${
+                      loading ? 'bg-gray-400' : 'bg-blue-800 text-white'
+                    }`}
+                    disabled={loading}
+                  >
+                    {loading ? <Spin size="small" /> : 'Thanh toán'}
+                  </button>
+                ) : (
+                  // Nút Xác nhận
+                  <button
+                    type="button"
+                    onClick={handleConfirmBooking}
+                    className={`w-full py-2 rounded-md ${
+                      loading ? 'bg-gray-400' : 'bg-blue-800 text-white'
+                    }`}
+                    disabled={loading}
+                  >
+                    {loading ? <Spin size="small" /> : 'Xác nhận'}
+                  </button>
+                )}
               </div>
             </div>
           </form>

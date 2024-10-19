@@ -12,18 +12,24 @@ export interface BookingByLocationSliceState {
   bookingsPaginationResponse: ResponseEntityPagination<Booking> | undefined;
   status: ApiStatus;
   createBookingStatus: ApiStatus;
+  newBooking: Booking | null;
 }
 
 const initialState: BookingByLocationSliceState = {
   bookingsPaginationResponse: undefined,
   status: ApiStatus.Idle,
   createBookingStatus: ApiStatus.Idle,
+  newBooking: null,
 };
 
 const bookingByLocationSlice = createSlice({
   name: 'bookingByLocation',
   initialState,
-  reducers: {},
+  reducers: {
+    resetNewBooking: (state) => {
+      state.newBooking = null;
+    },
+  },
   extraReducers: (builder) => {
     setBookingByLocationResponse(builder);
     setCreateBookingResponse(builder);
@@ -65,12 +71,19 @@ function setCreateBookingResponse(
     .addCase(createBooking.pending, (state: BookingByLocationSliceState) => {
       state.createBookingStatus = ApiStatus.Loading;
     })
-    .addCase(createBooking.fulfilled, (state: BookingByLocationSliceState) => {
-      state.createBookingStatus = ApiStatus.Fulfilled;
-    })
+    .addCase(
+      createBooking.fulfilled,
+      (state: BookingByLocationSliceState, action: PayloadAction<Booking>) => {
+        state.createBookingStatus = ApiStatus.Fulfilled;
+
+        state.newBooking = action.payload;
+      },
+    )
     .addCase(createBooking.rejected, (state: BookingByLocationSliceState) => {
       state.createBookingStatus = ApiStatus.Failed;
     });
 }
+
+export const { resetNewBooking } = bookingByLocationSlice.actions;
 
 export default bookingByLocationSlice.reducer;

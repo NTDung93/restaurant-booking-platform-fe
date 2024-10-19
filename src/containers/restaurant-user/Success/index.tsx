@@ -9,6 +9,14 @@ export default function Success() {
     navigate('/');
   };
 
+  const restaurantName = localStorage.getItem('restaurantName') || 'Nhà hàng';
+  const address =
+    localStorage.getItem('address') || 'Địa chỉ chưa được cung cấp';
+  const date = localStorage.getItem('date') || 'Ngày chưa được cung cấp';
+  const time = localStorage.getItem('time') || 'Thời gian chưa được cung cấp';
+  const adults = localStorage.getItem('adults') || '0';
+  const children = localStorage.getItem('children') || '0';
+
   return (
     <>
       <div className="flex flex-col min-h-screen">
@@ -36,11 +44,26 @@ export default function Success() {
               Đặt bàn của bạn đã được xác nhận. Chúng tôi rất mong được phục vụ
               bạn!
             </p>
-            {/* <div className="mb-6">
-                        <p><strong>Date:</strong> October 20, 2024</p>
-                        <p><strong>Time:</strong> 7:00 PM</p>
-                        <p><strong>Guests:</strong> 4 People</p>
-                    </div> */}
+            <div className="mb-6">
+              <p>
+                <strong>Nhà hàng:</strong> {restaurantName}
+              </p>
+              <p>
+                <strong>Địa chỉ:</strong> {address}
+              </p>
+              <p>
+                <strong>Ngày:</strong> {date}
+              </p>
+              <p>
+                <strong>Thời gian:</strong> {time}
+              </p>
+              <p>
+                <strong>Người lớn:</strong> {adults} Người
+              </p>
+              <p>
+                <strong>Trẻ em:</strong> {children} Người
+              </p>
+            </div>
             <button
               onClick={handleBacktoHome}
               className="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600"

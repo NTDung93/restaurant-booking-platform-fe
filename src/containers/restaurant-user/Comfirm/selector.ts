@@ -7,3 +7,5 @@ export const selectBookingStatus = (state: ReduxState) => state.booking.status;
 
 export const selectCreateBookingStatus = (state: ReduxState) =>
   state.booking.createBookingStatus;
+
+export const selectNewBooking = (state: ReduxState) => state.booking.newBooking;
