@@ -72,11 +72,11 @@ export default function AboutUs() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="flex-grow">
+    <div className="flex flex-col min-h-screen ">
+      <div className="flex-grow my-10">
         <Header />
         <div className="p-4 mx-auto max-w-screen-lg w-11/12">
-          <h1 className="text-2xl font-bold mb-4">Giới thiệu về SkedEat</h1>
+          <h1 className="text-4xl font-bold mb-4">Giới thiệu về SkedEat</h1>
           <p className="mb-4">
             SkedEat là nền tảng booking trực tuyến dành cho quán ăn, nhà hàng.
             Chờ đợi và không biết ăn gì luôn là nỗi lo âu đối với khách hàng.
@@ -99,48 +99,58 @@ export default function AboutUs() {
             chúng tôi luôn sẵn sàng giải quyết mọi thắc mắc và hỗ trợ nhanh
             chóng.
           </p>
-          <h2 className="text-xl font-semibold mb-2">
+          <h2 className="text-xl font-semibold mb-2 text-[#FF0000]">
             Quyền lợi khách hàng khi sử dụng SkedEat
           </h2>
           <ul className="list-disc pl-6 mb-4">
-            <li>
+            <li className="mb-3">
               Đặt bàn dễ dàng và nhanh chóng: Khách hàng có thể dễ dàng đặt bàn
               tại nhà hàng yêu thích chỉ với vài cú nhấp chuột, mà không cần
               phải chờ đợi hoặc gọi điện xác nhận.
             </li>
-            <li>
+            <li className="mb-3">
               Ưu đãi và khuyến mãi hấp dẫn: SkedEat thường xuyên có các chương
               trình ưu đãi, khuyến mãi đặc biệt dành cho khách hàng mới và khách
               hàng thân thiết.
             </li>
-            <li>
+            <li className="mb-3">
               Đa dạng nhà hàng, nhiều lựa chọn ẩm thực: SkedEat hợp tác với
               nhiều nhà hàng, từ quán ăn đường phố đến nhà hàng cao cấp.
             </li>
-            <li>
+            <li className="mb-3">
               Xem đánh giá và thực đơn trước khi đặt bàn: Khách hàng có thể xem
               thực đơn, hình ảnh và đánh giá từ các khách hàng trước đó.
             </li>
-            <li>
+            <li className="mb-3">
               Hỗ trợ khách hàng chuyên nghiệp: Đội ngũ chăm sóc khách hàng của
               SkedEat luôn sẵn sàng hỗ trợ bạn 24/7.
             </li>
-            <li>
+            <li className="mb-3">
               Tiện lợi, không cần thanh toán trước: Việc đặt bàn qua SkedEat
               hoàn toàn miễn phí.
             </li>
           </ul>
-          <h2 className="text-xl font-semibold mb-2">
+          <h2 className="text-xl font-semibold mb-2 text-[#FF0000]">
             Quyền lợi đối tác khi hợp tác với SkedEat
           </h2>
           <ul className="list-disc pl-6 mb-4">
-            <li>Tiếp cận lượng khách hàng tiềm năng lớn.</li>
-            <li>Quảng bá thương hiệu hiệu quả.</li>
-            <li>Hỗ trợ truyền thông và marketing.</li>
-            <li>Quản lý đặt bàn thông minh.</li>
-            <li>Tăng doanh thu từ các chương trình khuyến mãi.</li>
-            <li>Hỗ trợ kỹ thuật và chăm sóc đối tác.</li>
+            <li className="mb-3">Tiếp cận lượng khách hàng tiềm năng lớn.</li>
+            <li className="mb-3">Quảng bá thương hiệu hiệu quả.</li>
+            <li className="mb-3">Hỗ trợ truyền thông và marketing.</li>
+            <li className="mb-3">Quản lý đặt bàn thông minh.</li>
+            <li className="mb-3">
+              Tăng doanh thu từ các chương trình khuyến mãi.
+            </li>
+            <li className="mb-3">Hỗ trợ kỹ thuật và chăm sóc đối tác.</li>
           </ul>
+
+          <div className="w-full my-[80px]">
+            <img
+              src="https://res.cloudinary.com/dpysbryyk/image/upload/v1729328097/SkedEatProcess.png"
+              alt="full-width"
+              className="w-full h-auto"
+            />
+          </div>
 
           {/* Phần Câu Hỏi Thường Gặp (FAQ) */}
           <div className="mt-8">

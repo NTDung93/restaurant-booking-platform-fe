@@ -38,6 +38,8 @@ export default function Header() {
     window.location.reload();
   };
 
+  const hideSignInButton = ['/signin', '/signup'].includes(location.pathname);
+
   return (
     <>
       <header className="w-full h-[80px] md:h-[100px] bg-[#312525] fixed top-0 left-0 z-50">
@@ -57,28 +59,28 @@ export default function Header() {
               <a></a>
               <Link
                 to={HOME_ROUTE}
-                className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
+                className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/' ? 'text-[#D86500] font-bold' : 'text-white'} hover:text-[#D86500]`}
                 onClick={handleLinkClick}
               >
                 Trang chủ
               </Link>
               <Link
                 to={RESTAURANT_ROUTE}
-                className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/restaurant' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
+                className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/restaurant' ? 'text-[#D86500] font-bold' : 'text-white'} hover:text-[#D86500]`}
                 onClick={handleLinkClick}
               >
                 Gần bạn
               </Link>
               <Link
                 to={BLOG_ROUTE}
-                className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/blog' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
+                className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/blog' ? 'text-[#D86500] font-bold' : 'text-white'} hover:text-[#D86500]`}
                 onClick={handleLinkClick}
               >
                 Blogs
               </Link>
               <Link
                 to={ABOUT_US_ROUTE}
-                className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/about-us' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
+                className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/about-us' ? 'text-[#D86500] font-bold' : 'text-white'} hover:text-[#D86500]`}
                 onClick={handleLinkClick}
               >
                 Về chúng tôi
@@ -132,12 +134,14 @@ export default function Header() {
                 )}
               </div>
             ) : (
-              <Link
-                to={SIGN_IN_ROUTE}
-                className={`text-lg md:text-xl ${location.pathname === '/' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
-              >
-                Đăng nhập
-              </Link>
+              !hideSignInButton && (
+                <Link
+                  to={SIGN_IN_ROUTE}
+                  className="text-lg px-5 py-3 font-bold bg-[#D86500] md:text-xl text-white rounded-xl hover:bg-[#f48c42] transition-colors duration-300"
+                >
+                  Đăng nhập
+                </Link>
+              )
             )}
 
             <button
