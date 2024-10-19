@@ -1,15 +1,20 @@
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ReduxDispatch } from '@/libs/redux/store';
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
 import { pick } from 'lodash';
-import { useState } from 'react';
-import { signIn } from '../thunks';
-import { HOME_ROUTE, SIGN_UP_ROUTE } from '@/common/constants/routerConstant';
+import { useEffect, useState } from 'react';
+import { getUserInfo, signIn } from '../thunks';
+import {
+  HOME_ROUTE,
+  RESTAURANT_ADMIN_HOME_ROUTE,
+  SIGN_UP_ROUTE,
+} from '@/common/constants/routerConstant';
 import { Spin } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'; // Import icon mắt
+import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
 
 const SignIn: React.FC = () => {
   const [userNameOrEmailOrPhone, setUserNameOrEmailOrPhone] =
@@ -19,6 +24,7 @@ const SignIn: React.FC = () => {
   const dispatch = useDispatch<ReduxDispatch>();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const userInfo = useSelector(selectUserInfo);
 
   const handleSignUp = () => {
     navigate(SIGN_UP_ROUTE);
@@ -35,10 +41,18 @@ const SignIn: React.FC = () => {
     const resultAction = await dispatch(signIn(accountSignIn));
 
     if (signIn.fulfilled.match(resultAction)) {
-      navigate(HOME_ROUTE);
+      dispatch(getUserInfo());
+      userInfo?.roleName === 'USER'
+        ? navigate(HOME_ROUTE)
+        : navigate(RESTAURANT_ADMIN_HOME_ROUTE);
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    // Cuộn về đầu trang mỗi khi vào component này
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">

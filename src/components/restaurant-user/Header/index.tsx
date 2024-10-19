@@ -1,9 +1,8 @@
 import { UserOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Cookies from 'js-cookie';
-import { getUserInfo } from '@/containers/restaurant-user/Auth/thunks';
+import { getUserInfo, logout } from '@/containers/restaurant-user/Auth/thunks';
 import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
 import { ReduxDispatch } from '@/libs/redux/store';
 import {
@@ -13,6 +12,8 @@ import {
   RESTAURANT_ROUTE,
   SIGN_IN_ROUTE,
 } from '@/common/constants/routerConstant';
+import { clearUserInfo } from '@/containers/restaurant-user/Auth/slice';
+import Cookies from 'js-cookie';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,6 +21,7 @@ export default function Header() {
   const location = useLocation();
   const dispatch = useDispatch<ReduxDispatch>();
   const userInfo = useSelector(selectUserInfo);
+  const navigate = useNavigate();
 
   const handleLinkClick = () => {
     setIsMenuOpen(false);
@@ -30,9 +32,12 @@ export default function Header() {
   }, [dispatch]);
 
   const handleLogout = async () => {
+    await dispatch(logout());
+    await dispatch(clearUserInfo());
     Cookies.remove('access-token');
     Cookies.remove('refresh-token');
-    window.location.reload();
+
+    navigate(HOME_ROUTE);
   };
 
   const hideSignInButton = ['/signin', '/signup'].includes(location.pathname);

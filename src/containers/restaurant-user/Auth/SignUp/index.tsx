@@ -4,7 +4,7 @@ import { signUp } from '@/containers/restaurant-user/Auth/thunks';
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReduxDispatch } from '@/libs/redux/store';
 import { HOME_ROUTE, SIGN_IN_ROUTE } from '@/common/constants/routerConstant';
 import { Spin } from 'antd';
@@ -62,6 +62,11 @@ export default function SignUp() {
   const handleSignIn = () => {
     navigate(SIGN_IN_ROUTE);
   };
+
+  useEffect(() => {
+    // Cuộn về đầu trang mỗi khi vào component này
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
