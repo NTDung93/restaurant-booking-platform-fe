@@ -10,6 +10,7 @@ import {
   ABOUT_US_ROUTE,
   BLOG_ROUTE,
   HOME_ROUTE,
+  RESTAURANT_ADMIN_HOME_ROUTE,
   RESTAURANT_ROUTE,
   SIGN_IN_ROUTE,
 } from '@/common/constants/routerConstant';
@@ -75,7 +76,6 @@ export default function Header() {
               >
                 Blogs
               </Link>
-
               <Link
                 to={ABOUT_US_ROUTE}
                 className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/about-us' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
@@ -83,6 +83,15 @@ export default function Header() {
               >
                 Về chúng tôi
               </Link>
+              {userInfo?.roleName === 'LOCATION_ADMIN' && (
+                <Link
+                  to={RESTAURANT_ADMIN_HOME_ROUTE}
+                  className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/about-us' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
+                  onClick={handleLinkClick}
+                >
+                  Quản lý
+                </Link>
+              )}
             </nav>
           </div>
           <div className="flex items-center space-x-2 md:space-x-4">

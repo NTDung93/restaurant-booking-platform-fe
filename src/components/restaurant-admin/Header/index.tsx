@@ -1,12 +1,28 @@
 import { HOME_ROUTE } from '@/common/constants/routerConstant';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
+import { useState } from 'react';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
+  const userInfo = useSelector(selectUserInfo);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    Cookies.remove('access-token');
+    Cookies.remove('refresh-token');
+    navigate(HOME_ROUTE);
+    window.location.reload();
+  };
+
   return (
     <>
       <header className="w-full h-[80px] md:h-[100px] bg-[#312525] fixed top-0 left-0 z-50">
-        <div className="max-w-[98.5%]  mx-auto h-full flex items-center justify-between">
+        <div className="max-w-[98.5%] mx-auto h-full flex items-center justify-between">
           <div className="flex items-center space-x-2 md:space-x-4">
             <Link to={HOME_ROUTE}>
               <img
@@ -19,7 +35,7 @@ export default function Header() {
               className={`md:flex space-x-4 md:space-x-10 ml-0 flex-col md:flex-row absolute md:static left-0 top-[80px] w-full md:w-auto bg-[#312525] md:bg-transparent`}
               style={{ marginLeft: '0px' }}
             >
-              <a href="#"> </a>
+              <a></a>
               <Link
                 to={HOME_ROUTE}
                 className="text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0"
@@ -35,15 +51,39 @@ export default function Header() {
             </nav>
           </div>
           <div className="flex items-center space-x-2 md:space-x-4">
-            <Link
-              to="/signin"
-              className="text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0"
-            >
-              Đăng nhập
-            </Link>
-            <div className="w-[40px] md:w-[50px] h-[40px] md:h-[49px] bg-[#d9d9d9] rounded-full flex items-center justify-center">
-              <UserOutlined style={{ fontSize: '24px' }} />
-            </div>
+            {userInfo ? (
+              <>
+                <span className="text-white text-lg md:text-xl">
+                  Xin chào, {userInfo.userName}
+                </span>
+                <div className="relative">
+                  <div
+                    className="w-[40px] md:w-[50px] h-[40px] md:h-[49px] bg-[#d9d9d9] rounded-full flex items-center justify-center cursor-pointer"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  >
+                    <UserOutlined style={{ fontSize: '24px' }} />
+                  </div>
+
+                  {isDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-[200px] bg-white shadow-lg rounded-lg overflow-hidden z-50">
+                      <button
+                        onClick={handleLogout}
+                        className="block w-full text-left px-4 py-2 text-black hover:bg-gray-100"
+                      >
+                        Đăng xuất
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </>
+            ) : (
+              <Link
+                to="/signin"
+                className="text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0"
+              >
+                Đăng nhập
+              </Link>
+            )}
           </div>
         </div>
       </header>
