@@ -10,7 +10,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dispatch = useDispatch<ReduxDispatch>();
   const userInfo = useSelector(selectUserInfo);
@@ -31,9 +30,9 @@ export default function Header() {
   return (
     <>
       <header className="w-full h-[80px] md:h-[100px] bg-[#312525] fixed top-0 left-0 z-50">
-        <div className="max-w-[98.5%]  mx-auto h-full flex items-center justify-between">
+        <div className="max-w-[98.5%] mx-auto h-full flex items-center justify-between">
           <div className="flex items-center space-x-2 md:space-x-4">
-            <Link to={HOME_ROUTE}>
+            <Link to={'#'}>
               <img
                 className="w-[150px] h-auto"
                 src="https://res.cloudinary.com/dnslrwedn/image/upload/v1727033229/SKEDEAT_logo_tr%E1%BA%AFng-01_rrkx3o.png"
@@ -44,7 +43,7 @@ export default function Header() {
               className={`md:flex space-x-4 md:space-x-10 ml-0 flex-col md:flex-row absolute md:static left-0 top-[80px] w-full md:w-auto bg-[#312525] md:bg-transparent`}
               style={{ marginLeft: '0px' }}
             >
-              <a href="#"> </a>
+              <a></a>
               <Link
                 to={'#'}
                 className="text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0"
@@ -104,13 +103,6 @@ export default function Header() {
                 Đăng nhập
               </Link>
             )}
-
-            <button
-              className="md:hidden text-white text-2xl"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? '✖️' : '☰'}
-            </button>
           </div>
         </div>
       </header>

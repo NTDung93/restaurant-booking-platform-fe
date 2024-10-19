@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ReduxDispatch } from '@/libs/redux/store';
 import { HOME_ROUTE, SIGN_IN_ROUTE } from '@/common/constants/routerConstant';
-import { Spin } from 'antd';
+import { Spin, notification } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 
 export default function SignUp() {
@@ -39,10 +39,48 @@ export default function SignUp() {
     }));
   };
 
+  const openNotification = (message: string, description?: string) => {
+    notification.error({
+      message,
+      description,
+      placement: 'topRight',
+      duration: 2.5,
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    for (const key in formData) {
+      if (formData[key as keyof AccountSignUp] === '') {
+        openNotification('Thiếu thông tin', `Vui lòng nhập ${key}`);
+        return;
+      }
+    }
+
+    const passwordValidationRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/;
+    if (!passwordValidationRegex.test(formData.password)) {
+      openNotification(
+        'Mật khẩu không hợp lệ',
+        'Mật khẩu phải có ít nhất 8 ký tự, 1 chữ in hoa và 1 ký tự đặc biệt!',
+      );
+      return;
+    }
+
     if (formData.password !== confirmPassword) {
-      alert('Mật khẩu không khớp!');
+      openNotification(
+        'Mật khẩu không khớp',
+        'Vui lòng xác nhận mật khẩu đúng!',
+      );
+      return;
+    }
+
+    const phoneValidationRegex = /^\d{10}$/;
+    if (!phoneValidationRegex.test(formData.phone)) {
+      openNotification(
+        'Số điện thoại không hợp lệ',
+        'Số điện thoại phải có đúng 10 chữ số!',
+      );
       return;
     }
 
@@ -53,7 +91,7 @@ export default function SignUp() {
       navigate(HOME_ROUTE);
     } catch (error) {
       console.error('Đăng ký thất bại:', error);
-      alert('Đăng ký thất bại! Vui lòng kiểm tra lại thông tin.');
+      openNotification('Đăng ký thất bại', 'Vui lòng kiểm tra lại thông tin.');
     } finally {
       setLoading(false);
     }
@@ -74,7 +112,7 @@ export default function SignUp() {
         <Header />
 
         <div
-          className="flex flex-col justify-center items-center h-screen px-4"
+          className="flex flex-col justify-center items-center px-4 "
           style={{
             backgroundImage:
               "url('https://res.cloudinary.com/dnslrwedn/image/upload/v1726239862/image_6_cirsev.png')",
@@ -131,7 +169,6 @@ export default function SignUp() {
                       onChange={handleChange}
                       required
                     />
-                    {/* Button để toggle hiển thị mật khẩu */}
                     <button
                       type="button"
                       className="absolute right-3 top-10 text-white focus:outline-none"
