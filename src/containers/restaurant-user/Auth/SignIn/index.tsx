@@ -37,11 +37,10 @@ const SignIn: React.FC = () => {
     if (signIn.fulfilled.match(resultAction)) {
       navigate(HOME_ROUTE);
     } else {
-      // Show notification for login failure
       notification.error({
         message: 'Đăng nhập không thành công',
         description: 'Sai tài khoản hoặc mật khẩu.',
-        placement: 'topRight', // Position of the notification
+        placement: 'topRight',
       });
     }
     setLoading(false);

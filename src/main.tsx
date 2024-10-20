@@ -31,6 +31,7 @@ import {
   HOME_ROUTE,
   PAYMENT_ROUTE,
   RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE,
+  RESTAURANT_ADMIN_DETAIL_TABLE_BOOKING_ROUTE,
   RESTAURANT_ADMIN_HOME_ROUTE,
   RESTAURANT_DETAIL_ROUTE,
   RESTAURANT_ROUTE,
@@ -43,6 +44,7 @@ import {
 } from './common/constants/routerConstant';
 import SuccessPage from './app/[locale]/restaurant-user/Success/page';
 import PaymentPage from './app/[locale]/restaurant-user/Payment/page';
+import ManageTableBookingDetailPage from './app/[locale]/restaurant-admin/ManageBookingTableDetail/page';
 
 const router = createBrowserRouter([
   {
@@ -123,6 +125,10 @@ const router = createBrowserRouter([
   {
     path: RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE,
     element: <ManageTableBookingAllPage />,
+  },
+  {
+    path: RESTAURANT_ADMIN_DETAIL_TABLE_BOOKING_ROUTE,
+    element: <ManageTableBookingDetailPage />,
   },
 ]);
 
