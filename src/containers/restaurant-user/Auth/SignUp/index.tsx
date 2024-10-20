@@ -112,15 +112,15 @@ export default function SignUp() {
         <Header />
 
         <div
-          className="flex flex-col justify-center items-center px-4 "
+          className="flex flex-col justify-center items-center px-4 py-10"
           style={{
             backgroundImage:
               "url('https://res.cloudinary.com/dnslrwedn/image/upload/v1726239862/image_6_cirsev.png')",
           }}
         >
-          <div className="max-w-[95%] sm:max-w-[85%] md:max-w-[75%] lg:max-w-[65%] w-full mx-auto flex flex-col items-center bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="w-full h-full p-6 sm:p-8 md:p-10 lg:p-12 bg-[#d86500] text-white flex flex-col justify-center items-center">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8">
+          <div className="max-w-[90%] sm:max-w-[60%] md:max-w-[50%] lg:max-w-[35%] w-full mx-auto flex flex-col items-center bg-white shadow-lg rounded-lg overflow-hidden">
+            <div className="w-full h-full p-6 sm:p-8 md:p-10 bg-[#d86500] text-white flex flex-col justify-center items-center">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
                 Đăng ký
               </h2>
 

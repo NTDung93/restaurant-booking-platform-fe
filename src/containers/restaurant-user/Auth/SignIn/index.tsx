@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ReduxDispatch } from '@/libs/redux/store';
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
@@ -13,7 +13,6 @@ import {
 } from '@/common/constants/routerConstant';
 import { Spin, notification } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
-import { selectUserInfo } from '../selector';
 
 const SignIn: React.FC = () => {
   const [userNameOrEmailOrPhone, setUserNameOrEmailOrPhone] =
@@ -23,7 +22,6 @@ const SignIn: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch<ReduxDispatch>();
   const navigate = useNavigate();
-  const userInfo = useSelector(selectUserInfo);
 
   const handleSignUp = () => {
     navigate(SIGN_UP_ROUTE);
@@ -40,25 +38,35 @@ const SignIn: React.FC = () => {
     const resultAction = await dispatch(signIn(accountSignIn));
 
     if (signIn.fulfilled.match(resultAction)) {
-      dispatch(getUserInfo());
-      userInfo?.roleName === 'USER'
-        ? navigate(HOME_ROUTE)
-        : navigate(RESTAURANT_ADMIN_HOME_ROUTE);
+      const userInfoAction = await dispatch(getUserInfo());
+
+      if (getUserInfo.fulfilled.match(userInfoAction)) {
+        const userInfo = userInfoAction.payload;
+        if (userInfo.roleName === 'USER') {
+          navigate(HOME_ROUTE);
+        } else {
+          navigate(RESTAURANT_ADMIN_HOME_ROUTE);
+        }
+      } else {
+        notification.error({
+          message: 'Không thể lấy thông tin người dùng',
+          description: 'Vui lòng thử lại sau.',
+          placement: 'topRight',
+        });
+      }
     } else {
-      // Show notification for login failure
       notification.error({
         message: 'Đăng nhập không thành công',
         description: 'Sai tài khoản hoặc mật khẩu.',
-        placement: 'topRight', // Position of the notification
+        placement: 'topRight',
       });
     }
     setLoading(false);
   };
 
   useEffect(() => {
-    // Cuộn về đầu trang mỗi khi vào component này
     window.scrollTo(0, 0);
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -70,9 +78,9 @@ const SignIn: React.FC = () => {
             "url('https://res.cloudinary.com/dnslrwedn/image/upload/v1726239862/image_6_cirsev.png')",
         }}
       >
-        <div className="max-w-[95%] sm:max-w-[85%] md:max-w-[75%] lg:max-w-[65%] w-full mx-auto flex flex-col items-center bg-white shadow-lg rounded-lg overflow-hidden">
-          <div className="w-full h-full p-6 sm:p-8 md:p-10 lg:p-12 bg-[#d86500] text-white flex flex-col justify-center items-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8">
+        <div className="max-w-[90%] sm:max-w-[60%] md:max-w-[50%] lg:max-w-[35%] w-full mx-auto flex flex-col items-center bg-white shadow-lg rounded-lg overflow-hidden">
+          <div className="w-full h-full p-6 sm:p-8 md:p-10 bg-[#d86500] text-white flex flex-col justify-center items-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
               Đăng nhập
             </h2>
             <form className="w-full" onSubmit={onFinish}>

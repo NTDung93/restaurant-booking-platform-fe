@@ -4,6 +4,7 @@ const USER_ROUTE = '/user';
 const USER_PASS_ROUTE = '/user-pass';
 const USER_FAVOR_ROUTE = '/user-favorite';
 const SIGN_IN_ROUTE = '/signin';
+const BOOKING_HISTORY = '/history';
 const SIGN_UP_ROUTE = '/signup';
 const CONFIRM_ROUTE = '/confirm';
 const BLOG_ROUTE = '/blog';
@@ -17,6 +18,7 @@ const SUCCESSS_ROUTE = '/success';
 const PAYMENT_ROUTE = '/payment';
 
 export {
+  BOOKING_HISTORY,
   RESTAURANT_DETAIL_ROUTE,
   RESTAURANT_ROUTE,
   USER_ROUTE,

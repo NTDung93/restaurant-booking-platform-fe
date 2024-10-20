@@ -8,6 +8,7 @@ interface LocationCardItemProps {
   category: string[];
   address: string;
   rating: number;
+  distance: string;
   booking: number;
   onClick: () => void;
 }
@@ -18,6 +19,7 @@ export default function LocationCardItem({
   category,
   address,
   rating,
+  distance,
   booking,
   onClick,
 }: LocationCardItemProps) {
