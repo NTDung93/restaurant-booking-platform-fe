@@ -46,6 +46,7 @@ import {
 import SuccessPage from './app/[locale]/restaurant-user/Success/page';
 import PaymentPage from './app/[locale]/restaurant-user/Payment/page';
 import UserBookingHistory from './containers/restaurant-user/UserBookingHistory';
+import ManageTableBookingDetailPage from './app/[locale]/restaurant-admin/ManageBookingTableDetail/page';
 
 const router = createBrowserRouter([
   {
