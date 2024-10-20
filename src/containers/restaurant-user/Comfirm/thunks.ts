@@ -1,4 +1,4 @@
-import { Booking } from '@/common/models/booking';
+import { LocationBookingRequest } from '@/common/models/booking';
 import { createAppAsyncThunk } from '@/libs/redux/createAppAsyncThunk';
 import callApi from '@/utils/api';
 
@@ -6,7 +6,7 @@ const TypePrefix = 'location-booking';
 
 export const createBooking = createAppAsyncThunk(
   `${TypePrefix}/createBooking`,
-  async (bookingData: Booking) => {
+  async (bookingData: LocationBookingRequest) => {
     const response = await callApi(
       {
         method: 'post',

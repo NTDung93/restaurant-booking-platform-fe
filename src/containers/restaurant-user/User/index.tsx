@@ -24,7 +24,7 @@ export default function UserDetail() {
             <h2 className="text-2xl font-semibold mb-6">THÔNG TIN TÀI KHOẢN</h2>
             <div className="space-y-6">
               <div className="flex items-center">
-                <p className="w-32 font-medium text-lg">Tên:</p>
+                <p className="w-32 font-medium text-lg">Họ và Tên:</p>
                 <p className="text-lg">{userInfo?.fullName}</p>
               </div>
               <div className="flex items-center">

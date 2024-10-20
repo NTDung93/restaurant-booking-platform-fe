@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="w-full bg-[#312525] text-white relative  ">
       <div className="max-w-[90%] md:max-w-[80%] mx-auto flex flex-col md:flex-row justify-between py-8 md:py-10 px-4 md:px-5">
-        <div className="w-full md:w-1/4 mb-6 md:mb-0">
+        <div className="w-full md:w-1/5 mb-6 md:mb-0">
           <h3 className="text-md md:text-lg font-bold uppercase">
             Về chúng tôi
           </h3>
@@ -18,11 +18,11 @@ export default function Footer() {
           </ul>
         </div>
 
-        <div className="w-full md:w-1/4 mb-6 md:mb-0">
-          <h3 className=" text-md md:text-lg font-bold uppercase">
+        <div className="w-full md:w-1/5 mb-6 md:mb-0">
+          <h3 className="text-md md:text-lg font-bold uppercase">
             Thông tin pháp lí
           </h3>
-          <ul className="mt-3 md:mt-4 space-y-1 md:space-y-2 text-xs md:text-sm  font-normal uppercase">
+          <ul className="mt-3 md:mt-4 space-y-1 md:space-y-2 text-xs md:text-sm font-normal uppercase">
             <li>Điều khoản dịch vụ</li>
             <li>Chính sách bảo mật</li>
             <li>Chính sách hoàn tiền</li>
@@ -30,9 +30,9 @@ export default function Footer() {
           </ul>
         </div>
 
-        <div className="w-full md:w-1/4 mb-6 md:mb-0">
-          <h3 className=" text-md md:text-lg font-bold uppercase">Hỗ trợ</h3>
-          <ul className="mt-3 md:mt-4 space-y-1 md:space-y-2 text-xs md:text-sm  font-normal uppercase">
+        <div className="w-full md:w-1/5 mb-6 md:mb-0">
+          <h3 className="text-md md:text-lg font-bold uppercase">Hỗ trợ</h3>
+          <ul className="mt-3 md:mt-4 space-y-1 md:space-y-2 text-xs md:text-sm font-normal uppercase">
             <li>Câu hỏi thường gặp (FAQ)</li>
             <li>Hỗ trợ trực tuyến</li>
             <li>Đánh giá và phản hồi</li>
@@ -40,31 +40,34 @@ export default function Footer() {
           </ul>
         </div>
 
-        <div className="w-full md:w-1/4 mb-6 md:mb-0">
-          <h3 className=" text-md md:text-lg font-semibold">Liên hệ</h3>
-          <p className=" text-xs md:text-sm font-light mt-2">
-            Địa chỉ văn phòng: [Địa chỉ văn phòng]
-            <br />
-            Thông tin liên lạc: [Thông tin liên lạc]
-            <br />
+        <div className="w-full md:w-1/5 mb-6 md:mb-0">
+          <h3 className="text-md md:text-lg font-bold uppercase">Liên hệ</h3>
+          <p className="text-xs md:text-sm font-light mt-2">
+            {/* Địa chỉ văn phòng: [Địa chỉ văn phòng] */}
+            {/* <br /> */}
+            {/* Thông tin liên lạc: [Thông tin liên lạc] */}
+            {/* <br /> */}
             Email hỗ trợ: support@skedeat.site
             <br />
             Số điện thoại: (+84) 123 456 789
           </p>
           <div className="mt-4">
-            <h4 className=" text-md md:text-lg font-semibold">
+            <h4 className="text-md md:text-lg font-semibold">
               Theo dõi chúng tôi trên mạng xã hội:
             </h4>
-            <p className=" text-xs md:text-sm font-light mt-2">
+            <p className="text-xs md:text-sm font-light mt-2">
               Facebook: facebook.com/skedeat
               <br />
               Tiktok: Skedeat
             </p>
           </div>
-          <h4 className=" text-md md:text-lg font-semibold mt-4">
+        </div>
+
+        <div className="w-full md:w-1/5 mb-6 md:mb-0">
+          <h3 className="text-md md:text-lg font-bold uppercase">
             Đăng ký email
-          </h4>
-          <p className=" text-xs md:text-sm font-light mt-2">
+          </h3>
+          <p className="text-xs md:text-sm font-light mt-2">
             Đăng ký nhận email để nhận thông tin mới nhất về các nhà hàng, món
             ăn, và chương trình khuyến mãi độc quyền.
           </p>

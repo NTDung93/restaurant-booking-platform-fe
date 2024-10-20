@@ -26,7 +26,10 @@ const LocationPopupSearchItem: React.FC<ResultCardProps> = ({
         {location.name}
       </div>
     </div>
-    <div className="text-sm text-gray-600">{location.address}</div>
+    <div className="flex justify-between items-center text-sm text-gray-600">
+      <div>{location.address}</div>
+      <div className="text-xs text-gray-500">{location.distance}</div>
+    </div>
     <div className="flex items-center justify-between mt-2">
       <div className="flex justify-between items-center">
         <div className="text-xs text-gray-800 mr-1 lg:mr-2">Đánh giá: </div>
