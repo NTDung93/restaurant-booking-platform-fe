@@ -1,4 +1,7 @@
-import { RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE } from '@/common/constants/routerConstant';
+import {
+  RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE,
+  RESTAURANT_ADMIN_MANAGE_FOOD_ROUTE,
+} from '@/common/constants/routerConstant';
 import { Link } from 'react-router-dom';
 
 export default function Menu() {
@@ -17,7 +20,7 @@ export default function Menu() {
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-white">Quản lý Thực đơn</h2>
           <div className="space-y-2 text-xl font-medium text-black">
-            <p>Tất cả</p>
+            <Link to={RESTAURANT_ADMIN_MANAGE_FOOD_ROUTE}>Tất cả</Link>
             <p>Thêm khuyến mãi</p>
             <p>Thực đơn động</p>
           </div>
