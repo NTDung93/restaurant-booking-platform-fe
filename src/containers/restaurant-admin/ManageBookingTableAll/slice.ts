@@ -6,13 +6,13 @@ import {
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit';
-import { fetchBookingByLocation, fetchBookingById } from './thunks';
+import { fetchBookingByLocation, fetchBookingById, approveBookingByLocation, cancelBookingByLocation, successBookingByLocation } from './thunks';
 
 export interface BookingByLocationSliceState {
   allBookingsPaginationResponse:
     | ResponseEntityPagination<BookingLocation>
     | undefined;
-  bookingDetail: BookingLocation | undefined; // Thêm trường cho booking theo ID
+  bookingDetail: BookingLocation | undefined;
   status: ApiStatus;
 }
 
@@ -29,6 +29,9 @@ const bookingByLocationSlice = createSlice({
   extraReducers: (builder) => {
     setBookingByLocationResponse(builder);
     setBookingByIdResponse(builder);
+    setApproveBookingByLocation(builder);
+    setCancelBookingByLocation(builder);
+    setSuccessBookingByLocation(builder);
   },
 });
 
@@ -80,6 +83,87 @@ function setBookingByIdResponse(
     )
     .addCase(
       fetchBookingById.rejected,
+      (state: BookingByLocationSliceState) => {
+        state.status = ApiStatus.Failed;
+        state.bookingDetail = undefined;
+      },
+    );
+}
+
+function setApproveBookingByLocation(
+  builder: ActionReducerMapBuilder<BookingByLocationSliceState>,
+) {
+  builder
+    .addCase(approveBookingByLocation.pending, (state: BookingByLocationSliceState) => {
+      state.status = ApiStatus.Loading;
+      state.bookingDetail = undefined;
+    })
+    .addCase(
+      approveBookingByLocation.fulfilled,
+      (
+        state: BookingByLocationSliceState,
+        action: PayloadAction<BookingLocation>,
+      ) => {
+        state.status = ApiStatus.Fulfilled;
+        state.bookingDetail = action.payload;
+      },
+    )
+    .addCase(
+      approveBookingByLocation.rejected,
+      (state: BookingByLocationSliceState) => {
+        state.status = ApiStatus.Failed;
+        state.bookingDetail = undefined;
+      },
+    );
+}
+
+function setCancelBookingByLocation(
+  builder: ActionReducerMapBuilder<BookingByLocationSliceState>,
+) {
+  builder
+    .addCase(cancelBookingByLocation.pending, (state: BookingByLocationSliceState) => {
+      state.status = ApiStatus.Loading;
+      state.bookingDetail = undefined;
+    })
+    .addCase(
+      cancelBookingByLocation.fulfilled,
+      (
+        state: BookingByLocationSliceState,
+        action: PayloadAction<BookingLocation>,
+      ) => {
+        state.status = ApiStatus.Fulfilled;
+        state.bookingDetail = action.payload;
+      },
+    )
+    .addCase(
+      cancelBookingByLocation.rejected,
+      (state: BookingByLocationSliceState) => {
+        state.status = ApiStatus.Failed;
+        state.bookingDetail = undefined;
+      },
+    );
+}
+
+function setSuccessBookingByLocation(
+  builder: ActionReducerMapBuilder<BookingByLocationSliceState>,
+) {
+  builder
+    .addCase(successBookingByLocation.pending, (state: BookingByLocationSliceState) => {
+      state.status = ApiStatus.Loading;
+      state.bookingDetail = undefined;
+    })
+    .addCase(
+      successBookingByLocation.fulfilled,
+      (
+        state: BookingByLocationSliceState,
+        action: PayloadAction<BookingLocation>,
+      ) => {
+        state.status = ApiStatus.Fulfilled;
+        state.bookingDetail = action.payload;
+      },
+    )
+    .addCase(
+      successBookingByLocation.rejected,
       (state: BookingByLocationSliceState) => {
         state.status = ApiStatus.Failed;
         state.bookingDetail = undefined;

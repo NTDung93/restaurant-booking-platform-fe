@@ -12,6 +12,12 @@ import {
   Legend,
 } from 'chart.js';
 import Image from '@/components/restaurant-admin/Img';
+import { useDispatch, useSelector } from 'react-redux';
+import { ReduxDispatch } from '@/libs/redux/store';
+import { selectBookingByLocation } from '../ManageBookingTableAll/selector';
+import { useEffect, useState } from 'react';
+import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
+import { fetchBookingByLocation } from '../ManageBookingTableAll/thunks';
 
 ChartJS.register(
   CategoryScale,
@@ -24,6 +30,34 @@ ChartJS.register(
 );
 
 export default function Home() {
+  const dispatch = useDispatch<ReduxDispatch>();
+  const bookingsResponse = useSelector(selectBookingByLocation);
+  const userInfo = useSelector(selectUserInfo);
+
+  // Tính toán số lượng các trạng thái đơn hàng
+  const pendingCount = bookingsResponse?.content.filter(
+    (b) => b.status === 'PENDING',
+  ).length;
+  const confirmedCount = bookingsResponse?.content.filter(
+    (b) => b.status === 'CONFIRMED',
+  ).length;
+  const successCount = bookingsResponse?.content.filter(
+    (b) => b.status === 'SUCCESSFUL',
+  ).length;
+  const cancelCount = bookingsResponse?.content.filter(
+    (b) => b.status === 'CANCELLED',
+  ).length;
+
+  const [currentPage] = useState(1);
+  const [pageSize] = useState(100);
+
+  useEffect(() => {
+    const locationId = userInfo?.locationId;
+    if (locationId !== undefined) {
+      dispatch(fetchBookingByLocation({ locationId, currentPage, pageSize }));
+    }
+  }, [dispatch, userInfo]);
+
   const chartData = {
     labels: ['00:00', '06:00', '12:00', '18:00', '24:00'],
     datasets: [
@@ -84,17 +118,30 @@ export default function Home() {
             </p>
 
             <div className="flex justify-around">
-              {[
-                'Chờ Xác Nhận',
-                'Chờ Xử Lý',
-                'Hoàn Thành',
-                'Món ăn tạm khóa',
-              ].map((label, idx) => (
-                <div key={idx} className="flex flex-col items-center">
-                  <div className="text-amber-500 text-4xl font-bold">0</div>
-                  <p className="text-black text-xl text-center">{label}</p>
+              <div className="flex flex-col items-center">
+                <div className="text-amber-500 text-4xl font-bold">
+                  {pendingCount}
                 </div>
-              ))}
+                <p className="text-black text-xl text-center">Chờ Xác Nhận</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="text-amber-500 text-4xl font-bold">
+                  {confirmedCount}
+                </div>
+                <p className="text-black text-xl text-center">Đã Xử Lý</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="text-amber-500 text-4xl font-bold">
+                  {successCount}
+                </div>
+                <p className="text-black text-xl text-center">Hoàn Thành</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="text-amber-500 text-4xl font-bold">
+                  {cancelCount}
+                </div>
+                <p className="text-black text-xl text-center">Đơn hủy</p>
+              </div>
             </div>
           </div>
 

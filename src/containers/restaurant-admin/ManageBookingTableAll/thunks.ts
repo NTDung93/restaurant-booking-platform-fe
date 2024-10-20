@@ -9,15 +9,65 @@ export const fetchBookingByLocation = createAppAsyncThunk(
     locationId,
     currentPage,
     pageSize,
+    status, 
   }: {
     locationId: number;
     currentPage: number;
     pageSize: number;
+    status?: string;
   }) =>
     await callApi(
       {
         method: 'get',
-        url: `/location-bookings/location/${locationId}?pageNo=${currentPage - 1}&pageSize=${pageSize}`,
+        url: `/location-bookings/location/${locationId}?pageNo=${currentPage - 1}&pageSize=${pageSize}&sortDir=desc${status ? `&status=${status}` : ''}`,
+      },
+      true,
+    ),
+);
+
+export const approveBookingByLocation = createAppAsyncThunk(
+  `${TypePrefix}/approveBookingByLocation`,
+  async ({
+    locationId,
+  }: {
+    locationId: number;
+  }) =>
+    await callApi(
+      {
+        method: 'put',
+        url: `/location-bookings/approve/${locationId}`,
+      },
+      true,
+    ),
+);
+
+export const cancelBookingByLocation = createAppAsyncThunk(
+  `${TypePrefix}/cancelBookingByLocation`,
+  async ({
+    locationId,
+  }: {
+    locationId: number;
+  }) =>
+    await callApi(
+      {
+        method: 'put',
+        url: `/location-bookings/cancel/${locationId}`,
+      },
+      true,
+    ),
+);
+
+export const successBookingByLocation = createAppAsyncThunk(
+  `${TypePrefix}/successBookingByLocation`,
+  async ({
+    locationId,
+  }: {
+    locationId: number;
+  }) =>
+    await callApi(
+      {
+        method: 'put',
+        url: `/location-bookings/success/${locationId}`,
       },
       true,
     ),

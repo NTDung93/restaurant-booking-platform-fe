@@ -6,4 +6,11 @@ export interface Food {
   status: string;
   image: string;
   quantity: number;
+  category: FoodCategory[];
+}
+
+export interface FoodCategory {
+  id: number;
+  image: string;
+  name: string;
 }
