@@ -9,6 +9,7 @@ export interface User {
   point: number;
   image: string;
   roleName: string;
+  locationId: number;
   firstLogin: boolean;
 }
 
