@@ -6,7 +6,13 @@ import {
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit';
-import { fetchBookingByLocation, fetchBookingById, approveBookingByLocation, cancelBookingByLocation, successBookingByLocation } from './thunks';
+import {
+  fetchBookingByLocation,
+  fetchBookingById,
+  approveBookingByLocation,
+  cancelBookingByLocation,
+  successBookingByLocation,
+} from './thunks';
 
 export interface BookingByLocationSliceState {
   allBookingsPaginationResponse:
@@ -94,10 +100,13 @@ function setApproveBookingByLocation(
   builder: ActionReducerMapBuilder<BookingByLocationSliceState>,
 ) {
   builder
-    .addCase(approveBookingByLocation.pending, (state: BookingByLocationSliceState) => {
-      state.status = ApiStatus.Loading;
-      state.bookingDetail = undefined;
-    })
+    .addCase(
+      approveBookingByLocation.pending,
+      (state: BookingByLocationSliceState) => {
+        state.status = ApiStatus.Loading;
+        state.bookingDetail = undefined;
+      },
+    )
     .addCase(
       approveBookingByLocation.fulfilled,
       (
@@ -121,10 +130,13 @@ function setCancelBookingByLocation(
   builder: ActionReducerMapBuilder<BookingByLocationSliceState>,
 ) {
   builder
-    .addCase(cancelBookingByLocation.pending, (state: BookingByLocationSliceState) => {
-      state.status = ApiStatus.Loading;
-      state.bookingDetail = undefined;
-    })
+    .addCase(
+      cancelBookingByLocation.pending,
+      (state: BookingByLocationSliceState) => {
+        state.status = ApiStatus.Loading;
+        state.bookingDetail = undefined;
+      },
+    )
     .addCase(
       cancelBookingByLocation.fulfilled,
       (
@@ -148,10 +160,13 @@ function setSuccessBookingByLocation(
   builder: ActionReducerMapBuilder<BookingByLocationSliceState>,
 ) {
   builder
-    .addCase(successBookingByLocation.pending, (state: BookingByLocationSliceState) => {
-      state.status = ApiStatus.Loading;
-      state.bookingDetail = undefined;
-    })
+    .addCase(
+      successBookingByLocation.pending,
+      (state: BookingByLocationSliceState) => {
+        state.status = ApiStatus.Loading;
+        state.bookingDetail = undefined;
+      },
+    )
     .addCase(
       successBookingByLocation.fulfilled,
       (

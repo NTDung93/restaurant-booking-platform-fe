@@ -9,7 +9,7 @@ export const fetchBookingByLocation = createAppAsyncThunk(
     locationId,
     currentPage,
     pageSize,
-    status, 
+    status,
   }: {
     locationId: number;
     currentPage: number;
@@ -27,11 +27,7 @@ export const fetchBookingByLocation = createAppAsyncThunk(
 
 export const approveBookingByLocation = createAppAsyncThunk(
   `${TypePrefix}/approveBookingByLocation`,
-  async ({
-    locationId,
-  }: {
-    locationId: number;
-  }) =>
+  async ({ locationId }: { locationId: number }) =>
     await callApi(
       {
         method: 'put',
@@ -43,11 +39,7 @@ export const approveBookingByLocation = createAppAsyncThunk(
 
 export const cancelBookingByLocation = createAppAsyncThunk(
   `${TypePrefix}/cancelBookingByLocation`,
-  async ({
-    locationId,
-  }: {
-    locationId: number;
-  }) =>
+  async ({ locationId }: { locationId: number }) =>
     await callApi(
       {
         method: 'put',
@@ -59,11 +51,7 @@ export const cancelBookingByLocation = createAppAsyncThunk(
 
 export const successBookingByLocation = createAppAsyncThunk(
   `${TypePrefix}/successBookingByLocation`,
-  async ({
-    locationId,
-  }: {
-    locationId: number;
-  }) =>
+  async ({ locationId }: { locationId: number }) =>
     await callApi(
       {
         method: 'put',

@@ -88,8 +88,11 @@ export default function Header() {
           <div className="flex items-center space-x-2 md:space-x-4">
             {userInfo ? (
               <div className="relative flex items-center">
-                <span className="hidden md:inline-block text-lg md:text-xl text-[#D86500] mr-2">
-                  Xin chào, {userInfo.fullName}
+                <span className="hidden md:inline-block text-lg md:text-xl text-white mr-2">
+                  Xin chào,{' '}
+                  <span className="font-bold text-[#D86500]">
+                    {userInfo.fullName}
+                  </span>
                 </span>
                 <div
                   className="relative w-[40px] md:w-[50px] h-[40px] md:h-[49px] bg-[#d9d9d9] rounded-full flex items-center justify-center cursor-pointer"
@@ -103,12 +106,6 @@ export default function Header() {
                     className="absolute right-0 mt-2 w-[200px] bg-white shadow-lg rounded-lg overflow-hidden z-50"
                     style={{ top: '100%' }}
                   >
-                    <span className="hidden md:inline-block text-lg md:text-xl text-white mr-2">
-                      Xin chào,{' '}
-                      <span className="font-bold text-[#D86500]">
-                        {userInfo.fullName}
-                      </span>
-                    </span>
                     <Link
                       to="/user"
                       className="block w-full text-left px-4 py-2 text-black hover:bg-gray-100"

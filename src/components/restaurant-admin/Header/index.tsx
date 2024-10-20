@@ -73,9 +73,6 @@ export default function Header() {
                     className="absolute right-0 mt-2 w-[200px] bg-white shadow-lg rounded-lg overflow-hidden z-50"
                     style={{ top: '100%' }}
                   >
-                    <span className="block text-lg md:hidden text-[#D86500] px-4 py-2">
-                      Xin chào, {userInfo.userName}
-                    </span>
                     {/* <Link
                       to="/user"
                       className="block w-full text-left px-4 py-2 text-black hover:bg-gray-100"
