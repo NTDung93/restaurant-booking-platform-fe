@@ -3,6 +3,8 @@ import { createAppAsyncThunk } from '@/libs/redux/createAppAsyncThunk';
 import { UserToken } from '@/common/models/user';
 import callApi from '@/utils/api';
 import Cookies from 'js-cookie';
+import { LocationBookingResponse } from '@/common/models/booking';
+import { ResponseEntityPagination } from '@/common/models/pagination';
 
 const TypePrefix = 'user';
 
@@ -81,6 +83,30 @@ export const getUserInfo = createAppAsyncThunk(
     return userInfo;
   },
 );
+
+export const getUserBookingHitory = createAppAsyncThunk(
+  `${TypePrefix}/getUserBookingHitory`,
+  async ({
+    currentPage,
+    pageSize,
+  }: {
+    currentPage: number;
+    pageSize: number;
+  }) => {
+    const response = await callApi(
+      {
+        method: 'get',
+        url: `/location-bookings/user?pageNo=${currentPage}&pageSize=${pageSize}`,
+      },
+      true,
+    );
+
+    const userBookingHistory: ResponseEntityPagination<LocationBookingResponse> =
+      response;
+    return userBookingHistory;
+  },
+);
+
 export const logout = createAppAsyncThunk(`${TypePrefix}/logout`, async () => {
   await callApi({
     method: 'get',

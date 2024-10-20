@@ -1,19 +1,19 @@
 import { UserOutlined } from '@ant-design/icons';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Cookies from 'js-cookie';
-import { getUserInfo } from '@/containers/restaurant-user/Auth/thunks';
+import { logout } from '@/containers/restaurant-user/Auth/thunks';
 import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
 import { ReduxDispatch } from '@/libs/redux/store';
 import {
   ABOUT_US_ROUTE,
   BLOG_ROUTE,
   HOME_ROUTE,
-  RESTAURANT_ADMIN_HOME_ROUTE,
   RESTAURANT_ROUTE,
   SIGN_IN_ROUTE,
 } from '@/common/constants/routerConstant';
+import { clearUserInfo } from '@/containers/restaurant-user/Auth/slice';
+import Cookies from 'js-cookie';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,15 +27,13 @@ export default function Header() {
     setIsMenuOpen(false);
   };
 
-  useEffect(() => {
-    dispatch(getUserInfo());
-  }, [dispatch]);
-
   const handleLogout = async () => {
+    await dispatch(logout());
+    await dispatch(clearUserInfo());
     Cookies.remove('access-token');
     Cookies.remove('refresh-token');
+
     navigate(HOME_ROUTE);
-    window.location.reload();
   };
 
   const hideSignInButton = ['/signin', '/signup'].includes(location.pathname);
@@ -85,15 +83,6 @@ export default function Header() {
               >
                 Về chúng tôi
               </Link>
-              {userInfo?.roleName === 'LOCATION_ADMIN' && (
-                <Link
-                  to={RESTAURANT_ADMIN_HOME_ROUTE}
-                  className={`text-lg md:text-xl p-4 md:p-0 ${location.pathname === '/about-us' ? 'text-[#D86500]' : 'text-white'} hover:text-[#D86500]`}
-                  onClick={handleLinkClick}
-                >
-                  Quản lý
-                </Link>
-              )}
             </nav>
           </div>
           <div className="flex items-center space-x-2 md:space-x-4">
@@ -114,7 +103,7 @@ export default function Header() {
                     className="absolute right-0 mt-2 w-[200px] bg-white shadow-lg rounded-lg overflow-hidden z-50"
                     style={{ top: '100%' }}
                   >
-                    <span className="block text-lg md:hidden text-[#D86500] px-4 py-2">
+                    <span className="block text-2xl md:hidden text-[#D86500] font-bold px-4 py-2">
                       Xin chào, {userInfo.userName}
                     </span>
                     <Link

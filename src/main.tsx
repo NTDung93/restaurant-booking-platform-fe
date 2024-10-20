@@ -26,6 +26,7 @@ import {
   ABOUT_US_ROUTE,
   ACCESS_DENIED_ROUTE,
   BLOG_ROUTE,
+  BOOKING_HISTORY,
   CONFIRM_ROUTE,
   COUNTER_ROUTE,
   HOME_ROUTE,
@@ -44,7 +45,7 @@ import {
 } from './common/constants/routerConstant';
 import SuccessPage from './app/[locale]/restaurant-user/Success/page';
 import PaymentPage from './app/[locale]/restaurant-user/Payment/page';
-import ManageTableBookingDetailPage from './app/[locale]/restaurant-admin/ManageBookingTableDetail/page';
+import UserBookingHistory from './containers/restaurant-user/UserBookingHistory';
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
   {
     path: SIGN_IN_ROUTE,
     element: <SignInPage />,
+  },
+  {
+    path: BOOKING_HISTORY,
+    element: <UserBookingHistory />,
   },
   {
     path: SIGN_UP_ROUTE,
