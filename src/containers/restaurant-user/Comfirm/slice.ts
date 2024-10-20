@@ -1,5 +1,8 @@
 import { ApiStatus } from '@/common/enums/apiStatus';
-import { LocationBookingRequest, LocationBookingResponse } from '@/common/models/booking';
+import {
+  LocationBookingRequest,
+  LocationBookingResponse,
+} from '@/common/models/booking';
 import { ResponseEntityPagination } from '@/common/models/pagination';
 import {
   ActionReducerMapBuilder,
@@ -9,7 +12,9 @@ import {
 import { fetchBookingByLocation, createBooking } from './thunks';
 
 export interface BookingByLocationSliceState {
-  bookingsPaginationResponse: ResponseEntityPagination<LocationBookingResponse> | undefined;
+  bookingsPaginationResponse:
+    | ResponseEntityPagination<LocationBookingResponse>
+    | undefined;
   status: ApiStatus;
   createBookingStatus: ApiStatus;
   newBooking: LocationBookingRequest | null;
@@ -50,7 +55,9 @@ function setBookingByLocationResponse(
       fetchBookingByLocation.fulfilled,
       (
         state: BookingByLocationSliceState,
-        action: PayloadAction<ResponseEntityPagination<LocationBookingResponse>>,
+        action: PayloadAction<
+          ResponseEntityPagination<LocationBookingResponse>
+        >,
       ) => {
         state.status = ApiStatus.Fulfilled;
         state.bookingsPaginationResponse = action.payload;
@@ -73,7 +80,10 @@ function setCreateBookingResponse(
     })
     .addCase(
       createBooking.fulfilled,
-      (state: BookingByLocationSliceState, action: PayloadAction<LocationBookingRequest>) => {
+      (
+        state: BookingByLocationSliceState,
+        action: PayloadAction<LocationBookingRequest>,
+      ) => {
         state.createBookingStatus = ApiStatus.Fulfilled;
 
         state.newBooking = action.payload;

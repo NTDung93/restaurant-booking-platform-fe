@@ -6,5 +6,5 @@ export const selectUserInfo = (state: ReduxState) => state.user.userInfo;
 
 export const selectUserStatus = (state: ReduxState) => state.user.status;
 
-export const selectUserBookingHistory = (state: ReduxState) => state.user.userBookingHitory;
-
+export const selectUserBookingHistory = (state: ReduxState) =>
+  state.user.userBookingHitory;

@@ -18,7 +18,9 @@ import { ResponseEntityPagination } from '@/common/models/pagination';
 export interface UserSliceState {
   token: UserToken | undefined;
   userInfo: User | undefined;
-  userBookingHitory: ResponseEntityPagination<LocationBookingResponse> | undefined;
+  userBookingHitory:
+    | ResponseEntityPagination<LocationBookingResponse>
+    | undefined;
   userStatus: ApiStatus;
   status: ApiStatus;
 }
@@ -45,7 +47,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     setUserToken(builder);
     setUserInfo(builder);
-    setUserBookingHitory(builder)
+    setUserBookingHitory(builder);
     setLogout(builder);
   },
 });
@@ -86,16 +88,21 @@ function setUserInfo(builder: ActionReducerMapBuilder<UserSliceState>) {
     });
 }
 
-function setUserBookingHitory(builder: ActionReducerMapBuilder<UserSliceState>) {
+function setUserBookingHitory(
+  builder: ActionReducerMapBuilder<UserSliceState>,
+) {
   builder
     .addCase(getUserBookingHitory.pending, (state: UserSliceState) => {
       state.userStatus = ApiStatus.Loading;
     })
     .addCase(
       getUserBookingHitory.fulfilled,
-      (state: UserSliceState, 
-        action: PayloadAction<ResponseEntityPagination<LocationBookingResponse>>,
-        ) => {
+      (
+        state: UserSliceState,
+        action: PayloadAction<
+          ResponseEntityPagination<LocationBookingResponse>
+        >,
+      ) => {
         state.userStatus = ApiStatus.Fulfilled;
         state.userBookingHitory = action.payload;
       },

@@ -86,7 +86,13 @@ export const getUserInfo = createAppAsyncThunk(
 
 export const getUserBookingHitory = createAppAsyncThunk(
   `${TypePrefix}/getUserBookingHitory`,
-  async ({currentPage, pageSize} : {currentPage: number; pageSize: number}) => {
+  async ({
+    currentPage,
+    pageSize,
+  }: {
+    currentPage: number;
+    pageSize: number;
+  }) => {
     const response = await callApi(
       {
         method: 'get',
@@ -95,7 +101,8 @@ export const getUserBookingHitory = createAppAsyncThunk(
       true,
     );
 
-    const userBookingHistory: ResponseEntityPagination<LocationBookingResponse> = response;
+    const userBookingHistory: ResponseEntityPagination<LocationBookingResponse> =
+      response;
     return userBookingHistory;
   },
 );
