@@ -16,6 +16,7 @@ export interface Booking {
   promotionId: number;
   foodBookings: foodBookings[];
 }
+
 export interface BookingLocation {
   id: number;
   name: string;
