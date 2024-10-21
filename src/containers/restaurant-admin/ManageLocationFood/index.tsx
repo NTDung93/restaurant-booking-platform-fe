@@ -69,13 +69,13 @@ const ManageLocationFood: React.FC = () => {
                 Thêm món ăn
               </button>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
               {currentItems.map((food) => {
                 const firstImage = food.image.split(',')[0]; // Split the image string and get the first item
                 return (
                   <div
                     key={food.id}
-                    className="w-[400px] bg-white shadow-lg rounded-3xl overflow-hidden"
+                    className="max-w-[400px] w-full bg-white shadow-lg rounded-3xl overflow-hidden"
                   >
                     <img
                       className="w-full h-64 object-cover"
@@ -86,7 +86,7 @@ const ManageLocationFood: React.FC = () => {
                       <h2 className="text-2xl font-bold text-gray-800 mb-2">
                         {food.name}
                       </h2>
-                      <div className="flex justify-center items-center  w-full">
+                      <div className="flex justify-center items-center w-full">
                         <span className="text-amber-500 font-medium text-xl">
                           Giá: {food.price.toLocaleString()} VNĐ
                         </span>
@@ -129,16 +129,28 @@ const ManageLocationFood: React.FC = () => {
             </div>
 
             {showAddModal && (
-              <AddFoodModal onClose={() => setShowAddModal(false)} />
+              <>
+                <div
+                  className="modal-overlay"
+                  onClick={() => setShowAddModal(false)}
+                />
+                <AddFoodModal onClose={() => setShowAddModal(false)} />
+              </>
             )}
             {showEditModal && (
-              <EditFoodModal
-                food={editFoodItem!}
-                onClose={() => {
-                  setShowEditModal(false);
-                  setEditFoodItem(null);
-                }}
-              />
+              <>
+                <div
+                  className="modal-overlay"
+                  onClick={() => setShowEditModal(false)}
+                />
+                <EditFoodModal
+                  food={editFoodItem!}
+                  onClose={() => {
+                    setShowEditModal(false);
+                    setEditFoodItem(null);
+                  }}
+                />
+              </>
             )}
           </div>
         </div>
