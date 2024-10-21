@@ -246,7 +246,7 @@ export default function ManageBookingTableDetail() {
                     Xác nhận hủy đơn
                   </h2>
                   <p className="text-lg text-center mb-6">
-                    Bạn có chắc chắn muốn hủy đơn đặt bàn này?
+                    Bạn có chắc chắn muốn xác nhận đơn đặt bàn này?
                   </p>
                   <div className="flex justify-center mt-4 space-x-4">
                     <button
@@ -273,7 +273,7 @@ export default function ManageBookingTableDetail() {
                     Xác nhận hủy đơn
                   </h2>
                   <p className="text-lg text-center mb-6">
-                    Bạn có chắc chắn muốn hủy đơn đặt bàn này?
+                    Bạn có chắc chắn muốn hoàn tất đơn đặt bàn này?
                   </p>
                   <div className="flex justify-center mt-4 space-x-4">
                     <button

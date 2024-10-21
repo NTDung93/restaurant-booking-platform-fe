@@ -30,6 +30,7 @@ const RestaurantDetail: React.FC = () => {
       localStorage.setItem('locationId', String(numericLocationId));
       dispatch(fetchLocationDetail(numericLocationId));
     }
+    window.scrollTo(0, 0);
   }, [dispatch, numericLocationId]);
 
   const [images, setImages] = useState<string[]>([]);
