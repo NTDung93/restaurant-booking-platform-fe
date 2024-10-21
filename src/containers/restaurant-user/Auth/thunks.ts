@@ -96,7 +96,7 @@ export const getUserBookingHitory = createAppAsyncThunk(
     const response = await callApi(
       {
         method: 'get',
-        url: `/location-bookings/user?pageNo=${currentPage}&pageSize=${pageSize}`,
+        url: `/location-bookings/user?pageNo=${currentPage}&pageSize=${pageSize}&sortDir=desc`,
       },
       true,
     );

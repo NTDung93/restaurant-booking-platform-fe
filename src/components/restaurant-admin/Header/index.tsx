@@ -36,7 +36,7 @@ export default function Header() {
       <header className="w-full h-[80px] md:h-[100px] bg-[#312525] fixed top-0 left-0 z-50">
         <div className="max-w-[98.5%] mx-auto h-full flex items-center justify-between">
           <div className="flex items-center space-x-2 md:space-x-4">
-            <Link to={'#'}>
+            <Link to={'/manage/home'}>
               <img
                 className="w-[150px] h-auto"
                 src="https://res.cloudinary.com/dnslrwedn/image/upload/v1727033229/SKEDEAT_logo_tr%E1%BA%AFng-01_rrkx3o.png"
@@ -49,24 +49,21 @@ export default function Header() {
             >
               <a></a>
               <Link
-                to={'#'}
-                className="text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0"
-              >
-                Kênh nhà hàng
-              </Link>
-              <a
-                href="#"
+                to={'/manage/home'}
                 className="text-white text-lg md:text-xl hover:text-[#D86500] p-4 md:p-0"
               >
                 Trang chủ
-              </a>
+              </Link>
             </nav>
           </div>
           <div className="flex items-center space-x-2 md:space-x-4">
             {userInfo ? (
               <div className="relative flex items-center">
-                <span className="hidden md:inline-block text-lg md:text-xl text-[#D86500] mr-2">
-                  Xin chào, {userInfo.userName}
+                <span className="hidden md:inline-block text-lg md:text-xl text-white mr-2">
+                  Xin chào,{' '}
+                  <span className="font-bold text-[#D86500]">
+                    {userInfo.fullName}
+                  </span>
                 </span>
                 <div
                   className="relative w-[40px] md:w-[50px] h-[40px] md:h-[49px] bg-[#d9d9d9] rounded-full flex items-center justify-center cursor-pointer"

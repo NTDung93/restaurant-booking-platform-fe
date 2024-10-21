@@ -12,15 +12,18 @@ import { useEffect, useState } from 'react';
 import { ApiStatus } from '@/common/enums/apiStatus';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+import { cancelBookingByLocation } from '@/containers/restaurant-admin/ManageBookingTableAll/thunks';
 
 export default function UserBookingHistory() {
   const dispatch = useDispatch<ReduxDispatch>();
   const bookingHistory = useSelector(selectUserBookingHistory);
   const userStatus = useSelector(selectUserStatus);
   const loading = userStatus === ApiStatus.Loading;
-
+  const [isCancelModalVisible, setIsCancelModalVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize] = useState(3);
+  const [selectedBooking, setSelectedBooking] = useState<number | null>(null);
+  const [locationId, setLocationId] = useState(0);
 
   useEffect(() => {
     const fetchBookingHistory = async () => {
@@ -35,14 +38,13 @@ export default function UserBookingHistory() {
 
   const currentBookings = bookingHistory?.content || [];
 
-  const [selectedBooking, setSelectedBooking] = useState<number | null>(null);
-
   const closePopup = () => {
     setSelectedBooking(null);
   };
 
   const openPopup = (bookingId: number) => {
     setSelectedBooking(bookingId);
+    setLocationId(bookingId);
   };
 
   const handlePageChange = (direction: 'next' | 'prev') => {
@@ -55,7 +57,21 @@ export default function UserBookingHistory() {
     }
   };
 
-  const elementHeight = 130;
+  const handleCancelBooking = async () => {
+    try {
+      setIsCancelModalVisible(false);
+      setSelectedBooking(null);
+      await dispatch(
+        cancelBookingByLocation({ locationId: locationId }),
+      ).unwrap();
+      await dispatch(getUserBookingHitory({ currentPage, pageSize }));
+    } catch (error) {
+      console.error('Failed to cancel order:', error);
+      alert('Có lỗi xảy ra. Vui lòng thử lại sau.');
+    }
+  };
+
+  const elementHeight = 125;
   const margin = 10;
 
   const fixedHeight = elementHeight * pageSize + margin * (pageSize - 1);
@@ -95,7 +111,7 @@ export default function UserBookingHistory() {
                       Bạn chưa có đơn đặt hàng nào.
                     </p>
                   ) : (
-                    <div className="space-y-4">
+                    <div>
                       {currentBookings.map((booking) => (
                         <div
                           key={booking.id}
@@ -113,10 +129,14 @@ export default function UserBookingHistory() {
                               Số tiền: {booking.amount} VND
                             </p>
                             <p
-                              className={`text-sm font-semibold ${
-                                booking?.status === 'PENDING'
-                                  ? 'text-yellow-500'
-                                  : 'text-red-500'
+                              className={`font-bold rounded-lg ${
+                                booking?.status === 'SUCCESSFUL'
+                                  ? 'text-green-600'
+                                  : booking?.status === 'CANCELLED'
+                                    ? 'text-red-600'
+                                    : booking?.status === 'CONFIRMED'
+                                      ? 'text-yellow-600'
+                                      : 'text-sky-700'
                               }`}
                             >
                               Trạng thái: {booking.status}
@@ -162,9 +182,9 @@ export default function UserBookingHistory() {
 
       {selectedBooking && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white w-full max-w-2xl p-8 rounded-lg shadow-lg relative">
+          <div className="bg-white w-full max-w-2xl p-6 rounded-lg shadow-lg relative">
             <button
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 font-bold"
               onClick={closePopup}
             >
               X đóng
@@ -173,8 +193,12 @@ export default function UserBookingHistory() {
               .filter((booking) => booking.id === selectedBooking)
               .map((booking) => (
                 <div key={booking.id}>
-                  <h3 className="text-xl font-bold mb-4">Chi tiết đặt hàng</h3>
-                  <div className="flex">
+                  <h3 className="text-2xl font-bold mb-6 border-b pb-3">
+                    Chi tiết đặt hàng
+                  </h3>
+
+                  <div className="grid grid-cols-2 gap-6">
+                    {/* Left column with booking details */}
                     <div>
                       <p className="mb-2">
                         <strong>Mã đơn:</strong> {booking.id}
@@ -190,12 +214,15 @@ export default function UserBookingHistory() {
                         <strong>Điện thoại:</strong> {booking.phone}
                       </p>
                     </div>
-                    <div className="ml-5">
+
+                    {/* Right column with payment and guest details */}
+                    <div>
                       <p className="mb-2">
-                        <span>
-                          <strong>Số tiền: </strong>
+                        <strong>Số tiền:</strong>
+                        <span className="text-black font-bold">
+                          {' '}
+                          {booking.amount} VND
                         </span>
-                        <span className="font-bold">{booking.amount} VND</span>
                       </p>
                       <p className="mb-2">
                         <strong>Số người lớn:</strong> {booking.numberOfAdult}
@@ -204,10 +231,14 @@ export default function UserBookingHistory() {
                         <strong>Số trẻ em:</strong> {booking.numberOfChildren}
                       </p>
                       <p
-                        className={`mb-2 ${
+                        className={`mb-2 font-semibold ${
                           booking.status === 'PENDING'
-                            ? 'text-yellow-500'
-                            : 'text-red-500'
+                            ? 'text-sky-700'
+                            : booking.status === 'SUCCESSFUL'
+                              ? 'text-green-600'
+                              : booking.status === 'CONFIRMED'
+                                ? 'text-yellow-600'
+                                : 'text-red-600'
                         }`}
                       >
                         <strong>Trạng thái:</strong> {booking.status}
@@ -215,23 +246,74 @@ export default function UserBookingHistory() {
                     </div>
                   </div>
 
-                  <p className="mb-2 mt-3">
-                    <strong>Những món ăn đã đặt:</strong>
+                  {/* Food bookings section */}
+                  <div className="mt-6 border-t pt-4">
+                    <h4 className="text-lg font-semibold mb-2">
+                      Những món ăn đã đặt:
+                    </h4>
                     {booking.foodBookings.length > 0 ? (
-                      <ul className="list-disc ml-5">
+                      <ul className="list-disc ml-5 space-y-2">
                         {booking.foodBookings.map((food) => (
                           <li key={food.foodId}>
-                            {food.foodName} - {food.quantity} món -{' '}
-                            {food.amount} VND
+                            <span className="font-medium">{food.foodName}</span>{' '}
+                            - {food.quantity} món -{' '}
+                            <span className="text-black font-bold">
+                              {food.amount} VND
+                            </span>
                           </li>
                         ))}
                       </ul>
                     ) : (
                       <p>Không có món nào đã đặt.</p>
                     )}
-                  </p>
+                  </div>
+
+                  {/* Action buttons for PENDING status */}
+
+                  <div className="mt-6 flex justify-end space-x-4">
+                    {booking.status === 'PENDING' && (
+                      <button
+                        onClick={() => setIsCancelModalVisible(true)}
+                        className="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600"
+                      >
+                        Hủy Đơn
+                      </button>
+                    )}
+                    <button
+                      className="bg-[#D86500] text-white font-bold py-2 px-4 rounded hover:bg-[#e29140]"
+                      onClick={closePopup}
+                    >
+                      Đóng
+                    </button>
+                  </div>
                 </div>
               ))}
+            {isCancelModalVisible && (
+              <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 backdrop-blur-sm">
+                <div className="bg-white p-8 rounded-lg shadow-lg w-1/2">
+                  <h2 className="text-2xl font-bold mb-4 text-center">
+                    Xác nhận hủy đơn
+                  </h2>
+                  <p className="text-lg text-center mb-6">
+                    Bạn có chắc chắn muốn hủy đơn đặt bàn này?
+                  </p>
+                  <div className="flex justify-center mt-4 space-x-4">
+                    <button
+                      onClick={() => setIsCancelModalVisible(false)}
+                      className="bg-gray-300 text-black py-3 px-8 rounded-full text-lg"
+                    >
+                      Hủy
+                    </button>
+                    <button
+                      onClick={handleCancelBooking}
+                      className="bg-red-600 text-white py-3 px-8 rounded-full text-lg"
+                    >
+                      Xác nhận hủy đơn
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

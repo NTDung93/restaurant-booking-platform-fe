@@ -12,6 +12,8 @@ import { ResponseEntityPagination } from '@/common/models/pagination';
 import { BookingLocation } from '@/common/models/booking';
 import { selectBookingByLocation } from './selector';
 import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 export default function ManageBookingTableAll() {
   const navigate = useNavigate();
@@ -19,7 +21,9 @@ export default function ManageBookingTableAll() {
   const userInfo = useSelector(selectUserInfo);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(10);
+  const [pageSize] = useState(5);
+
+  const [selectedStatus, setSelectedStatus] = useState('');
 
   const bookingsResponse = useSelector<
     ReduxState,
@@ -34,14 +38,22 @@ export default function ManageBookingTableAll() {
 
   const handleDetail = (id: string) => {
     navigate(RESTAURANT_ADMIN_DETAIL_TABLE_BOOKING_ROUTE.replace(':id', id));
+    console.log(id);
   };
 
   useEffect(() => {
     const locationId = userInfo?.locationId;
     if (locationId !== undefined) {
-      dispatch(fetchBookingByLocation({ locationId, currentPage, pageSize }));
+      dispatch(
+        fetchBookingByLocation({
+          locationId,
+          currentPage,
+          pageSize,
+          status: selectedStatus,
+        }),
+      );
     }
-  }, [dispatch, currentPage, pageSize]);
+  }, [dispatch, currentPage, pageSize, selectedStatus]);
 
   const goToPage = (page: number) => {
     if (page > 0 && page <= totalPages) {
@@ -52,61 +64,102 @@ export default function ManageBookingTableAll() {
   return (
     <>
       <Header />
-      <div className="mt-[100px] flex min-h-screen">
+      <div className="mt-[100px] flex bg-gray-50">
         <Menu />
-        <div className="w-[85vw] flex flex-col ">
+
+        <div className="flex flex-col">
           <Image />
-          <div className="ml-8">
-            <h1 className="text-4xl font-bold text-gray-800 mb-6">
+          <div className="mx-8 my-8">
+            <h1 className="text-4xl font-bold text-gray-900 mb-8">
               Quản lý đặt bàn
             </h1>
-            <div className="relative flex justify-start items-center ">
-              <div className="flex space-x-10 text-xl font-medium">
-                <button className="text-amber-600 font-bold border-b-4 border-amber-600 pb-2">
+
+            {/* Filter Buttons */}
+            <div className="mb-6">
+              <div className="flex space-x-10 text-lg font-medium text-gray-700">
+                <button
+                  className={`font-bold border-b-4 pb-2 ${selectedStatus === '' ? 'border-amber-600 text-amber-600' : ''}`}
+                  onClick={() => setSelectedStatus('')}
+                >
                   Tất cả
+                </button>
+                <button
+                  className={`font-bold border-b-4 pb-2 ${selectedStatus === 'PENDING' ? 'border-amber-600 text-amber-600' : ''}`}
+                  onClick={() => setSelectedStatus('PENDING')}
+                >
+                  Bàn đang đợi
+                </button>
+                <button
+                  className={`font-bold border-b-4 pb-2 ${selectedStatus === 'CONFIRMED' ? 'border-amber-600 text-amber-600' : ''}`}
+                  onClick={() => setSelectedStatus('CONFIRMED')}
+                >
+                  Bàn đã xác nhận
+                </button>
+                <button
+                  className={`font-bold border-b-4 pb-2 ${selectedStatus === 'SUCCESSFUL' ? 'border-amber-600 text-amber-600' : ''}`}
+                  onClick={() => setSelectedStatus('SUCCESSFUL')}
+                >
+                  Bàn hoàn thành
+                </button>
+                <button
+                  className={`font-bold border-b-4 pb-2 ${selectedStatus === 'CANCELLED' ? 'border-amber-600 text-amber-600' : ''}`}
+                  onClick={() => setSelectedStatus('CANCELLED')}
+                >
+                  Bàn hủy
                 </button>
               </div>
             </div>
-            <div className="relative w-full p-4">
-              <div className="grid grid-cols-7 gap-4 items-center text-lg font-normal text-black mb-4 bg-gray-100 px-5 rounded-lg">
-                <div>Mã bàn đặt</div>
-                <div>Người lớn</div>
-                <div>Trẻ em</div>
-                <div>Ngày đặt</div>
-                <div>Thời gian đặt</div>
-                <div>Trạng thái</div>
-                <div>Thao tác</div>
+
+            <div className="relative w-full p-6 bg-white shadow-md rounded-lg">
+              <div className="text-center grid grid-cols-7 gap-6 text-lg font-semibold text-gray-800 mb-4 bg-gray-200 p-4 rounded-lg">
+                <div className="font-bold">Mã bàn đặt</div>
+                <div className="font-bold">Người lớn</div>
+                <div className="font-bold">Trẻ em</div>
+                <div className="font-bold">Ngày đặt</div>
+                <div className="font-bold">Thời gian đặt</div>
+                <div className="font-bold">Trạng thái</div>
               </div>
 
               {status === ApiStatus.Loading ? (
-                <div>Đang tải...</div>
-              ) : (
-                bookingsResponse?.content.map(
+                <div className="text-center text-xl text-gray-500">
+                  <Spin
+                    indicator={
+                      <LoadingOutlined
+                        style={{ fontSize: 50, color: 'orange' }}
+                        spin
+                      />
+                    }
+                  />
+                </div>
+              ) : bookingsResponse?.content &&
+                bookingsResponse.content.length > 0 ? (
+                bookingsResponse.content.map(
                   (row: BookingLocation, idx: number) => (
                     <div
                       key={idx}
-                      className="grid grid-cols-7 gap-4 items-center text-xl font-normal text-black mb-4 px-5"
+                      className="text-center grid grid-cols-7 gap-6 items-center text-lg font-normal text-gray-800 mb-4 p-4 bg-white rounded-lg shadow-sm"
                     >
-                      <div>#{row.id}</div>
+                      <div className="font-bold">#{row.id}</div>
                       <div>{row.numberOfAdult}</div>
                       <div>{row.numberOfChildren}</div>
                       <div>{row.bookingDate}</div>
                       <div>{row.bookingTime}</div>
                       <div
-                        className={
-                          row.status === 'Đã hoàn thành'
-                            ? 'text-green-600'
-                            : row.status === 'Đã hủy'
-                              ? 'text-red-600'
-                              : 'text-sky-700'
-                        }
+                        className={`font-bold px-3 py-2 rounded-lg ${
+                          row?.status === 'SUCCESSFUL'
+                            ? 'bg-green-100 text-green-600'
+                            : row?.status === 'CANCELLED'
+                              ? 'bg-red-100 text-red-600'
+                              : row?.status === 'CONFIRMED'
+                                ? 'bg-yellow-100 text-yellow-600'
+                                : 'bg-sky-100 text-sky-700'
+                        }`}
                       >
                         {row.status}
                       </div>
-
-                      <div className="flex gap-4">
+                      <div className="flex gap-2">
                         <button
-                          className="px-4 py-2 bg-amber-600 text-white rounded-2xl font-bold"
+                          className="px-4 py-2 bg-amber-600 text-white rounded-lg font-bold hover:bg-amber-700"
                           onClick={() => handleDetail(row.id.toString())}
                         >
                           Chi tiết
@@ -115,23 +168,28 @@ export default function ManageBookingTableAll() {
                     </div>
                   ),
                 )
+              ) : (
+                // Display a message when there are no bookings
+                <div className="text-center text-lg text-gray-700">
+                  Không có đơn đặt bàn
+                </div>
               )}
             </div>
 
             <div className="flex justify-between items-center mt-6">
-              <div className="text-lg">
+              <div className="text-lg text-gray-700">
                 Hiển thị trang {currentPage} trên {totalPages} ({totalItems} bản
                 ghi)
               </div>
-              <div className="flex space-x-2 items-center">
+              <div className="flex space-x-3 items-center">
                 <button
                   onClick={() => goToPage(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className="bg-amber-600 text-white px-4 py-2 rounded-lg disabled:bg-gray-400"
+                  className="px-4 py-2 bg-amber-600 text-white rounded-lg disabled:bg-gray-400"
                 >
                   Trang trước
                 </button>
-                <div className="flex space-x-1">
+                <div className="flex space-x-2">
                   {Array.from(
                     { length: totalPages },
                     (_, index) => index + 1,
@@ -139,10 +197,10 @@ export default function ManageBookingTableAll() {
                     <button
                       key={page}
                       onClick={() => goToPage(page)}
-                      className={`px-2 py-1 rounded-lg ${
+                      className={`px-3 py-2 rounded-lg text-lg ${
                         page === currentPage
                           ? 'bg-amber-600 text-white'
-                          : 'bg-gray-200 text-black'
+                          : 'bg-gray-200 text-gray-900'
                       }`}
                     >
                       {page}
@@ -152,7 +210,7 @@ export default function ManageBookingTableAll() {
                 <button
                   onClick={() => goToPage(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="bg-amber-600 text-white px-4 py-2 rounded-lg disabled:bg-gray-400"
+                  className="px-4 py-2 bg-amber-600 text-white rounded-lg disabled:bg-gray-400"
                 >
                   Trang tiếp
                 </button>
