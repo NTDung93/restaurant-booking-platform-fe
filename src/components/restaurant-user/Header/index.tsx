@@ -1,8 +1,8 @@
 import { UserOutlined } from '@ant-design/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '@/containers/restaurant-user/Auth/thunks';
+import { getUserInfo, logout } from '@/containers/restaurant-user/Auth/thunks';
 import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
 import { ReduxDispatch } from '@/libs/redux/store';
 import {
@@ -29,12 +29,22 @@ export default function Header() {
 
   const handleLogout = async () => {
     await dispatch(logout());
-    await dispatch(clearUserInfo());
+    dispatch(clearUserInfo());
+
     Cookies.remove('access-token');
     Cookies.remove('refresh-token');
 
+    localStorage.removeItem('access-token');
+    localStorage.removeItem('refresh-token');
+    sessionStorage.removeItem('access-token');
+    sessionStorage.removeItem('refresh-token');
+
     navigate(HOME_ROUTE);
   };
+
+  useEffect(() => {
+    dispatch(getUserInfo());
+  }, [dispatch]);
 
   const hideSignInButton = ['/signin', '/signup'].includes(location.pathname);
 

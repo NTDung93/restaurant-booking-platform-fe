@@ -17,7 +17,7 @@ const ManageLocationFood: React.FC = () => {
   const userInfo = useSelector(selectUserInfo);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 3;
+  const itemsPerPage = 8;
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
   const [editFoodItem, setEditFoodItem] = useState<Food | null>(null); // State to hold the food item being edited
@@ -57,49 +57,52 @@ const ManageLocationFood: React.FC = () => {
         <Menu />
         <div className="w-[85vw] flex flex-col">
           <Image />
-          <div className="ml-8">
+          <div className="mx-8">
             <div className="flex justify-between items-center mb-8">
               <h1 className="text-4xl font-bold text-gray-800">
                 Tất cả món ăn
               </h1>
               <button
                 onClick={() => setShowAddModal(true)}
-                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                className="px-4 py-3 text-xl font-semibold text-white rounded-md bg-amber-600 hover:bg-amber-700"
               >
                 Thêm món ăn
               </button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {currentItems.map((food) => (
-                <div
-                  key={food.id}
-                  className="w-[400px] bg-white shadow-lg rounded-3xl overflow-hidden"
-                >
-                  <img
-                    className="w-full h-64 object-cover"
-                    src={food.image}
-                    alt={food.name}
-                  />
-                  <div className="p-6 flex flex-col items-center">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                      {food.name}
-                    </h2>
-                    <div className="flex justify-center items-center  w-full">
-                      <span className="text-amber-500 font-medium text-xl">
-                        Giá: {food.price.toLocaleString()} VNĐ
-                      </span>
-                    </div>
-                    <div
-                      onClick={() => handleEditClick(food)}
-                      className="flex items-center justify-center w-52 h-10 p-2 bg-amber-500 rounded-2xl hover:bg-amber-600 transition duration-200 cursor-pointer mt-4" // Thêm margin-top
-                    >
-                      <span className="text-center text-white text-lg font-medium">
-                        Chỉnh sửa
-                      </span>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+              {currentItems.map((food) => {
+                const firstImage = food.image.split(',')[0]; // Split the image string and get the first item
+                return (
+                  <div
+                    key={food.id}
+                    className="w-[400px] bg-white shadow-lg rounded-3xl overflow-hidden"
+                  >
+                    <img
+                      className="w-full h-64 object-cover"
+                      src={firstImage} // Use the first image in the array
+                      alt={food.name}
+                    />
+                    <div className="p-6 flex flex-col items-center">
+                      <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                        {food.name}
+                      </h2>
+                      <div className="flex justify-center items-center  w-full">
+                        <span className="text-amber-500 font-medium text-xl">
+                          Giá: {food.price.toLocaleString()} VNĐ
+                        </span>
+                      </div>
+                      <div
+                        onClick={() => handleEditClick(food)}
+                        className="flex items-center justify-center w-52 h-10 p-2 rounded-2xl bg-amber-600 hover:bg-amber-700 transition duration-200 cursor-pointer mt-4"
+                      >
+                        <span className="text-center text-white text-xl font-medium">
+                          Chỉnh sửa
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {currentItems.length === 0 && (
@@ -114,7 +117,7 @@ const ManageLocationFood: React.FC = () => {
                   {Array.from({ length: totalPages }, (_, index) => (
                     <li key={index + 1}>
                       <button
-                        className={`px-4 py-2 rounded-md text-white ${currentPage === index + 1 ? 'bg-blue-600' : 'bg-gray-400'}`}
+                        className={`px-4 py-2 rounded-md text-white ${currentPage === index + 1 ? 'bg-amber-600' : 'bg-gray-400'}`}
                         onClick={() => handlePageChange(index + 1)}
                       >
                         {index + 1}

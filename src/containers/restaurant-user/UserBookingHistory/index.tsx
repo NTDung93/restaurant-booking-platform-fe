@@ -80,12 +80,11 @@ export default function UserBookingHistory() {
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
       <div className="flex-grow p-6 flex justify-center items-start">
-        <div className="bg-white w-full max-w-6xl p-8 shadow-lg rounded-lg grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <MenuUser />
-
-          <div
-            className={`h-[${fixedHeight}px] bg-gray-50 p-6 rounded-lg shadow-inner w-full`}
-          >
+        <div className="bg-white w-full max-w-6xl p-8 shadow-lg rounded-lg grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="col-span-4">
+            <MenuUser />
+          </div>
+          <div className="col-span-8 bg-gray-50 p-6 rounded-lg shadow-inner">
             <h2 className="text-2xl font-bold text-gray-800 mb-6">
               Lịch sử đơn đặt hàng
             </h2>

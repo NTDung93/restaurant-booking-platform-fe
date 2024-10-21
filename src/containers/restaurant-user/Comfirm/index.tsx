@@ -7,22 +7,18 @@ import FoodSelectionModal from './components/FoodSelectionModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFoodByLocation } from './components/FoodSelectionModal/selector';
 import { fetchFoodByLocation } from './components/FoodSelectionModal/thunks';
-import { createBooking } from './thunks';
+import { createBooking, createPaymentLink } from './thunks';
 import { ReduxDispatch } from '@/libs/redux/store';
 import { toast, ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-// import VoucherModal from './components/VoucherModal';
-import PromotionModal from './components/PromotionModal';
 import { selectPromotionByLocation } from './components/PromotionModal/selector';
 import { fetchPromotionByLocation } from './components/PromotionModal/thunks';
 import { Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import {
-  PAYMENT_ROUTE,
-  SUCCESSS_ROUTE,
-} from '@/common/constants/routerConstant';
+import { SUCCESSS_ROUTE } from '@/common/constants/routerConstant';
+import { CreatePaymentDto, FoodItem } from '@/common/models/booking';
 
 export default function Confirm() {
   const dispatch = useDispatch<ReduxDispatch>();
@@ -53,33 +49,9 @@ export default function Confirm() {
   });
 
   // const [isVoucherModalOpen, setIsVoucherModalOpen] = useState<boolean>(false);
-  const [isPromotionModalOpen, setIsPromotionModalOpen] =
-    useState<boolean>(false);
+  // const [isPromotionModalOpen, setIsPromotionModalOpen] =
+  //   useState<boolean>(false);
   const [isFoodModalOpen, setIsFoodModalOpen] = useState<boolean>(false);
-
-  // const availableVouchers = [
-  //   {
-  //     imageSrc: '/images/kimbap.jpg',
-  //     title: 'Voucher Kimbap chiên',
-  //     originalPrice: 45000,
-  //     discountedPrice: 33000,
-  //     discountAmount: 12000,
-  //   },
-  //   {
-  //     imageSrc: '/images/burger.jpg',
-  //     title: 'Voucher Burger gà',
-  //     originalPrice: 55000,
-  //     discountedPrice: 40000,
-  //     discountAmount: 15000,
-  //   },
-  //   {
-  //     imageSrc: '/images/pizza.jpg',
-  //     title: 'Voucher Pizza hải sản',
-  //     originalPrice: 95000,
-  //     discountedPrice: 80000,
-  //     discountAmount: 15000,
-  //   },
-  // ];
 
   const handleFoodSelect = (
     selectedFoods: { name: string; quantity: number }[],
@@ -92,9 +64,9 @@ export default function Confirm() {
   //   setVoucher(selectedVoucher);
   // };
 
-  const handlePromotionSelect = (selectedPromotion: string) => {
-    setPromotion(selectedPromotion);
-  };
+  // const handlePromotionSelect = (selectedPromotion: string) => {
+  //   setPromotion(selectedPromotion);
+  // };
 
   const clearSelectedFoods = () => {
     setSelectedFoods([]);
@@ -114,7 +86,7 @@ export default function Confirm() {
   };
 
   useEffect(() => {
-    if (/*isVoucherModalOpen ||*/ isPromotionModalOpen || isFoodModalOpen) {
+    if (/*isVoucherModalOpen ||*/ /*isPromotionModalOpen ||*/ isFoodModalOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -123,7 +95,7 @@ export default function Confirm() {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [/*isVoucherModalOpen,*/ isPromotionModalOpen, isFoodModalOpen]);
+  }, [/*isVoucherModalOpen,*/ /*isPromotionModalOpen*/ isFoodModalOpen]);
   useEffect(() => {
     if (selectedFoods.length > 0) {
       localStorage.setItem('selectedFoods', JSON.stringify(selectedFoods));
@@ -141,6 +113,13 @@ export default function Confirm() {
   }, [dispatch]);
 
   const handlePayment = async () => {
+    if (!selectedPaymentMethod.includes('Bank')) {
+      toast.error(
+        `Phương thức thanh toán ${selectedPaymentMethod} chưa được hỗ trợ.`,
+      );
+      setLoading(false);
+      return;
+    }
     setLoading(true);
 
     try {
@@ -185,12 +164,51 @@ export default function Confirm() {
       };
 
       await dispatch(createBooking(bookingData));
+
+      const items = selectedFoods
+        .map((food) => {
+          const foodItem = foodsPaginationResponse?.content?.find(
+            (item) => item.name === food.name,
+          );
+          if (foodItem && foodItem.id !== undefined) {
+            return {
+              name: foodItem.name, // Ensure you're getting foodName
+              quantity: food.quantity,
+              price: foodItem.price * food.quantity,
+            };
+          }
+          return null;
+        })
+        .filter((foodItem): foodItem is FoodItem => foodItem !== null);
+
+      const paymentData: CreatePaymentDto = {
+        buyerName: name,
+        buyerPhone: phone,
+        description: 'Payment for booking',
+        returnUrl: 'http://localhost:5173/success',
+        cancelUrl: 'http://localhost:5173/confirm',
+        items: items,
+      };
+
+      const paymentResponse = await dispatch(createPaymentLink(paymentData));
+
+      if (paymentResponse.meta.requestStatus === 'fulfilled') {
+        const checkoutUrl = paymentResponse.payload; // Directly use the payload since it should be a string
+
+        if (checkoutUrl) {
+          // Navigate to the checkout URL
+          window.location.href = checkoutUrl;
+        } else {
+          toast.error('Không tìm thấy đường dẫn thanh toán.');
+        }
+      } else {
+        toast.error('Tạo liên kết thanh toán không thành công.');
+      }
+
       toast.success('Đặt bàn thành công!', {
         position: 'top-right',
         autoClose: 3000,
       });
-
-      navigate(PAYMENT_ROUTE);
     } catch (error) {
       toast.error('Có lỗi xảy ra. Vui lòng thử lại sau.');
     } finally {
@@ -280,7 +298,7 @@ export default function Confirm() {
                 <button
                   type="button"
                   onClick={() => setIsFoodModalOpen(true)}
-                  className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600"
+                  className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 text-xl font-semibold"
                 >
                   Chọn món ăn
                 </button>
@@ -461,13 +479,13 @@ export default function Confirm() {
 
                 {selectedFoods.length > 0 && (
                   <>
-                    <button
+                    {/* <button
                       type="button"
                       onClick={() => setIsPromotionModalOpen(true)}
                       className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
                     >
                       Chọn promotion
-                    </button>
+                    </button> */}
 
                     {promotion && (
                       <div className="mt-4 flex justify-between items-center">
@@ -494,23 +512,61 @@ export default function Confirm() {
                       Phương thức thanh toán
                     </h2>
                     <div className="grid grid-cols-1 gap-4 mt-4">
-                      {' '}
-                      {/* Đổi thành grid-cols-1 */}
                       <button
                         type="button"
-                        onClick={() => handlePaymentMethodChange('ZaloPay')}
+                        onClick={() => handlePaymentMethodChange('Bank')}
                         className={`flex items-center py-2 rounded-md ${
-                          selectedPaymentMethod === 'ZaloPay'
+                          selectedPaymentMethod === 'Bank'
                             ? 'bg-green-500 text-white'
-                            : 'bg-gray-200'
+                            : 'bg-gray-200 hover:bg-gray-300'
                         }`}
                       >
                         <img
-                          src="https://th.bing.com/th/id/OIP.e9A-iydJ2iR7AhuC3PacrwHaHa?w=166&h=180&c=7&r=0&o=5&pid=1.7"
-                          alt="ZaloPay"
-                          className="w-20 h-20 mb-2 rounded-lg ml-2 mr-2"
+                          src="https://res.cloudinary.com/dpysbryyk/image/upload/v1729510789/BankMethod.jpg"
+                          alt="Ngân Hàng"
+                          className="w-20 h-20 rounded-lg ml-3"
                         />
-                        Ngân hàng
+                        <span className="ml-3 font-semibold text-xl">
+                          Ngân hàng
+                        </span>
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4 mt-4">
+                      <button
+                        type="button"
+                        onClick={() => handlePaymentMethodChange('Momo')}
+                        className={`flex items-center py-2 rounded-md ${
+                          selectedPaymentMethod === 'Momo'
+                            ? 'bg-green-500 text-white'
+                            : 'bg-gray-200 hover:bg-gray-300'
+                        }`}
+                      >
+                        <img
+                          src="https://res.cloudinary.com/dpysbryyk/image/upload/v1729511098/Momo.png"
+                          alt="Momo"
+                          className="w-20 h-20 rounded-lg ml-3"
+                        />
+                        <span className="ml-3 font-semibold text-xl">Momo</span>
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4 mt-4">
+                      <button
+                        type="button"
+                        onClick={() => handlePaymentMethodChange('Zalopay')}
+                        className={`flex items-center py-2 rounded-md ${
+                          selectedPaymentMethod === 'Zalopay'
+                            ? 'bg-green-500 text-white'
+                            : 'bg-gray-200 hover:bg-gray-300'
+                        }`}
+                      >
+                        <img
+                          src="https://res.cloudinary.com/dpysbryyk/image/upload/v1729511093/ZaloPay.png"
+                          alt="Zalopay"
+                          className="w-20 h-20 rounded-lg ml-3"
+                        />
+                        <span className="ml-3 font-semibold text-xl">
+                          Zalopay
+                        </span>
                       </button>
                     </div>
                   </div>
@@ -522,7 +578,9 @@ export default function Confirm() {
                     type="button"
                     onClick={handlePayment}
                     className={`w-full py-2 rounded-md ${
-                      loading ? 'bg-gray-400' : 'bg-blue-800 text-white'
+                      loading
+                        ? 'bg-gray-400 '
+                        : 'bg-amber-600 hover:bg-amber-700 text-white text-xl font-semibold'
                     }`}
                     disabled={loading}
                   >
@@ -561,12 +619,12 @@ export default function Confirm() {
         onVoucherSelect={handleVoucherSelect}
       /> */}
 
-      <PromotionModal
+      {/* <PromotionModal
         isOpen={isPromotionModalOpen}
         onClose={() => setIsPromotionModalOpen(false)}
         availablePromotions={Array.isArray(promotions) ? promotions : []}
         onPromotionSelect={handlePromotionSelect}
-      />
+      /> */}
       <ToastContainer />
       <Footer />
     </div>

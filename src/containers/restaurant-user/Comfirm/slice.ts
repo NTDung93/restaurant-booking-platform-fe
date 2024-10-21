@@ -9,7 +9,11 @@ import {
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit';
-import { fetchBookingByLocation, createBooking } from './thunks';
+import {
+  fetchBookingByLocation,
+  createBooking,
+  createPaymentLink,
+} from './thunks';
 
 export interface BookingByLocationSliceState {
   bookingsPaginationResponse:
@@ -18,6 +22,7 @@ export interface BookingByLocationSliceState {
   status: ApiStatus;
   createBookingStatus: ApiStatus;
   newBooking: LocationBookingRequest | null;
+  paymentLink: string | null;
 }
 
 const initialState: BookingByLocationSliceState = {
@@ -25,6 +30,7 @@ const initialState: BookingByLocationSliceState = {
   status: ApiStatus.Idle,
   createBookingStatus: ApiStatus.Idle,
   newBooking: null,
+  paymentLink: null,
 };
 
 const bookingByLocationSlice = createSlice({
@@ -33,11 +39,13 @@ const bookingByLocationSlice = createSlice({
   reducers: {
     resetNewBooking: (state) => {
       state.newBooking = null;
+      state.paymentLink = null;
     },
   },
   extraReducers: (builder) => {
     setBookingByLocationResponse(builder);
     setCreateBookingResponse(builder);
+    setCreatePaymentLink(builder);
   },
 });
 
@@ -94,6 +102,30 @@ function setCreateBookingResponse(
     });
 }
 
+function setCreatePaymentLink(
+  builder: ActionReducerMapBuilder<BookingByLocationSliceState>,
+) {
+  builder
+    .addCase(
+      createPaymentLink.pending,
+      (state: BookingByLocationSliceState) => {
+        state.createBookingStatus = ApiStatus.Loading;
+      },
+    )
+    .addCase(
+      createPaymentLink.fulfilled,
+      (state: BookingByLocationSliceState, action: PayloadAction<string>) => {
+        state.createBookingStatus = ApiStatus.Fulfilled;
+        state.paymentLink = action.payload;
+      },
+    )
+    .addCase(
+      createPaymentLink.rejected,
+      (state: BookingByLocationSliceState) => {
+        state.createBookingStatus = ApiStatus.Failed;
+      },
+    );
+}
 export const { resetNewBooking } = bookingByLocationSlice.actions;
 
 export default bookingByLocationSlice.reducer;
