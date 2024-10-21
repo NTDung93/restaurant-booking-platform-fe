@@ -12,17 +12,12 @@ export default function Menu() {
           <h2 className="text-2xl font-bold text-white">Quản lý Đặt bàn</h2>
           <div className="space-y-2 text-xl font-medium text-black">
             <Link to={RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE}>Tất cả</Link>
-            <p>Bàn đang đợi</p>
-            <p>Bàn hoàn thành</p>
-            <p>Bàn hủy</p>
           </div>
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-white">Quản lý Thực đơn</h2>
           <div className="space-y-2 text-xl font-medium text-black">
             <Link to={RESTAURANT_ADMIN_MANAGE_FOOD_ROUTE}>Tất cả</Link>
-            <p>Thêm khuyến mãi</p>
-            <p>Thực đơn động</p>
           </div>
         </div>
         <div className="space-y-4">

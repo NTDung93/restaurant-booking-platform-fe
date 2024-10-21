@@ -1,4 +1,8 @@
-import { HOME_ROUTE, SIGN_IN_ROUTE } from '@/common/constants/routerConstant';
+import {
+  HOME_ROUTE,
+  RESTAURANT_ADMIN_INFO_ROUTE,
+  SIGN_IN_ROUTE,
+} from '@/common/constants/routerConstant';
 import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
 import { clearUserInfo } from '@/containers/restaurant-user/Auth/slice';
 import { getUserInfo, logout } from '@/containers/restaurant-user/Auth/thunks';
@@ -79,13 +83,13 @@ export default function Header() {
                     <span className="block text-lg md:hidden text-[#D86500] px-4 py-2">
                       Xin chào, {userInfo.userName}
                     </span>
-                    {/* <Link
-                      to="/user"
+                    <Link
+                      to={RESTAURANT_ADMIN_INFO_ROUTE}
                       className="block w-full text-left px-4 py-2 text-black hover:bg-gray-100"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      Tài khoản của tôi
-                    </Link> */}
+                      Thông tin nhà hàng
+                    </Link>
                     <button
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 text-black hover:bg-gray-100"
