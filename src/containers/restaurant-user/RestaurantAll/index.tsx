@@ -71,6 +71,7 @@ const RestaurantAll: React.FC = () => {
         console.error('Error during searchLocation dispatch:', error);
       }
     }
+    window.scrollTo(0, 0);
   }, []);
 
   if (responsePagination) {
