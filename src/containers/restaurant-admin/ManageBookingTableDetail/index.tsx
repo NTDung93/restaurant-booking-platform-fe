@@ -113,7 +113,7 @@ export default function ManageBookingTableDetail() {
             ) : (
               <div className="bg-white shadow-md rounded-lg p-8 grid grid-cols-2 gap-8 text-xl">
                 <div className="space-y-6">
-                  <div className="p-6 bg-white shadow-md rounded-lg">
+                  <div className="p-3 bg-white shadow-md rounded-lg">
                     <h2 className="text-2xl font-bold mb-4 border-b pb-2">
                       Mã đặt bàn: #{bookingDetail?.id}
                     </h2>
@@ -142,32 +142,25 @@ export default function ManageBookingTableDetail() {
                       </span>
                     </div>
 
-                    <div className="flex justify-between border-t border-gray-300 my-4 pt-4">
-                      <span className="font-medium text-gray-600">
-                        Tổng giá trị:
-                      </span>
-                      <span className="text-black font-bold">
-                        {bookingDetail?.amount} VNĐ
-                      </span>
-                    </div>
-
-                    <div className="flex justify-between mb-4">
-                      <span className="font-medium text-gray-600">
-                        Trạng thái thanh toán:
-                      </span>
-                      <span
-                        className={`font-bold px-3 py-2 rounded-lg ${
-                          bookingDetail?.status === 'SUCCESSFUL'
-                            ? 'bg-green-100 text-green-600'
-                            : bookingDetail?.status === 'CANCELLED'
-                              ? 'bg-red-100 text-red-600'
-                              : bookingDetail?.status === 'CONFIRMED'
-                                ? 'bg-yellow-100 text-yellow-600'
-                                : 'bg-sky-100 text-sky-700'
-                        }`}
-                      >
-                        {bookingDetail?.status}
-                      </span>
+                    <div className="border-t border-gray-300 pt-4">
+                      <h3 className="text-xl font-semibold mb-2">
+                        Các món đã đặt:
+                      </h3>
+                      <ul className="space-y-2">
+                        {bookingDetail?.foodBookings?.map((dish, index) => (
+                          <li
+                            key={index}
+                            className="flex justify-between items-center"
+                          >
+                            <span className="font-medium text-gray-600">
+                              {dish.foodName}
+                            </span>
+                            <span className="text-black">
+                              {dish.quantity} x {dish.amount} VNĐ
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                 </div>
@@ -182,6 +175,33 @@ export default function ManageBookingTableDetail() {
                   <div className="flex justify-between">
                     <span className="font-medium text-gray-600">SĐT:</span>
                     <span className="text-black">{bookingDetail?.phone}</span>
+                  </div>
+                  <div className="flex justify-between border-t border-gray-300 my-4 pt-4">
+                    <span className="font-medium text-gray-600">
+                      Tổng giá trị:
+                    </span>
+                    <span className="text-black font-bold">
+                      {bookingDetail?.amount} VNĐ
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between mb-4">
+                    <span className="font-medium text-gray-600">
+                      Trạng thái đơn hàng:
+                    </span>
+                    <span
+                      className={`font-bold px-3 py-2 rounded-lg ${
+                        bookingDetail?.status === 'SUCCESSFUL'
+                          ? 'bg-green-100 text-green-600'
+                          : bookingDetail?.status === 'CANCELLED'
+                            ? 'bg-red-100 text-red-600'
+                            : bookingDetail?.status === 'CONFIRMED'
+                              ? 'bg-yellow-100 text-yellow-600'
+                              : 'bg-sky-100 text-sky-700'
+                      }`}
+                    >
+                      {bookingDetail?.status}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -212,7 +232,7 @@ export default function ManageBookingTableDetail() {
               ) : bookingDetail?.status === 'CONFIRMED' ? (
                 <button
                   onClick={() => setIsSuccessModalVisible(true)}
-                  className="mr-3 bg-amber-600 text-white text-lg font-bold py-2 px-6 rounded-full transition duration-200 hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  className="mr-3 bg-green-600 text-white text-lg font-bold py-2 px-6 rounded-full transition duration-200 hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
                 >
                   Hoàn Tất Đơn
                 </button>
