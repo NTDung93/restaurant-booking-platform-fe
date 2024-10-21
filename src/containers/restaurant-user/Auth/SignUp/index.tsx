@@ -102,7 +102,6 @@ export default function SignUp() {
   };
 
   useEffect(() => {
-    // Cuộn về đầu trang mỗi khi vào component này
     window.scrollTo(0, 0);
   }, []);
 
