@@ -185,8 +185,8 @@ export default function Confirm() {
         buyerName: name,
         buyerPhone: phone,
         description: 'Payment for booking',
-        returnUrl: 'http://localhost:5173/success',
-        cancelUrl: 'http://localhost:5173/confirm',
+        returnUrl: 'https://skedeat.site/success',
+        cancelUrl: 'https://skedeat.site/confirm',
         items: items,
       };
 

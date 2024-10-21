@@ -122,8 +122,8 @@ const EditFoodModal: React.FC<EditFoodModalProps> = ({ food, onClose }) => {
 
         <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
           {/* Form bên trái */}
-          <div className="w-full md:w-1/2 flex flex-col">
-            <form onSubmit={handleSubmit} className="w-full mx-3">
+          <div className="w-full md:w-1/3 flex flex-grow items-center">
+            <form onSubmit={handleSubmit} className="w-full">
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-lg md:text-xl font-bold mb-2"
@@ -181,7 +181,7 @@ const EditFoodModal: React.FC<EditFoodModalProps> = ({ food, onClose }) => {
           </div>
 
           {/* Khu vực upload ảnh bên phải */}
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-2/3">
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
               {foodImages.map((image, index) => (
                 <div
@@ -192,11 +192,11 @@ const EditFoodModal: React.FC<EditFoodModalProps> = ({ food, onClose }) => {
                     <img
                       src={image}
                       alt={`Food Image ${index}`}
-                      className="w-full h-[200px] object-cover"
+                      className="w-full h-[210px] object-cover"
                     />
                   ) : (
                     <label className="block cursor-pointer">
-                      <div className="flex items-center justify-center w-full h-[200px] bg-gray-200">
+                      <div className="flex items-center justify-center w-full h-[210px] bg-gray-200">
                         <span className="text-gray-400">Upload</span>
                       </div>
                       <input
