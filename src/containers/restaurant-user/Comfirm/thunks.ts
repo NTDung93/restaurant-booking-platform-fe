@@ -1,4 +1,7 @@
-import { LocationBookingRequest } from '@/common/models/booking';
+import {
+  CreatePaymentDto,
+  LocationBookingRequest,
+} from '@/common/models/booking';
 import { createAppAsyncThunk } from '@/libs/redux/createAppAsyncThunk';
 import callApi from '@/utils/api';
 
@@ -20,6 +23,21 @@ export const createBooking = createAppAsyncThunk(
     localStorage.setItem('amount', JSON.stringify(response.amount));
 
     return response.data;
+  },
+);
+
+export const createPaymentLink = createAppAsyncThunk(
+  `${TypePrefix}/createPaymentLink`,
+  async (createPaymentDTO: CreatePaymentDto) => {
+    const response = await callApi(
+      {
+        method: 'post',
+        url: '/pay-os/create-payment-link',
+        data: createPaymentDTO,
+      },
+      true,
+    );
+    return response.data.checkoutUrl;
   },
 );
 

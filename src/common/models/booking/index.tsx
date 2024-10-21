@@ -56,3 +56,18 @@ export interface BookingLocation {
   amount: number;
   foodBookings: FoodBookingResponse[];
 }
+
+export interface CreatePaymentDto {
+  buyerName: string;
+  buyerPhone: string;
+  description: string;
+  returnUrl: string;
+  cancelUrl: string;
+  items: FoodItem[];
+}
+
+export interface FoodItem {
+  name: string;
+  quantity: number;
+  price: number;
+}

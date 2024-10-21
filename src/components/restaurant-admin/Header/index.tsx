@@ -25,12 +25,19 @@ export default function Header() {
 
   const handleLogout = async () => {
     await dispatch(logout());
-    await dispatch(clearUserInfo());
+    dispatch(clearUserInfo());
+
     Cookies.remove('access-token');
     Cookies.remove('refresh-token');
 
+    localStorage.removeItem('access-token');
+    localStorage.removeItem('refresh-token');
+    sessionStorage.removeItem('access-token');
+    sessionStorage.removeItem('refresh-token');
+
     navigate(HOME_ROUTE);
   };
+
   return (
     <>
       <header className="w-full h-[80px] md:h-[100px] bg-[#312525] fixed top-0 left-0 z-50">
