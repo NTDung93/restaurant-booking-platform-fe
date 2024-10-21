@@ -54,5 +54,5 @@ export interface BookingLocation {
   promotionId: number;
   status: string;
   amount: number;
-  foodBookings: foodBookings[];
+  foodBookings: FoodBookingResponse[];
 }

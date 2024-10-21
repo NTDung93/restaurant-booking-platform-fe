@@ -145,12 +145,14 @@ export default function ManageBookingTableAll() {
                       <div>{row.bookingDate}</div>
                       <div>{row.bookingTime}</div>
                       <div
-                        className={`font-bold py-2 rounded-lg ${
-                          row.status === 'SUCCESSFUL'
+                        className={`font-bold px-3 py-2 rounded-lg ${
+                          row?.status === 'SUCCESSFUL'
                             ? 'bg-green-100 text-green-600'
-                            : row.status === 'CANCELLED'
+                            : row?.status === 'CANCELLED'
                               ? 'bg-red-100 text-red-600'
-                              : 'bg-sky-100 text-sky-700'
+                              : row?.status === 'CONFIRMED'
+                                ? 'bg-yellow-100 text-yellow-600'
+                                : 'bg-sky-100 text-sky-700'
                         }`}
                       >
                         {row.status}
