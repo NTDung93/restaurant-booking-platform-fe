@@ -187,6 +187,7 @@ export default function Confirm() {
         description: 'Payment for booking',
         returnUrl: 'https://skedeat.site/success',
         cancelUrl: 'https://skedeat.site/confirm',
+        paymentType: 'ORDER',
         items: items,
       };
 
