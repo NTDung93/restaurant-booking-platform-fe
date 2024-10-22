@@ -1,7 +1,10 @@
 import {
   RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE,
+  RESTAURANT_ADMIN_MANAGE_ADVERTISEMENT_ROUTE,
+  RESTAURANT_ADMIN_MANAGE_BOOKING_TABLE_ONLINE_ROUTE,
   RESTAURANT_ADMIN_MANAGE_FEES_ROUTE,
   RESTAURANT_ADMIN_MANAGE_FOOD_ROUTE,
+  RESTAURANT_ADMIN_REPORT_BOOKING_TABLE_ROUTE,
   RESTAURANT_FEEDBACK_ROUTE,
 } from '@/common/constants/routerConstant';
 import { Link } from 'react-router-dom';
@@ -94,11 +97,13 @@ export default function Menu() {
           </div>
           <div className="ml-9 mt-2 space-y-2 text-lg font-medium text-gray-100 group-hover:text-white transition-colors duration-300">
             <p className="hover:text-yellow-300 cursor-pointer">
-              Báo cáo đặt bàn
+              <Link to={RESTAURANT_ADMIN_REPORT_BOOKING_TABLE_ROUTE}>
+                Báo cáo đặt bàn
+              </Link>
             </p>
-            <p className="hover:text-yellow-300 cursor-pointer">
+            {/* <p className="hover:text-yellow-300 cursor-pointer">
               Thống kê lượt đặt bàn
-            </p>
+            </p> */}
           </div>
         </div>
 
@@ -112,11 +117,13 @@ export default function Menu() {
           </div>
           <div className="ml-9 mt-2 space-y-2 text-lg font-medium text-gray-100 group-hover:text-white transition-colors duration-300">
             <p className="hover:text-yellow-300 cursor-pointer">
-              Chiến dịch quảng cáo
+              <Link to={RESTAURANT_ADMIN_MANAGE_ADVERTISEMENT_ROUTE}>
+                Chiến dịch quảng cáo
+              </Link>
             </p>
-            <p className="hover:text-yellow-300 cursor-pointer">
+            {/* <p className="hover:text-yellow-300 cursor-pointer">
               Phân tích tiếp thị
-            </p>
+            </p> */}
           </div>
         </div>
 
@@ -125,7 +132,9 @@ export default function Menu() {
           <div className="flex items-center space-x-3 cursor-pointer">
             <ShoppingCartOutlined className="text-white group-hover:text-yellow-300 transition-all duration-300 text-2xl" />
             <h2 className="text-2xl font-bold text-white group-hover:text-yellow-300 transition-all duration-300">
-              Đặt hàng Trực tuyến
+              <Link to={RESTAURANT_ADMIN_MANAGE_BOOKING_TABLE_ONLINE_ROUTE}>
+                Đặt hàng Trực tuyến
+              </Link>
             </h2>
           </div>
           <div className="ml-9 mt-2 space-y-2 text-lg font-medium text-gray-100 group-hover:text-white transition-colors duration-300">
