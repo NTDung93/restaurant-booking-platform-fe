@@ -38,7 +38,6 @@ export default function ManageBookingTableAll() {
 
   const handleDetail = (id: string) => {
     navigate(RESTAURANT_ADMIN_DETAIL_TABLE_BOOKING_ROUTE.replace(':id', id));
-    console.log(id);
   };
 
   useEffect(() => {

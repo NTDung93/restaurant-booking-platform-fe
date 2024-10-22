@@ -35,8 +35,11 @@ import {
   RESTAURANT_ADMIN_DETAIL_TABLE_BOOKING_ROUTE,
   RESTAURANT_ADMIN_HOME_ROUTE,
   RESTAURANT_ADMIN_INFO_ROUTE,
+  RESTAURANT_ADMIN_MANAGE_ADVERTISEMENT_ROUTE,
+  RESTAURANT_ADMIN_MANAGE_BOOKING_TABLE_ONLINE_ROUTE,
   RESTAURANT_ADMIN_MANAGE_FEES_ROUTE,
   RESTAURANT_ADMIN_MANAGE_FOOD_ROUTE,
+  RESTAURANT_ADMIN_REPORT_BOOKING_TABLE_ROUTE,
   RESTAURANT_DETAIL_ROUTE,
   RESTAURANT_FEEDBACK_ROUTE,
   RESTAURANT_ROUTE,
@@ -55,6 +58,9 @@ import ManageLocationFoodPage from './app/[locale]/restaurant-admin/ManageLocati
 import RestaurantInfoPage from './app/[locale]/restaurant-admin/RestaurantInfo/page';
 import ManageLocationFeedbackPage from './app/[locale]/restaurant-admin/ManageLocationFeedback/page';
 import ManageLocationFeesPage from './app/[locale]/restaurant-admin/ManageLocationFees';
+import ManageReportBookingTablePage from './app/[locale]/restaurant-admin/ManageReportBookingTable/page';
+import ManageReportBookingTableOnlinePage from './app/[locale]/restaurant-admin/ManageBookingTableOnline/page';
+import ManageAdvertisngCampaignPage from './app/[locale]/restaurant-admin/ManageAdvertisngCampaign/page';
 
 const router = createBrowserRouter([
   {
@@ -159,6 +165,18 @@ const router = createBrowserRouter([
   {
     path: RESTAURANT_ADMIN_MANAGE_FEES_ROUTE,
     element: <ManageLocationFeesPage />,
+  },
+  {
+    path: RESTAURANT_ADMIN_REPORT_BOOKING_TABLE_ROUTE,
+    element: <ManageReportBookingTablePage />,
+  },
+  {
+    path: RESTAURANT_ADMIN_MANAGE_BOOKING_TABLE_ONLINE_ROUTE,
+    element: <ManageReportBookingTableOnlinePage />,
+  },
+  {
+    path: RESTAURANT_ADMIN_MANAGE_ADVERTISEMENT_ROUTE,
+    element: <ManageAdvertisngCampaignPage />,
   },
 ]);
 
