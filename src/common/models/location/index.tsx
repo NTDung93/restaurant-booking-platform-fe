@@ -46,3 +46,9 @@ export interface LocationResponseLazyDetail {
   status: string;
   image: string[];
 }
+
+export interface CommissonMonthly {
+  status: string;
+  message: string;
+  totalAmount: number;
+}

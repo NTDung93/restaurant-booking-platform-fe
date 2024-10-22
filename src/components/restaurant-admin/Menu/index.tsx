@@ -1,5 +1,6 @@
 import {
   RESTAURANT_ADMIN_ALL_TABLE_BOOKING_ROUTE,
+  RESTAURANT_ADMIN_MANAGE_FEES_ROUTE,
   RESTAURANT_ADMIN_MANAGE_FOOD_ROUTE,
   RESTAURANT_FEEDBACK_ROUTE,
 } from '@/common/constants/routerConstant';
@@ -11,6 +12,7 @@ import {
   PieChartOutlined,
   BellOutlined,
   ShoppingCartOutlined,
+  DollarOutlined, // Thêm icon cho khoảng phí
 } from '@ant-design/icons';
 
 export default function Menu() {
@@ -54,7 +56,9 @@ export default function Menu() {
           <div className="flex items-center space-x-3 cursor-pointer">
             <StarOutlined className="text-white group-hover:text-yellow-300 transition-all duration-300 text-2xl" />
             <Link to={RESTAURANT_FEEDBACK_ROUTE}>
-              <h2 className="text-2xl font-bold text-white group-hover:text-yellow-300 transition-all duration-300">
+              <h2
+                className={`text-2xl font-bold text-white group-hover:text-yellow-300 transition-all duration-300 ${location.pathname === '/manage/feedback' ? 'text-yellow-300' : ''}`}
+              >
                 Quản lý Đánh giá
               </h2>
             </Link>
@@ -64,6 +68,20 @@ export default function Menu() {
             <p className="hover:text-yellow-300 cursor-pointer">Cần phản hồi</p>
             <p className="hover:text-yellow-300 cursor-pointer">Đã trả lời</p>
           </div>
+        </div>
+
+        {/* Quản lý Khoảng Phí */}
+        <div className="group">
+          <Link to={RESTAURANT_ADMIN_MANAGE_FEES_ROUTE}>
+            <div className="flex items-center space-x-3">
+              <DollarOutlined className="text-white group-hover:text-yellow-300 transition-all duration-300 text-2xl" />
+              <h2
+                className={`text-2xl font-bold text-white group-hover:text-yellow-300 transition-all duration-300 ${location.pathname === '/manage/fees' ? 'text-yellow-300' : ''}`}
+              >
+                Quản lý Khoảng Phí
+              </h2>
+            </div>
+          </Link>
         </div>
 
         {/* Báo cáo chi tiết */}

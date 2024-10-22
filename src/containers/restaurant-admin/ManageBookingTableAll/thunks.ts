@@ -72,3 +72,19 @@ export const fetchBookingById = createAppAsyncThunk(
       true,
     ),
 );
+
+export const commissonMonthly = createAppAsyncThunk(
+  `${TypePrefix}/commissonMonthly`,
+  async ({ userId }: { userId: number | undefined }) => {
+    const response = await callApi(
+      {
+        method: 'post',
+        url: `/notifications/commission-monthly-payment/${userId}`,
+      },
+      true,
+    );
+    console.log(response);
+
+    return response.data;
+  },
+);

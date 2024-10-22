@@ -17,7 +17,10 @@ import { ReduxDispatch } from '@/libs/redux/store';
 import { selectBookingByLocation } from '../ManageBookingTableAll/selector';
 import { useEffect, useState } from 'react';
 import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
-import { fetchBookingByLocation } from '../ManageBookingTableAll/thunks';
+import {
+  commissonMonthly,
+  fetchBookingByLocation,
+} from '../ManageBookingTableAll/thunks';
 
 ChartJS.register(
   CategoryScale,
@@ -53,8 +56,11 @@ export default function Home() {
 
   useEffect(() => {
     const locationId = userInfo?.locationId;
+    const userId = userInfo?.id;
+
     if (locationId !== undefined) {
       dispatch(fetchBookingByLocation({ locationId, currentPage, pageSize }));
+      dispatch(commissonMonthly({ userId }));
     }
   }, [dispatch, userInfo]);
 
