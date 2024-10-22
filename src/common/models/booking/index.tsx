@@ -63,6 +63,7 @@ export interface CreatePaymentDto {
   description: string;
   returnUrl: string;
   cancelUrl: string;
+  paymentType: string;
   items: FoodItem[];
 }
 
