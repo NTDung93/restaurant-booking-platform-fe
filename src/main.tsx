@@ -35,6 +35,7 @@ import {
   RESTAURANT_ADMIN_DETAIL_TABLE_BOOKING_ROUTE,
   RESTAURANT_ADMIN_HOME_ROUTE,
   RESTAURANT_ADMIN_INFO_ROUTE,
+  RESTAURANT_ADMIN_MANAGE_FEES_ROUTE,
   RESTAURANT_ADMIN_MANAGE_FOOD_ROUTE,
   RESTAURANT_DETAIL_ROUTE,
   RESTAURANT_FEEDBACK_ROUTE,
@@ -53,6 +54,7 @@ import ManageTableBookingDetailPage from './app/[locale]/restaurant-admin/Manage
 import ManageLocationFoodPage from './app/[locale]/restaurant-admin/ManageLocationFood';
 import RestaurantInfoPage from './app/[locale]/restaurant-admin/RestaurantInfo/page';
 import ManageLocationFeedbackPage from './app/[locale]/restaurant-admin/ManageLocationFeedback/page';
+import ManageLocationFeesPage from './app/[locale]/restaurant-admin/ManageLocationFees';
 
 const router = createBrowserRouter([
   {
@@ -153,6 +155,10 @@ const router = createBrowserRouter([
   {
     path: RESTAURANT_FEEDBACK_ROUTE,
     element: <ManageLocationFeedbackPage />,
+  },
+  {
+    path: RESTAURANT_ADMIN_MANAGE_FEES_ROUTE,
+    element: <ManageLocationFeesPage />,
   },
 ]);
 

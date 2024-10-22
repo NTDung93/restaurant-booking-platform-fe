@@ -330,7 +330,7 @@ export default function Confirm() {
                             >
                               <div className="flex items-center gap-4">
                                 <img
-                                  src={foodItem.image}
+                                  src={foodItem.image.split(',')[0]}
                                   alt={foodItem.name}
                                   className="w-20 h-20 rounded-md"
                                 />
