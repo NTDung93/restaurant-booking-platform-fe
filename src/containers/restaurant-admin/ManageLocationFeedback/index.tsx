@@ -4,7 +4,21 @@ import { useState } from 'react';
 import Image from '@/components/restaurant-admin/Img';
 
 export default function ReviewManagementPage() {
-  const [reviews] = useState([
+  interface Review {
+    id: string;
+    tableNumber: number;
+    customer: string;
+    status: string;
+    rating: number;
+    date: string;
+    note: string;
+    guests: number; // Number of guests
+    customerInfo: string; // Customer contact information
+  }
+
+  const [selectedReview, setSelectedReview] = useState<Review | null>(null); // State for selected review
+  const [isPopupOpen, setIsPopupOpen] = useState(false); // State for popup visibility
+  const [reviews] = useState<Review[]>([
     {
       id: '#25',
       tableNumber: 5,
@@ -13,6 +27,8 @@ export default function ReviewManagementPage() {
       rating: 5,
       date: '25/09/2024 19:00',
       note: 'Quán ngon, phục vụ tốt, sẽ quay lại!',
+      guests: 4, // Number of guests
+      customerInfo: 'khachhang1@example.com', // Customer contact information
     },
     {
       id: '#47',
@@ -22,6 +38,8 @@ export default function ReviewManagementPage() {
       rating: 4,
       date: '24/09/2024 18:30',
       note: 'Món ăn ngon, nhưng phục vụ hơi chậm.',
+      guests: 2, // Number of guests
+      customerInfo: 'khachhang2@example.com', // Customer contact information
     },
     {
       id: '#62',
@@ -31,6 +49,8 @@ export default function ReviewManagementPage() {
       rating: 5,
       date: '23/09/2024 20:00',
       note: 'Một trải nghiệm tuyệt vời, mọi thứ đều hoàn hảo!',
+      guests: 3, // Number of guests
+      customerInfo: 'khachhang3@example.com', // Customer contact information
     },
     {
       id: '#15',
@@ -40,6 +60,8 @@ export default function ReviewManagementPage() {
       rating: 3,
       date: '22/09/2024 19:15',
       note: 'Không gian đẹp nhưng món ăn hơi nhạt.',
+      guests: 2, // Number of guests
+      customerInfo: 'khachhang4@example.com', // Customer contact information
     },
     {
       id: '#78',
@@ -49,6 +71,8 @@ export default function ReviewManagementPage() {
       rating: 4,
       date: '21/09/2024 17:45',
       note: 'Quán sạch sẽ và nhân viên thân thiện.',
+      guests: 5, // Number of guests
+      customerInfo: 'khachhang5@example.com', // Customer contact information
     },
     {
       id: '#34',
@@ -58,6 +82,8 @@ export default function ReviewManagementPage() {
       rating: 5,
       date: '20/09/2024 21:00',
       note: 'Món ăn rất ngon, tôi sẽ giới thiệu cho bạn bè!',
+      guests: 4, // Number of guests
+      customerInfo: 'khachhang6@example.com', // Customer contact information
     },
     {
       id: '#92',
@@ -67,6 +93,8 @@ export default function ReviewManagementPage() {
       rating: 2,
       date: '19/09/2024 20:30',
       note: 'Thực phẩm không tươi, sẽ không quay lại.',
+      guests: 3, // Number of guests
+      customerInfo: 'khachhang7@example.com', // Customer contact information
     },
     {
       id: '#56',
@@ -76,6 +104,8 @@ export default function ReviewManagementPage() {
       rating: 5,
       date: '18/09/2024 19:00',
       note: 'Tuyệt vời! Tôi đã có một buổi tối tuyệt vời!',
+      guests: 6, // Number of guests
+      customerInfo: 'khachhang8@example.com', // Customer contact information
     },
     {
       id: '#83',
@@ -85,6 +115,8 @@ export default function ReviewManagementPage() {
       rating: 3,
       date: '17/09/2024 18:00',
       note: 'Tạm ổn, không có gì đặc biệt.',
+      guests: 2, // Number of guests
+      customerInfo: 'khachhang9@example.com', // Customer contact information
     },
     {
       id: '#99',
@@ -94,24 +126,27 @@ export default function ReviewManagementPage() {
       rating: 4,
       date: '16/09/2024 20:00',
       note: 'Đồ ăn ngon nhưng giá hơi cao.',
+      guests: 4, // Number of guests
+      customerInfo: 'khachhang10@example.com', // Customer contact information
     },
     {
       id: '#97',
       tableNumber: 10,
-      customer: 'Khách Hàng SG10',
+      customer: 'Khách Hàng SG11',
       status: 'Đã hoàn thành',
       rating: 4,
       date: '16/09/2024 20:00',
       note: 'Đồ ăn ngon nhưng giá hơi cao.',
+      guests: 5, // Number of guests
+      customerInfo: 'khachhang11@example.com', // Customer contact information
     },
   ]);
 
   const [searchText, setSearchText] = useState('');
-  const [filter, setFilter] = useState<number | null>(null); // Xử lý bộ lọc đánh giá sao
+  const [filter, setFilter] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const reviewsPerPage = 5;
 
-  // Lọc và tìm kiếm đánh giá
   const filteredReviews = reviews.filter(
     (review) =>
       (!filter || review.rating === filter) &&
@@ -119,21 +154,18 @@ export default function ReviewManagementPage() {
         review.note.toLowerCase().includes(searchText.toLowerCase())),
   );
 
-  // Tính toán số trang
   const totalReviews = filteredReviews.length;
   const totalPages = Math.ceil(totalReviews / reviewsPerPage);
 
-  // Tính toán các đánh giá cần hiển thị trên trang hiện tại
   const startIndex = (currentPage - 1) * reviewsPerPage;
   const currentReviews = filteredReviews.slice(
     startIndex,
     startIndex + reviewsPerPage,
   );
 
-  // Tính toán các trang cần hiển thị
   const getPaginationRange = () => {
     const range = [];
-    const maxPagesToShow = 5; // Số trang tối đa để hiển thị
+    const maxPagesToShow = 5;
     const startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
     const endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
 
@@ -144,6 +176,16 @@ export default function ReviewManagementPage() {
   };
 
   const paginationRange = getPaginationRange();
+
+  const openPopup = (review: Review) => {
+    setSelectedReview(review);
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    setSelectedReview(null);
+  };
 
   return (
     <>
@@ -203,12 +245,6 @@ export default function ReviewManagementPage() {
                 >
                   Xác nhận
                 </button>
-                <button
-                  onClick={() => setFilter(5)}
-                  className="bg-amber-600 font-semibold hover:bg-amber-700 text-white text-xl rounded-md py-2 px-4 transition duration-150 mt-2 md:mt-0"
-                >
-                  Lọc 5 sao
-                </button>
               </div>
 
               <div className="overflow-x-auto border border-gray-300 rounded-lg shadow-md">
@@ -267,7 +303,10 @@ export default function ReviewManagementPage() {
                         </td>
                         <td className="py-3 px-4 text-center">
                           <div className="flex space-x-2">
-                            <button className="bg-amber-600 font-semibold hover:bg-amber-700 text-white rounded-md py-2 px-4 transition duration-150">
+                            <button
+                              onClick={() => openPopup(review)}
+                              className="bg-amber-600 font-semibold hover:bg-amber-700 text-white rounded-md py-2 px-4 transition duration-150"
+                            >
                               Xem
                             </button>
                             <button className="bg-amber-600 font-semibold hover:bg-amber-700 text-white rounded-md py-2 px-4 transition duration-150">
@@ -280,6 +319,76 @@ export default function ReviewManagementPage() {
                   </tbody>
                 </table>
               </div>
+
+              {/* Popup for review details */}
+              {isPopupOpen && selectedReview && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                  <div className="bg-white p-10 rounded-lg shadow-lg max-w-3xl w-full">
+                    {' '}
+                    {/* Increased max width */}
+                    <h3 className="text-3xl font-bold text-center mb-8">
+                      Chi tiết đánh giá
+                    </h3>{' '}
+                    {/* Title size */}
+                    <div className="mt-4 flex">
+                      <div className="flex-1 pr-6 border-r border-gray-300">
+                        {/* Left side: Review Details */}
+                        <p className="mb-5 text-lg">
+                          {' '}
+                          {/* Font size */}
+                          <strong>Mã bàn đặt:</strong>{' '}
+                          {selectedReview.tableNumber}
+                        </p>
+                        <p className="mb-5 text-lg">
+                          <strong>Số khách:</strong> {selectedReview.guests}
+                        </p>
+                        <p className="mb-5 text-lg">
+                          <strong>Thời gian đặt:</strong> {selectedReview.date}
+                        </p>
+                        <p className="mb-5 text-lg">
+                          <strong>Số sao đánh giá:</strong>{' '}
+                          {Array.from({ length: 5 }, (_, i) => (
+                            <span
+                              key={i}
+                              className={
+                                i < selectedReview.rating
+                                  ? 'text-amber-500'
+                                  : 'text-gray-400'
+                              }
+                            >
+                              ★
+                            </span>
+                          ))}
+                        </p>
+                        <p className="mb-5 text-lg">
+                          <strong>Bình luận:</strong> {selectedReview.note}
+                        </p>
+                        <p className="mb-5 text-lg">
+                          <strong>Trạng thái:</strong> {selectedReview.status}
+                        </p>
+                      </div>
+                      <div className="flex-1 pl-6">
+                        {/* Right side: Customer Info */}
+                        <p className="mb-5 text-lg">
+                          <strong>Khách hàng:</strong> {selectedReview.customer}
+                        </p>
+                        <p className="mb-5 text-lg">
+                          <strong>Liên hệ:</strong>{' '}
+                          {selectedReview.customerInfo}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex justify-end mt-8">
+                      <button
+                        onClick={closePopup}
+                        className="bg-amber-600 hover:bg-amber-700 text-white rounded-md py-2 px-6 transition-all duration-200"
+                      >
+                        Đóng
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Phân trang */}
               <div className="flex justify-center py-4">
