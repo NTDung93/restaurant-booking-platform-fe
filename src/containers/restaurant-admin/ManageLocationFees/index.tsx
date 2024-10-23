@@ -1,8 +1,8 @@
 import Header from '@/components/restaurant-admin/Header';
 import Menu from '@/components/restaurant-admin/Menu';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from '@/components/restaurant-admin/Img';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
 import {
   BarChart,
@@ -13,72 +13,76 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import { ReduxDispatch } from '@/libs/redux/store';
+import { getFeesOfLocation } from './selector';
+import { fetchFeesOfLocation } from './thunks';
+import { CreatePaymentDto } from '@/common/models/booking';
+import { createPaymentLink } from '@/containers/restaurant-user/Comfirm/thunks';
+import { toast } from 'react-toastify';
+import { Spin } from 'antd';
 
 const FeeManagementPage = () => {
+  interface CommissionData {
+    month: string;
+    commission: number;
+    fixedFee: number;
+  }
+
+  interface Item {
+    name: string;
+    quantity: number;
+    price: number;
+  }
+
   const userInfo = useSelector(selectUserInfo);
 
-  // State variables for filters
   const currentMonth = new Date().getMonth() + 1;
   const currentYear = new Date().getFullYear();
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [loading, setLoading] = useState(false);
 
-  // Example fees data
-  const feesData = [
-    {
-      id: 1,
-      month: 1,
-      year: 2024,
-      commission: 500000,
-      fixedFee: 300000,
-      paymentStatus: 'Đã thanh toán',
-      paymentDeadline: '31/01/2024',
-      payerName: 'Nguyễn Văn A',
-      payerPhone: '0123456789',
-      payerEmail: 'nguyenvana@example.com',
-    },
-    {
-      id: 2,
-      month: 2,
-      year: 2024,
-      commission: 700000,
-      fixedFee: 300000,
-      paymentStatus: 'Chưa thanh toán',
-      paymentDeadline: '28/02/2024',
-      payerName: 'Trần Thị B',
-      payerPhone: '0987654321',
-      payerEmail: 'tranthib@example.com',
-    },
-    {
-      id: 3,
-      month: 3,
-      year: 2024,
-      commission: 600000,
-      fixedFee: 300000,
-      paymentStatus: 'Đã thanh toán',
-      paymentDeadline: '31/03/2024',
-      payerName: 'Lê Văn C',
-      payerPhone: '0912345678',
-      payerEmail: 'levanc@example.com',
-    },
-    // Add more data as needed
-  ];
+  const dispatch = useDispatch<ReduxDispatch>();
+  const monthlyCommission = useSelector(getFeesOfLocation);
 
-  // Filter the fees based on selected month and year
-  const filteredFees = feesData.filter(
-    (fee) => fee.month === selectedMonth && fee.year === selectedYear,
-  );
+  const [yearlyData, setYearlyData] = useState<CommissionData[]>([]);
 
-  // Calculate total fee and payment status
-  const totalCommission =
-    filteredFees.length > 0 ? filteredFees[0].commission : 0;
-  const totalAmount = totalCommission + 300000; // Cộng phí cố định 300k
-  const paymentStatus =
-    filteredFees.length > 0 ? filteredFees[0].paymentStatus : 'Chưa có dữ liệu';
-  const paymentDeadline =
-    filteredFees.length > 0
-      ? filteredFees[0].paymentDeadline
-      : 'Chưa có dữ liệu';
+  useEffect(() => {
+    dispatch(fetchFeesOfLocation({ month: selectedMonth, year: selectedYear }));
+  }, [dispatch, selectedMonth, selectedYear]);
+
+  useEffect(() => {
+    const fetchYearlyData = async () => {
+      const promises = Array.from({ length: 12 }, (_, index) =>
+        dispatch(fetchFeesOfLocation({ month: index + 1, year: selectedYear })),
+      );
+      const results = await Promise.all(promises);
+
+      const formattedData = results.map((result, index) => {
+        const data = result.payload;
+        return {
+          month: `Tháng ${index + 1}`,
+          commission: data?.totalAmount || 0,
+          fixedFee: data?.fixedAmount || 0,
+        };
+      });
+
+      setYearlyData(formattedData);
+    };
+
+    fetchYearlyData();
+    console.log(yearlyData);
+  }, [dispatch, selectedMonth, selectedYear]);
+
+  const totalCommission = monthlyCommission?.totalAmount || 0;
+  const fixedAmount = monthlyCommission?.fixedAmount || 0;
+  const totalAmount = totalCommission + fixedAmount;
+  const paymentStatus = monthlyCommission
+    ? monthlyCommission.isPaid
+      ? 'Đã thanh toán'
+      : 'Chưa thanh toán'
+    : 'Chưa có dữ liệu';
+  const paymentDeadline = monthlyCommission?.expiresAt || 'Chưa có dữ liệu';
 
   const paymentStatusColor =
     paymentStatus === 'Chưa thanh toán'
@@ -87,17 +91,59 @@ const FeeManagementPage = () => {
         ? 'bg-green-100 text-green-600 px-3 py-2 rounded-lg'
         : 'bg-gray-100 text-gray-600 px-3 py-2 rounded-lg';
 
-  // Prepare data for the chart, showing all months but only displaying data for months with fees
-  const chartData = Array.from({ length: 12 }, (_, index) => {
-    const monthIndex = index + 1; // Month index (1-12)
-    const feeForMonth = feesData.find((fee) => fee.month === monthIndex);
-    return {
-      month: `Tháng ${monthIndex}`,
-      commission: feeForMonth ? feeForMonth.commission : 0,
-      fixedFee: feeForMonth ? feeForMonth.fixedFee : 0,
-    };
-  });
+  const handlePayment = async () => {
+    try {
+      setLoading(true);
 
+      const items: Item[] = [
+        {
+          name: `Commissions in Month ${selectedMonth} and Year ${selectedYear}`,
+          quantity: 1,
+          price: monthlyCommission?.totalAmount ?? 0, // Price is based on quantity * unit price
+        },
+        {
+          name: `Fixed Amount in Month ${selectedMonth} and Year ${selectedYear}`,
+          quantity: 1,
+          price: monthlyCommission?.fixedAmount ?? 0, // Price is based on quantity * unit price
+        },
+      ];
+
+      const paymentData: CreatePaymentDto = {
+        buyerName: userInfo?.fullName || 'Unknown Buyer',
+        buyerPhone: userInfo?.phone || 'Unknown Phone',
+        description: 'Payment monthly',
+        returnUrl: 'https://skedeat.site/manage/fees',
+        cancelUrl: 'https://skedeat.site/manage/fees',
+        paymentType: 'ORDER',
+        items: items,
+      };
+
+      const paymentResponse = await dispatch(createPaymentLink(paymentData));
+
+      if (paymentResponse.meta.requestStatus === 'fulfilled') {
+        const checkoutUrl = paymentResponse.payload; // Directly use the payload since it should be a string
+
+        console.log(checkoutUrl);
+        if (checkoutUrl) {
+          // Navigate to the checkout URL
+          window.location.href = checkoutUrl;
+        } else {
+          toast.error('Không tìm thấy đường dẫn thanh toán.');
+        }
+      } else {
+        toast.error('Tạo liên kết thanh toán không thành công.');
+      }
+
+      toast.success('Đặt bàn thành công!', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
+    } catch (error) {
+      toast.error('Có lỗi xảy ra. Vui lòng thử lại sau.');
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <>
       <Header />
@@ -112,7 +158,7 @@ const FeeManagementPage = () => {
             </h2>
             <div className="bg-white rounded-lg shadow-md p-4 mb-10">
               <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={chartData}>
+                <BarChart data={yearlyData}>
                   <XAxis dataKey="month" />
                   <YAxis />
                   <Tooltip />
@@ -169,7 +215,7 @@ const FeeManagementPage = () => {
                     Khoảng Phí Cố Định Hàng Tháng:
                   </span>
                   <span className="text-amber-600 font-semibold text-lg">
-                    300,000 VNĐ
+                    {fixedAmount.toLocaleString()} VNĐ
                   </span>
                 </div>
                 <div className="flex justify-between mb-4">
@@ -224,13 +270,25 @@ const FeeManagementPage = () => {
                 <div className="flex justify-between">
                   <span className="font-semibold text-lg">Hạn Thanh Toán:</span>
                   <span className="text-lg font-semibold">
-                    {paymentDeadline}
+                    {paymentDeadline.toString()}
                   </span>
                 </div>
 
                 <div className="flex justify-end mt-10">
-                  <button className="bg-amber-600 text-xl font-semibold text-white px-5 py-3 rounded-md hover:bg-amber-700">
-                    Thanh Toán
+                  <button
+                    onClick={handlePayment}
+                    disabled={totalAmount === 0} // Disable button if totalAmount is 0
+                    className={`${
+                      loading || totalAmount === 0
+                        ? 'bg-gray-400 cursor-not-allowed'
+                        : 'bg-amber-600 text-white hover:bg-amber-700'
+                    } text-xl font-semibold text-white px-3 py-3 rounded-md mt-3`}
+                  >
+                    {loading ? (
+                      <Spin size="small" className="px-3 py-3" />
+                    ) : (
+                      'Thanh toán'
+                    )}
                   </button>
                 </div>
               </div>
