@@ -12,23 +12,19 @@ import {
   approveBookingByLocation,
   cancelBookingByLocation,
   successBookingByLocation,
-  commissonMonthly,
 } from './thunks';
-import { CommissonMonthly } from '@/common/models/location';
 
 export interface BookingByLocationSliceState {
   allBookingsPaginationResponse:
     | ResponseEntityPagination<BookingLocation>
     | undefined;
   bookingDetail: BookingLocation | undefined;
-  commissonMonthly: CommissonMonthly | undefined;
   status: ApiStatus;
 }
 
 const initialState: BookingByLocationSliceState = {
   allBookingsPaginationResponse: undefined,
   bookingDetail: undefined, // Khởi tạo bookingDetail là undefined
-  commissonMonthly: undefined,
   status: ApiStatus.Idle,
 };
 
@@ -42,7 +38,6 @@ const bookingByLocationSlice = createSlice({
     setApproveBookingByLocation(builder);
     setCancelBookingByLocation(builder);
     setSuccessBookingByLocation(builder);
-    setCommissonMonthly(builder);
   },
 });
 
@@ -187,31 +182,6 @@ function setSuccessBookingByLocation(
       (state: BookingByLocationSliceState) => {
         state.status = ApiStatus.Failed;
         state.bookingDetail = undefined;
-      },
-    );
-}
-
-function setCommissonMonthly(
-  builder: ActionReducerMapBuilder<BookingByLocationSliceState>,
-) {
-  builder
-    .addCase(commissonMonthly.pending, (state: BookingByLocationSliceState) => {
-      state.status = ApiStatus.Loading;
-    })
-    .addCase(
-      commissonMonthly.fulfilled,
-      (
-        state: BookingByLocationSliceState,
-        action: PayloadAction<CommissonMonthly>,
-      ) => {
-        state.status = ApiStatus.Fulfilled;
-        state.commissonMonthly = action.payload;
-      },
-    )
-    .addCase(
-      commissonMonthly.rejected,
-      (state: BookingByLocationSliceState) => {
-        state.status = ApiStatus.Failed;
       },
     );
 }

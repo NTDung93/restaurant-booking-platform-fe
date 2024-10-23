@@ -37,6 +37,8 @@ export const createPaymentLink = createAppAsyncThunk(
       },
       true,
     );
+    console.log(response.data.checkoutUrl);
+
     return response.data.checkoutUrl;
   },
 );
