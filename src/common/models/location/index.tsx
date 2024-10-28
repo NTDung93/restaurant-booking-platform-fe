@@ -27,6 +27,7 @@ export interface LocationResponseLazy {
   description: string;
   status: string;
   image: string;
+  bannerImage: string;
 }
 export interface LocationResponseLazyDetail {
   id: number;
@@ -45,4 +46,5 @@ export interface LocationResponseLazyDetail {
   description: string;
   status: string;
   image: string[];
+  bannerImage: string;
 }

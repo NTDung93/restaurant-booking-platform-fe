@@ -1,13 +1,24 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import LocationPopupSearch from '@/containers/restaurant-user/Home/Components/LocationPopupSearch';
+import Slider from 'react-slick';
+import { useDispatch, useSelector } from 'react-redux';
+import { ReduxDispatch } from '@/libs/redux/store';
+import { getAdsBannerOfLocation } from '@/containers/restaurant-admin/ManageAdvertisngCampaign/selector';
+import { fetchAdsBannerOfLocation } from '@/containers/restaurant-admin/ManageAdvertisngCampaign/thunks';
 
 const HeroBanner: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalWidth, setModalWidth] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const dispatch = useDispatch<ReduxDispatch>();
+  const locationBanner = useSelector(getAdsBannerOfLocation);
+
+  useEffect(() => {
+    dispatch(fetchAdsBannerOfLocation());
+  }, [dispatch]);
 
   const openModal = () => {
     if (inputRef.current) {
@@ -19,14 +30,48 @@ const HeroBanner: React.FC = () => {
 
   const closeModal = () => setModalOpen(false);
 
+  const sliderSettings = {
+    dots: false,
+    speed: 500,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    infinite: false,
+  };
+
+  const firstImages =
+    locationBanner?.content
+      ?.map((item) => {
+        if (item.bannerImage) {
+          return item.bannerImage;
+        }
+        return null;
+      })
+      .filter((image) => image !== null) || [];
+
   return (
     <>
-      <div className="relative w-full h-[40vh] mb-10 md:mb-14">
-        <img
-          className="absolute inset-0 w-full h-full object-cover opacity-90"
-          src="https://res.cloudinary.com/dnslrwedn/image/upload/v1726239414/nha-hang-the-log-restaurant-222_uqjc8t.jpg"
-          alt="Hero"
-        />
+      <div className="relative w-full h-[50vh] mb-10 md:mb-14">
+        {firstImages.length > 0 ? (
+          <Slider {...sliderSettings}>
+            {firstImages.map((src, index) => (
+              <div key={index}>
+                <img
+                  className="w-full h-[50vh] object-cover opacity-90"
+                  src={src?.trim()}
+                  alt={`Slide ${index + 1}`}
+                />
+              </div>
+            ))}
+          </Slider>
+        ) : (
+          <img
+            className="w-full h-[50vh] object-cover opacity-90"
+            src="https://res.cloudinary.com/dnslrwedn/image/upload/v1726239414/nha-hang-the-log-restaurant-222_uqjc8t.jpg"
+            alt="Default Banner"
+          />
+        )}
 
         <div className="absolute bottom-[-30px] md:bottom-[-50px] left-1/2 transform -translate-x-1/2 w-full max-w-screen-lg px-2 md:px-4">
           <div className="bg-white shadow-lg rounded-lg flex items-center p-3 md:p-6">

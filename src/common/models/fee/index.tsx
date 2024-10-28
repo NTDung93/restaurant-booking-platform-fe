@@ -8,6 +8,6 @@ export interface MonthlyCommissionPayment {
   totalBooking: number;
   isPaid: boolean;
   paidAt: string;
-  expiresAt: Date;
+  expiredAt: string;
   transactionId: number;
 }

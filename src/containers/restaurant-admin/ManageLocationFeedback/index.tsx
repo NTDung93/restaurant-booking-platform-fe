@@ -191,10 +191,16 @@ export default function ReviewManagementPage() {
     <>
       <Header />
       <div className="mt-[100px] flex min-h-screen">
-        <Menu />
-        <div className="w-[85vw] flex flex-col">
+        {/* Fixed Menu */}
+        <div className="fixed top-[100px] left-0 w-[15vw]">
+          <Menu />
+        </div>
+
+        {/* Main Content */}
+        <div className="ml-[15vw] w-[85vw] flex flex-col overflow-y-auto">
           <Image />
-          <div className="flex flex-col space-y-8 px-10">
+
+          <div className="p-8 bg-background text-foreground space-y-10 mx-5">
             {/* Đánh giá nhà hàng tổng quan */}
             <div className="space-y-4">
               <h2 className="text-3xl lg:text-4xl font-bold">
@@ -397,7 +403,7 @@ export default function ReviewManagementPage() {
                   className="bg-amber-600 hover:bg-amber-700 text-white rounded-md py-2 px-4 mx-1"
                   disabled={currentPage === 1}
                 >
-                  Prev
+                  Trang trước
                 </button>
 
                 {paginationRange.map((page) => (
@@ -417,7 +423,7 @@ export default function ReviewManagementPage() {
                   className="bg-amber-600 hover:bg-amber-700 text-white rounded-md py-2 px-4 mx-1"
                   disabled={currentPage === totalPages}
                 >
-                  Next
+                  Trang kế
                 </button>
               </div>
             </div>

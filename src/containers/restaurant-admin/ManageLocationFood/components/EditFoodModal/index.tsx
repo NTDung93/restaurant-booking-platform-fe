@@ -182,38 +182,71 @@ const EditFoodModal: React.FC<EditFoodModalProps> = ({ food, onClose }) => {
 
           {/* Khu vực upload ảnh bên phải */}
           <div className="w-full md:w-2/3">
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
               {foodImages.map((image, index) => (
-                <div
-                  key={index}
-                  className="relative border border-gray-300 p-2"
-                >
+                <div key={index} className="relative group">
                   {image ? (
-                    <img
-                      src={image}
-                      alt={`Food Image ${index}`}
-                      className="w-full h-[210px] object-cover"
-                    />
+                    <div className="relative w-full h-[220px]">
+                      <img
+                        src={image}
+                        alt={`Food Image ${index}`}
+                        className="w-full h-full object-cover rounded-lg shadow-md"
+                      />
+                      {/* Delete Button */}
+                      <button
+                        type="button"
+                        onClick={() => handleImageDelete(index)}
+                        className="absolute top-3 right-3 w-8 h-8 bg-white/90 hover:bg-red-500 text-gray-600 hover:text-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200"
+                      >
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
+                      </button>
+                    </div>
                   ) : (
                     <label className="block cursor-pointer">
-                      <div className="flex items-center justify-center w-full h-[210px] bg-gray-200">
-                        <span className="text-gray-400">Upload</span>
+                      <div className="w-full h-[220px] rounded-lg border-2 border-dashed border-gray-300 hover:border-gray-400 transition-colors bg-gray-50 flex flex-col items-center justify-center gap-3 group-hover:bg-gray-100">
+                        <div className="p-3 rounded-full bg-gray-100 group-hover:bg-gray-200 transition-colors">
+                          <svg
+                            className="w-6 h-6 text-gray-400"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                            />
+                          </svg>
+                        </div>
+                        <div className="text-center px-4">
+                          <span className="text-gray-500 text-sm font-medium">
+                            Upload Image
+                          </span>
+                          <p className="text-gray-400 text-xs mt-1">
+                            Click to browse
+                          </p>
+                        </div>
                       </div>
                       <input
                         type="file"
                         className="hidden"
                         onChange={(e) => handleFileUpload(e, index)}
+                        accept="image/*"
                       />
                     </label>
-                  )}
-                  {image && (
-                    <button
-                      type="button"
-                      className="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600"
-                      onClick={() => handleImageDelete(index)}
-                    >
-                      <span className="text-lg">X</span>
-                    </button>
                   )}
                 </div>
               ))}
