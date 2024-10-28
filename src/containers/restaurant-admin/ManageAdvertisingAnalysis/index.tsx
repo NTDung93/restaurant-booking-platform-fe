@@ -1,5 +1,5 @@
 import Menu from '@/components/restaurant-admin/Menu';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Image from '@/components/restaurant-admin/Img';
 import { RESTAURANT_ADMIN_MANAGE_ADVERTISEMENT_ROUTE } from '@/common/constants/routerConstant';
@@ -47,7 +47,7 @@ const ManageAdvertisingAnalysis: React.FC = () => {
   });
 
   // State
-  const [data, setData] = useState(sampleData);
+  const [data] = useState(sampleData);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 

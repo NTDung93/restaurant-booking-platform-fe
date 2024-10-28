@@ -4,7 +4,11 @@ import {
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit';
-import { fetchAdsBannerOfLocation, fetchAdsOfSystem, fetchAdsRegistrationOfLocation } from './thunks';
+import {
+  fetchAdsBannerOfLocation,
+  fetchAdsOfSystem,
+  fetchAdsRegistrationOfLocation,
+} from './thunks';
 import { AdsResponse, AdsResponses } from '@/common/models/ads';
 import { ResponseEntityPagination } from '@/common/models/pagination';
 import { LocationResponseLazy } from '@/common/models/location';
@@ -60,9 +64,12 @@ function setAdsBannerOfLocation(
   builder: ActionReducerMapBuilder<AdsOfLocationSliceState>,
 ) {
   builder
-    .addCase(fetchAdsBannerOfLocation.pending, (state: AdsOfLocationSliceState) => {
-      state.status = ApiStatus.Loading;
-    })
+    .addCase(
+      fetchAdsBannerOfLocation.pending,
+      (state: AdsOfLocationSliceState) => {
+        state.status = ApiStatus.Loading;
+      },
+    )
     .addCase(
       fetchAdsBannerOfLocation.fulfilled,
       (
@@ -73,18 +80,24 @@ function setAdsBannerOfLocation(
         state.locationBanner = action.payload;
       },
     )
-    .addCase(fetchAdsBannerOfLocation.rejected, (state: AdsOfLocationSliceState) => {
-      state.status = ApiStatus.Failed;
-    });
+    .addCase(
+      fetchAdsBannerOfLocation.rejected,
+      (state: AdsOfLocationSliceState) => {
+        state.status = ApiStatus.Failed;
+      },
+    );
 }
 
 function setAdsRegistrationOfLocation(
   builder: ActionReducerMapBuilder<AdsOfLocationSliceState>,
 ) {
   builder
-    .addCase(fetchAdsRegistrationOfLocation.pending, (state: AdsOfLocationSliceState) => {
-      state.status = ApiStatus.Loading;
-    })
+    .addCase(
+      fetchAdsRegistrationOfLocation.pending,
+      (state: AdsOfLocationSliceState) => {
+        state.status = ApiStatus.Loading;
+      },
+    )
     .addCase(
       fetchAdsRegistrationOfLocation.fulfilled,
       (
@@ -95,8 +108,11 @@ function setAdsRegistrationOfLocation(
         state.adsResponses = action.payload;
       },
     )
-    .addCase(fetchAdsRegistrationOfLocation.rejected, (state: AdsOfLocationSliceState) => {
-      state.status = ApiStatus.Failed;
-    });
+    .addCase(
+      fetchAdsRegistrationOfLocation.rejected,
+      (state: AdsOfLocationSliceState) => {
+        state.status = ApiStatus.Failed;
+      },
+    );
 }
 export default adsOfSystemSlice.reducer;

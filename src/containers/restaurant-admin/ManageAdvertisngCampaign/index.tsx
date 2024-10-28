@@ -135,9 +135,8 @@ const ManageAdvertisingCampaign: React.FC = () => {
     }
   }, [dispatch, userInfo]);
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('vi-VN').format(price);
-  };
+  const formatPrice = (price: number) =>
+    new Intl.NumberFormat('vi-VN').format(price);
 
   const handleRegisterClick = async (adIndex: number, ad: AdsResponse) => {
     setLoadingArray((prev) => {
@@ -204,9 +203,8 @@ const ManageAdvertisingCampaign: React.FC = () => {
     setSelectedAd(null);
   };
 
-  const isAdPackageRegistered = (adId: number) => {
-    return adsOfLocation?.some((ad) => ad.ads.id === adId) || false;
-  };
+  const isAdPackageRegistered = (adId: number) =>
+    adsOfLocation?.some((ad) => ad.ads.id === adId) || false;
 
   return (
     <>

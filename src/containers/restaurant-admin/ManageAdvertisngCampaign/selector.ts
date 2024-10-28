@@ -9,8 +9,9 @@ export const getAdsOfSystem = (
 
 export const getAdsBannerOfLocation = (
   state: ReduxState,
-): ResponseEntityPagination<LocationResponseLazy> | undefined => state.ads.locationBanner; 
+): ResponseEntityPagination<LocationResponseLazy> | undefined =>
+  state.ads.locationBanner;
 
 export const getAdsRegistrationOfLocation = (
-  state: ReduxState, 
-): AdsResponses[] | undefined => state.ads.adsResponses; 
+  state: ReduxState,
+): AdsResponses[] | undefined => state.ads.adsResponses;

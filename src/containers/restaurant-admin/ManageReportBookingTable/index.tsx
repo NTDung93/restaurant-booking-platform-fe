@@ -12,11 +12,6 @@ const ManageReportBookingTable: React.FC = () => {
     new Date('2024-08-26'),
   );
   const [endDate, setEndDate] = useState<Date | null>(new Date('2024-09-24'));
-  const [confirmedStartDate, setConfirmedStartDate] = useState<Date | null>(
-    null,
-  );
-  const [confirmedEndDate, setConfirmedEndDate] = useState<Date | null>(null);
-
   const [revenue, setRevenue] = useState<number>(38500000);
   const [bookingCount, setBookingCount] = useState<number>(684);
   const [conversionRate, setConversionRate] = useState<number>(80);
@@ -62,9 +57,6 @@ const ManageReportBookingTable: React.FC = () => {
   };
 
   const handleConfirm = () => {
-    setConfirmedStartDate(startDate);
-    setConfirmedEndDate(endDate);
-
     setRevenue(Math.floor(Math.random() * 50000000) + 10000000);
     setBookingCount(Math.floor(Math.random() * 100) + 500);
     setConversionRate(Math.floor(Math.random() * 10));

@@ -17,7 +17,7 @@ export const fetchAdsOfSystem = createAppAsyncThunk(
       true,
     );
 
-    const adsResponse: ResponseEntityPagination<AdsResponse> = response;    
+    const adsResponse: ResponseEntityPagination<AdsResponse> = response;
     return adsResponse;
   },
 );
@@ -33,7 +33,8 @@ export const fetchAdsBannerOfLocation = createAppAsyncThunk(
       true,
     );
 
-    const adsResponse: ResponseEntityPagination<LocationResponseLazy> = response;    
+    const adsResponse: ResponseEntityPagination<LocationResponseLazy> =
+      response;
     return adsResponse;
   },
 );
@@ -53,7 +54,7 @@ export const addAdsRegistration = createAppAsyncThunk(
 
 export const fetchAdsRegistrationOfLocation = createAppAsyncThunk(
   `${TypePrefix}/fetchAdsRegistrationOfLocation`,
-  async (locationId: number) =>{
+  async (locationId: number) => {
     const response = await callApi(
       {
         method: 'get',
@@ -63,5 +64,5 @@ export const fetchAdsRegistrationOfLocation = createAppAsyncThunk(
     );
 
     return response.adsResponses;
-  }
+  },
 );
