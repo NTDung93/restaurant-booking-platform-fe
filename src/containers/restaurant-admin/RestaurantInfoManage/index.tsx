@@ -24,10 +24,16 @@ export default function ManageLocationFood() {
     <>
       <Header />
       <div className="mt-[100px] flex min-h-screen">
-        <Menu />
-        <div className="w-[85vw] flex flex-col">
+        {/* Fixed Menu */}
+        <div className="fixed top-[100px] left-0 w-[15vw]">
+          <Menu />
+        </div>
+
+        {/* Main Content */}
+        <div className="ml-[15vw] w-[85vw] flex flex-col overflow-y-auto">
           <Image />
-          <div className="ml-8">
+
+          <div className="p-8 bg-background text-foreground space-y-10 mx-5">
             <h1 className="text-4xl font-bold text-gray-800 mb-8">
               Thông tin nhà hàng
             </h1>

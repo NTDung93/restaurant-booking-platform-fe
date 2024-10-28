@@ -12,11 +12,6 @@ const ManageReportBookingTable: React.FC = () => {
     new Date('2024-08-26'),
   );
   const [endDate, setEndDate] = useState<Date | null>(new Date('2024-09-24'));
-  const [confirmedStartDate, setConfirmedStartDate] = useState<Date | null>(
-    null,
-  );
-  const [confirmedEndDate, setConfirmedEndDate] = useState<Date | null>(null);
-
   const [revenue, setRevenue] = useState<number>(38500000);
   const [bookingCount, setBookingCount] = useState<number>(684);
   const [conversionRate, setConversionRate] = useState<number>(80);
@@ -62,9 +57,6 @@ const ManageReportBookingTable: React.FC = () => {
   };
 
   const handleConfirm = () => {
-    setConfirmedStartDate(startDate);
-    setConfirmedEndDate(endDate);
-
     setRevenue(Math.floor(Math.random() * 50000000) + 10000000);
     setBookingCount(Math.floor(Math.random() * 100) + 500);
     setConversionRate(Math.floor(Math.random() * 10));
@@ -103,19 +95,25 @@ const ManageReportBookingTable: React.FC = () => {
     <>
       <Header />
       <div className="mt-[100px] flex min-h-screen ">
-        <Menu />
-        <div className="w-[85vw] flex flex-col">
+        {/* Fixed Menu */}
+        <div className="fixed top-[100px] left-0 w-[15vw]">
+          <Menu />
+        </div>
+
+        {/* Main Content */}
+        <div className="ml-[15vw] w-[85vw] flex flex-col overflow-y-auto">
           <Image />
-          <div className="ml-8 py-8">
+
+          <div className="p-8 bg-background text-foreground space-y-10 mx-5">
             <h1 className="text-4xl font-bold text-gray-800 mb-8">
               Báo cáo chi tiết
             </h1>
 
-            <div className="flex items-center mb-8 space-x-4">
+            <div className="flex items-center mb-8 space-x-6 p-4 bg-white shadow-md rounded-lg">
               <div className="text-amber-600 text-2xl font-bold">
                 Chọn ngày:
               </div>
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 items-center">
                 <DatePicker
                   selected={startDate}
                   onChange={(date: Date | null) => setStartDate(date)}
@@ -124,9 +122,9 @@ const ManageReportBookingTable: React.FC = () => {
                   endDate={endDate || undefined}
                   maxDate={maxDate}
                   dateFormat="dd-MM-yyyy"
-                  className="border rounded-lg p-2"
+                  className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-amber-600 transition duration-200 w-40" // Set fixed width here
                 />
-                <span className="text-gray-600">đến</span>
+                <span className="text-gray-600 font-semibold">đến</span>
                 <DatePicker
                   selected={endDate}
                   onChange={(date: Date | null) => setEndDate(date)}
@@ -136,20 +134,15 @@ const ManageReportBookingTable: React.FC = () => {
                   minDate={startDate || undefined}
                   maxDate={maxDate}
                   dateFormat="dd-MM-yyyy"
-                  className="border rounded-lg p-2"
+                  className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-amber-600 transition duration-200 w-40" // Set fixed width here
                 />
                 <button
                   onClick={handleConfirm}
-                  className="bg-amber-600 text-white py-2 px-4 rounded-lg"
+                  className="bg-amber-600 text-white py-2 px-6 rounded-lg hover:bg-amber-700 transition duration-200"
                 >
                   Xác nhận
                 </button>
               </div>
-            </div>
-
-            <div className="text-neutral-400 text-xl mb-4">
-              Từ {confirmedStartDate?.toLocaleDateString('vi-VN')} đến{' '}
-              {confirmedEndDate?.toLocaleDateString('vi-VN')}
             </div>
 
             <div className="mb-8">

@@ -104,76 +104,84 @@ export default function Home() {
     <>
       <Header />
       <div className="mt-[100px] flex min-h-screen">
-        <Menu />
-        <div className="w-[85vw] flex flex-col ">
+        {/* Fixed Menu */}
+        <div className="fixed top-[100px] left-0 w-[15vw]">
+          <Menu />
+        </div>
+
+        {/* Main Content */}
+        <div className="ml-[15vw] w-[85vw] flex flex-col overflow-y-auto">
           <Image />
+          <div className="mx-10">
+            <div className="p-8 bg-background text-foreground space-y-10">
+              <h2 className="text-black text-4xl font-bold mb-4">
+                Danh sách cần làm
+              </h2>
+              <p className="text-neutral-400 text-xl mb-8">
+                Những việc bạn sẽ phải làm
+              </p>
 
-          {/* Task List Section */}
-          <div className="p-6 bg-white rounded-lg shadow-md">
-            <h2 className="text-black text-4xl font-bold mb-4">
-              Danh sách cần làm
-            </h2>
-            <p className="text-neutral-400 text-xl mb-8">
-              Những việc bạn sẽ phải làm
-            </p>
-
-            <div className="flex justify-around">
-              <div className="flex flex-col items-center">
-                <div className="text-amber-500 text-4xl font-bold">
-                  {pendingCount}
+              <div className="flex justify-around">
+                <div className="flex flex-col items-center">
+                  <div className="text-amber-500 text-4xl font-bold">
+                    {pendingCount}
+                  </div>
+                  <p className="text-black text-xl text-center">Chờ Xác Nhận</p>
                 </div>
-                <p className="text-black text-xl text-center">Chờ Xác Nhận</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="text-amber-500 text-4xl font-bold">
-                  {confirmedCount}
+                <div className="flex flex-col items-center">
+                  <div className="text-amber-500 text-4xl font-bold">
+                    {confirmedCount}
+                  </div>
+                  <p className="text-black text-xl text-center">Đã Xử Lý</p>
                 </div>
-                <p className="text-black text-xl text-center">Đã Xử Lý</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="text-amber-500 text-4xl font-bold">
-                  {successCount}
+                <div className="flex flex-col items-center">
+                  <div className="text-amber-500 text-4xl font-bold">
+                    {successCount}
+                  </div>
+                  <p className="text-black text-xl text-center">Hoàn Thành</p>
                 </div>
-                <p className="text-black text-xl text-center">Hoàn Thành</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="text-amber-500 text-4xl font-bold">
-                  {cancelCount}
+                <div className="flex flex-col items-center">
+                  <div className="text-amber-500 text-4xl font-bold">
+                    {cancelCount}
+                  </div>
+                  <p className="text-black text-xl text-center">Đơn hủy</p>
                 </div>
-                <p className="text-black text-xl text-center">Đơn hủy</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Divider Line */}
-          <div className="w-full h-px bg-neutral-300 my-8"></div>
-
-          <div className="p-6 bg-white rounded-lg shadow-md">
-            <h2 className="text-black text-4xl font-bold mb-4">
-              Phân tích đặt bàn
-            </h2>
-            <p className="text-neutral-400 text-xl mb-8">
-              Tổng quan dữ liệu của nhà hàng đối với bàn đã đặt
-            </p>
-
-            <div className="flex justify-between items-start">
-              <div className="flex flex-col items-start">
-                <p className="text-black text-xl">Doanh thu</p>
-                <p className="text-neutral-400 text-base">
-                  Hôm nay 00:00 GMT+7 15:00
-                </p>
               </div>
             </div>
 
-            {/* Revenue Chart */}
-            <div className="h-64 mt-8">
-              <Line data={chartData} options={chartOptions} />
-            </div>
+            {/* Divider Line */}
+            <div className="w-full h-px bg-neutral-300 my-8"></div>
 
-            {/* Stats Section */}
-            <div className="mt-8 flex justify-around">
-              {['Lượt truy cập', 'Bàn đặt', 'Lượt xem', 'Tỷ lệ chuyển đổi'].map(
-                (label, idx) => (
+            <div className="p-6 bg-white rounded-lg shadow-md">
+              <h2 className="text-black text-4xl font-bold mb-4">
+                Phân tích đặt bàn
+              </h2>
+              <p className="text-neutral-400 text-xl mb-8">
+                Tổng quan dữ liệu của nhà hàng đối với bàn đã đặt
+              </p>
+
+              <div className="flex justify-between items-start">
+                <div className="flex flex-col items-start">
+                  <p className="text-black text-xl">Doanh thu</p>
+                  <p className="text-neutral-400 text-base">
+                    Hôm nay 00:00 GMT+7 15:00
+                  </p>
+                </div>
+              </div>
+
+              {/* Revenue Chart */}
+              <div className="h-64 mt-8">
+                <Line data={chartData} options={chartOptions} />
+              </div>
+
+              {/* Stats Section */}
+              <div className="mt-8 flex justify-around">
+                {[
+                  'Lượt truy cập',
+                  'Bàn đặt',
+                  'Lượt xem',
+                  'Tỷ lệ chuyển đổi',
+                ].map((label, idx) => (
                   <div key={idx} className="flex flex-col items-start">
                     <p className="text-black text-xl">{label}</p>
                     <p className="text-amber-500 text-3xl font-semibold">0</p>
@@ -181,41 +189,41 @@ export default function Home() {
                       Vs hôm qua 0,00% --
                     </p>
                   </div>
-                ),
-              )}
-            </div>
+                ))}
+              </div>
 
-            {/* Rating Section */}
-            <div className="relative p-6 bg-gray-50 rounded-lg shadow-md mt-8">
-              <h2 className="text-black text-4xl font-bold mb-4">
-                Điểm Đánh Giá
-              </h2>
-              <p className="text-neutral-400 text-xl mb-4">
-                Hệ thống Điểm Đánh Giá giúp Nhà hàng duy trì dịch vụ đặt bàn
-                chất lượng, mang đến sự hài lòng cho Khách hàng.
-              </p>
+              {/* Rating Section */}
+              <div className="relative p-6 bg-gray-50 rounded-lg shadow-md mt-8">
+                <h2 className="text-black text-4xl font-bold mb-4">
+                  Điểm Đánh Giá
+                </h2>
+                <p className="text-neutral-400 text-xl mb-4">
+                  Hệ thống Điểm Đánh Giá giúp Nhà hàng duy trì dịch vụ đặt bàn
+                  chất lượng, mang đến sự hài lòng cho Khách hàng.
+                </p>
 
-              <div className="flex justify-between items-center mb-8">
-                <p className="text-neutral-400 text-base">
-                  Từ 1 Tháng 7 2024 đến 6 Tháng 10 2024
+                <div className="flex justify-between items-center mb-8">
+                  <p className="text-neutral-400 text-base">
+                    Từ 1 Tháng 7 2024 đến 6 Tháng 10 2024
+                  </p>
+                </div>
+
+                <div className="flex justify-around items-center">
+                  <div className="text-center">
+                    <p className="text-green-600 text-4xl font-semibold">0</p>
+                    <p className="text-green-600 text-2xl">điểm</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-red-600 text-4xl font-semibold">0</p>
+                    <p className="text-red-600 text-2xl">điểm</p>
+                  </div>
+                </div>
+
+                <p className="text-black text-xl font-medium text-center mt-4">
+                  Nhà hàng đang hoạt động rất hiệu quả, hãy giữ vững kết quả này
+                  để Khách hàng thêm vững lòng tin nhé!
                 </p>
               </div>
-
-              <div className="flex justify-around items-center">
-                <div className="text-center">
-                  <p className="text-green-600 text-4xl font-semibold">0</p>
-                  <p className="text-green-600 text-2xl">điểm</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-red-600 text-4xl font-semibold">0</p>
-                  <p className="text-red-600 text-2xl">điểm</p>
-                </div>
-              </div>
-
-              <p className="text-black text-xl font-medium text-center mt-4">
-                Nhà hàng đang hoạt động rất hiệu quả, hãy giữ vững kết quả này
-                để Khách hàng thêm vững lòng tin nhé!
-              </p>
             </div>
           </div>
         </div>

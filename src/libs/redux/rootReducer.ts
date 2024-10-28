@@ -6,6 +6,7 @@ import bookingReducer from '@/containers/restaurant-user/Comfirm/slice';
 import promotionReducer from '@/containers/restaurant-user/Comfirm/components/PromotionModal/slice';
 import bookingByLocationReducer from '@/containers/restaurant-admin/ManageBookingTableAll/slice';
 import feeByLocationReducer from '@/containers/restaurant-admin/ManageLocationFees/slice';
+import adsOfSystemReducer from '@/containers/restaurant-admin/ManageAdvertisngCampaign/slice';
 
 export const reducer = {
   counter: counterReducer,
@@ -13,6 +14,7 @@ export const reducer = {
   location: locationReducer,
   food: foodReducer,
   fee: feeByLocationReducer,
+  ads: adsOfSystemReducer,
   booking: bookingReducer,
   promotion: promotionReducer,
   bookingByLocation: bookingByLocationReducer,

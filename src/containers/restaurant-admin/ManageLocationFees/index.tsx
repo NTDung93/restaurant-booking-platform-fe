@@ -71,7 +71,6 @@ const FeeManagementPage = () => {
     };
 
     fetchYearlyData();
-    console.log(yearlyData);
   }, [dispatch, selectedMonth, selectedYear]);
 
   const totalCommission = monthlyCommission?.totalAmount || 0;
@@ -82,7 +81,9 @@ const FeeManagementPage = () => {
       ? 'Đã thanh toán'
       : 'Chưa thanh toán'
     : 'Chưa có dữ liệu';
-  const paymentDeadline = monthlyCommission?.expiresAt || 'Chưa có dữ liệu';
+  const paymentDeadline = monthlyCommission?.expiredAt
+    ? new Date(monthlyCommission?.expiredAt)
+    : null;
 
   const paymentStatusColor =
     paymentStatus === 'Chưa thanh toán'
@@ -90,6 +91,11 @@ const FeeManagementPage = () => {
       : paymentStatus === 'Đã thanh toán'
         ? 'bg-green-100 text-green-600 px-3 py-2 rounded-lg'
         : 'bg-gray-100 text-gray-600 px-3 py-2 rounded-lg';
+
+  const formatDate = (date: Date | null): string => {
+    if (!date) return 'Chưa có dữ liệu';
+    return date.toLocaleString();
+  };
 
   const handlePayment = async () => {
     try {
@@ -123,9 +129,11 @@ const FeeManagementPage = () => {
       if (paymentResponse.meta.requestStatus === 'fulfilled') {
         const checkoutUrl = paymentResponse.payload; // Directly use the payload since it should be a string
 
-        console.log(checkoutUrl);
         if (checkoutUrl) {
-          // Navigate to the checkout URL
+          toast.success('Đặt bàn thành công!', {
+            position: 'top-right',
+            autoClose: 3000,
+          });
           window.location.href = checkoutUrl;
         } else {
           toast.error('Không tìm thấy đường dẫn thanh toán.');
@@ -133,11 +141,6 @@ const FeeManagementPage = () => {
       } else {
         toast.error('Tạo liên kết thanh toán không thành công.');
       }
-
-      toast.success('Đặt bàn thành công!', {
-        position: 'top-right',
-        autoClose: 3000,
-      });
     } catch (error) {
       toast.error('Có lỗi xảy ra. Vui lòng thử lại sau.');
     } finally {
@@ -148,10 +151,16 @@ const FeeManagementPage = () => {
     <>
       <Header />
       <div className="mt-[100px] flex min-h-screen">
-        <Menu />
-        <div className="w-[85vw] flex flex-col">
+        {/* Fixed Menu */}
+        <div className="fixed top-[100px] left-0 w-[15vw]">
+          <Menu />
+        </div>
+
+        {/* Main Content */}
+        <div className="ml-[15vw] w-[85vw] flex flex-col overflow-y-auto">
           <Image />
-          <div className="px-5">
+
+          <div className="p-8 bg-background text-foreground space-y-10 mx-5">
             {/* Fee Comparison Chart */}
             <h2 className="text-3xl font-bold my-6">
               So Sánh Chi Phí Các Tháng
@@ -221,6 +230,10 @@ const FeeManagementPage = () => {
                 <div className="flex justify-between mb-4">
                   <span className="font-semibold text-lg">
                     Khoảng Phí Hoa Hồng:
+                    <span className="text-red-400">
+                      {' '}
+                      x{totalCommission / 10000} x 10.000VNĐ
+                    </span>
                   </span>
                   <span className="text-amber-600 font-semibold text-lg">
                     {totalCommission.toLocaleString()} VNĐ
@@ -269,8 +282,8 @@ const FeeManagementPage = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="font-semibold text-lg">Hạn Thanh Toán:</span>
-                  <span className="text-lg font-semibold">
-                    {paymentDeadline.toString()}
+                  <span className="text-lg font-semibold text-red-400">
+                    {formatDate(paymentDeadline)}
                   </span>
                 </div>
 

@@ -64,11 +64,16 @@ export default function ManageBookingTableAll() {
     <>
       <Header />
       <div className="mt-[100px] flex bg-gray-50">
-        <Menu />
+        {/* Fixed Menu */}
+        <div className="fixed top-[100px] left-0 w-[15vw]">
+          <Menu />
+        </div>
 
-        <div className="flex flex-col">
+        {/* Main Content */}
+        <div className="ml-[15vw] w-[85vw] flex flex-col overflow-y-auto">
           <Image />
-          <div className="mx-8 my-8">
+
+          <div className="p-8 bg-background text-foreground space-y-10 mx-5">
             <h1 className="text-4xl font-bold text-gray-900 mb-8">
               Quản lý đặt bàn
             </h1>
@@ -77,31 +82,31 @@ export default function ManageBookingTableAll() {
             <div className="mb-6">
               <div className="flex space-x-10 text-lg font-medium text-gray-700">
                 <button
-                  className={`font-bold border-b-4 pb-2 ${selectedStatus === '' ? 'border-amber-600 text-amber-600' : ''}`}
+                  className={`font-semibold border-b-2 pb-2 ${selectedStatus === '' ? 'border-amber-600 text-amber-600' : ''}`}
                   onClick={() => setSelectedStatus('')}
                 >
                   Tất cả
                 </button>
                 <button
-                  className={`font-bold border-b-4 pb-2 ${selectedStatus === 'PENDING' ? 'border-amber-600 text-amber-600' : ''}`}
+                  className={`font-semibold border-b-2 pb-2 ${selectedStatus === 'PENDING' ? 'border-amber-600 text-amber-600' : ''}`}
                   onClick={() => setSelectedStatus('PENDING')}
                 >
                   Bàn đang đợi
                 </button>
                 <button
-                  className={`font-bold border-b-4 pb-2 ${selectedStatus === 'CONFIRMED' ? 'border-amber-600 text-amber-600' : ''}`}
+                  className={`font-semibold border-b-2 pb-2 ${selectedStatus === 'CONFIRMED' ? 'border-amber-600 text-amber-600' : ''}`}
                   onClick={() => setSelectedStatus('CONFIRMED')}
                 >
                   Bàn đã xác nhận
                 </button>
                 <button
-                  className={`font-bold border-b-4 pb-2 ${selectedStatus === 'SUCCESSFUL' ? 'border-amber-600 text-amber-600' : ''}`}
+                  className={`font-semibold border-b-2 pb-2 ${selectedStatus === 'SUCCESSFUL' ? 'border-amber-600 text-amber-600' : ''}`}
                   onClick={() => setSelectedStatus('SUCCESSFUL')}
                 >
                   Bàn hoàn thành
                 </button>
                 <button
-                  className={`font-bold border-b-4 pb-2 ${selectedStatus === 'CANCELLED' ? 'border-amber-600 text-amber-600' : ''}`}
+                  className={`font-semibold border-b-2 pb-2 ${selectedStatus === 'CANCELLED' ? 'border-amber-600 text-amber-600' : ''}`}
                   onClick={() => setSelectedStatus('CANCELLED')}
                 >
                   Bàn hủy
