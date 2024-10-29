@@ -48,7 +48,7 @@ const FoodSelectionModal: React.FC<FoodSelectionModalProps> = ({
   if (!isOpen) return null;
 
   const sliderSettings = {
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 1,

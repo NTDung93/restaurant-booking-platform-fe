@@ -5,6 +5,10 @@ import callApi from '@/utils/api';
 import Cookies from 'js-cookie';
 import { LocationBookingResponse } from '@/common/models/booking';
 import { ResponseEntityPagination } from '@/common/models/pagination';
+import {
+  LocationFeedbackRequest,
+  LocationFeedbackResponse,
+} from '@/common/models/feedback';
 
 const TypePrefix = 'user';
 
@@ -104,6 +108,36 @@ export const getUserBookingHitory = createAppAsyncThunk(
     const userBookingHistory: ResponseEntityPagination<LocationBookingResponse> =
       response;
     return userBookingHistory;
+  },
+);
+
+export const getFeedbackByLocationBookingId = createAppAsyncThunk(
+  `${TypePrefix}/getFeedbackByLocationBookingId`,
+  async (locationBookingId: number) => {
+    const response = await callApi(
+      {
+        method: 'get',
+        url: `/feedbacks/location-booking/${locationBookingId}`,
+      },
+      true,
+    );
+
+    const feedbackResponse: LocationFeedbackResponse = response;
+    return feedbackResponse;
+  },
+);
+
+export const createFeedback = createAppAsyncThunk(
+  `${TypePrefix}/createFeedback`,
+  async (locationFeedbackRequest: LocationFeedbackRequest) => {
+    await callApi(
+      {
+        method: 'post',
+        url: `/feedbacks`,
+        data: locationFeedbackRequest,
+      },
+      true,
+    );
   },
 );
 

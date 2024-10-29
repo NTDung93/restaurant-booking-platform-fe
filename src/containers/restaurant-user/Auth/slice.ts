@@ -1,6 +1,7 @@
 import { ApiStatus } from '@/common/enums/apiStatus';
 import { User, UserToken } from '@/common/models/user';
 import {
+  getFeedbackByLocationBookingId,
   getUserBookingHitory,
   getUserInfo,
   logout,
@@ -14,6 +15,7 @@ import {
 import UserService from '@/services/user';
 import { LocationBookingResponse } from '@/common/models/booking';
 import { ResponseEntityPagination } from '@/common/models/pagination';
+import { LocationFeedbackResponse } from '@/common/models/feedback';
 
 export interface UserSliceState {
   token: UserToken | undefined;
@@ -22,6 +24,7 @@ export interface UserSliceState {
     | ResponseEntityPagination<LocationBookingResponse>
     | undefined;
   userStatus: ApiStatus;
+  locationFeedbackResponse: LocationFeedbackResponse | undefined;
   status: ApiStatus;
 }
 
@@ -29,6 +32,7 @@ const initialState: UserSliceState = {
   token: undefined,
   userInfo: undefined,
   userBookingHitory: undefined,
+  locationFeedbackResponse: undefined,
   userStatus: ApiStatus.Idle,
   status: ApiStatus.Idle,
 };
@@ -41,6 +45,7 @@ const userSlice = createSlice({
       state.userInfo = undefined;
       state.token = undefined;
       state.userBookingHitory = undefined;
+      state.locationFeedbackResponse = undefined;
       state.status = ApiStatus.Idle;
     },
   },
@@ -48,6 +53,7 @@ const userSlice = createSlice({
     setUserToken(builder);
     setUserInfo(builder);
     setUserBookingHitory(builder);
+    setFeedbackByLocationBookingId(builder);
     setLogout(builder);
   },
 });
@@ -110,6 +116,35 @@ function setUserBookingHitory(
     .addCase(getUserBookingHitory.rejected, (state: UserSliceState) => {
       state.status = ApiStatus.Failed;
     });
+}
+
+function setFeedbackByLocationBookingId(
+  builder: ActionReducerMapBuilder<UserSliceState>,
+) {
+  builder
+    .addCase(
+      getFeedbackByLocationBookingId.pending,
+      (state: UserSliceState) => {
+        state.userStatus = ApiStatus.Loading;
+      },
+    )
+    .addCase(
+      getFeedbackByLocationBookingId.fulfilled,
+      (
+        state: UserSliceState,
+        action: PayloadAction<LocationFeedbackResponse>,
+      ) => {
+        state.userStatus = ApiStatus.Fulfilled;
+        state.locationFeedbackResponse = action.payload;
+      },
+    )
+    .addCase(
+      getFeedbackByLocationBookingId.rejected,
+      (state: UserSliceState) => {
+        state.status = ApiStatus.Failed;
+        state.locationFeedbackResponse = undefined;
+      },
+    );
 }
 
 function setLogout(builder: ActionReducerMapBuilder<UserSliceState>) {

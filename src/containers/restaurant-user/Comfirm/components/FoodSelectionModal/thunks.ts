@@ -52,3 +52,18 @@ export const deleteFood = createAppAsyncThunk(
     return id;
   },
 );
+
+export const fetchFoodById = createAppAsyncThunk(
+  `${TypePrefix}/fetchFoodById`,
+  async (id: number) => {
+    const response = await callApi(
+      {
+        method: 'get',
+        url: `/foods/${id}`,
+      },
+      true,
+    );
+
+    return response;
+  },
+);

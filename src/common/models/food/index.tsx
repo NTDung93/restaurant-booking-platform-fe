@@ -25,3 +25,12 @@ export interface AddFood {
   foodCategoryId: number;
   locationId: number;
 }
+
+export interface FoodResponse {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  status: string;
+  image: string;
+}

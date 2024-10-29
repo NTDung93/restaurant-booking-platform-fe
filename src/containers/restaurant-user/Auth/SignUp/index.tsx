@@ -8,7 +8,15 @@ import { useEffect, useState } from 'react';
 import { ReduxDispatch } from '@/libs/redux/store';
 import { HOME_ROUTE, SIGN_IN_ROUTE } from '@/common/constants/routerConstant';
 import { Spin, notification } from 'antd';
-import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
+import {
+  DownOutlined,
+  EyeInvisibleOutlined,
+  EyeOutlined,
+  LockOutlined,
+  MailOutlined,
+  PhoneOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 export default function SignUp() {
@@ -107,48 +115,52 @@ export default function SignUp() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="flex-grow">
-        <Header />
-
+    <div className="flex flex-col min-h-screen bg-[#d86500]">
+      <Header />
+      <div
+        className="flex flex-col justify-center items-center h-screen relative"
+        style={{
+          backgroundColor: '#d86500',
+        }}
+      >
         <div
-          className="flex flex-col justify-center items-center px-4 py-10"
+          className="absolute inset-0 w-full"
           style={{
             backgroundImage:
               "url('https://res.cloudinary.com/dnslrwedn/image/upload/v1726239862/image_6_cirsev.png')",
+            backgroundPosition: 'center',
+            opacity: 0.7,
+            zIndex: 0,
           }}
-        >
-          <div className="max-w-[90%] sm:max-w-[60%] md:max-w-[50%] lg:max-w-[35%] w-full mx-auto flex flex-col items-center bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="w-full h-full p-6 sm:p-8 md:p-10 bg-[#d86500] text-white flex flex-col justify-center items-center">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
+        ></div>
+
+        <div className="relative z-10 max-w-[90%] sm:max-w-[60%] md:max-w-[50%] lg:max-w-[35%] w-full mx-auto">
+          <div
+            className="backdrop-blur-sm bg-white/10 rounded-2xl shadow-2xl overflow-hidden 
+                   transition-all duration-300 transform hover:scale-[1.02] border border-white/20"
+          >
+            <div className="w-full p-8 sm:p-10 bg-gradient-to-r from-[#d86500]/90 to-[#ffaf40]/90">
+              <h2 className="text-4xl font-bold mb-8 text-center text-white drop-shadow-lg">
                 Đăng ký
               </h2>
 
               <form className="w-full" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="w-full mb-4 sm:mb-6">
-                    <label className="text-lg sm:text-xl font-medium mb-2 block">
-                      Tên người dùng
-                    </label>
-                    <input
-                      type="text"
-                      name="username"
-                      className="w-full p-2 border-b-2 border-white bg-transparent text-white focus:outline-none focus:border-gray-200 transition duration-300"
-                      placeholder="Nhập tên người dùng"
-                      value={formData.username}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="w-full mb-4 sm:mb-6">
-                    <label className="text-lg sm:text-xl font-medium mb-2 block">
+                  {/* Email Input */}
+                  <div className="w-full mb-4 sm:mb-6 space-y-2 relative">
+                    <label className="text-lg font-semibold text-white/90 block">
                       Email
                     </label>
+                    <span className="absolute left-4 top-10 text-white">
+                      <MailOutlined />
+                    </span>
                     <input
                       type="email"
                       name="email"
-                      className="w-full p-2 border-b-2 border-white bg-transparent text-white focus:outline-none focus:border-gray-200 transition duration-300"
+                      className="w-full pl-10 px-4 py-3.5 rounded-xl bg-white/10 border border-white/30 
+        text-white placeholder-white/50 focus:outline-none focus:ring-2 
+        focus:ring-white/50 focus:border-transparent transition-all duration-300
+        hover:bg-white/20"
                       placeholder="Nhập email của bạn"
                       value={formData.email}
                       onChange={handleChange}
@@ -156,14 +168,43 @@ export default function SignUp() {
                     />
                   </div>
 
-                  <div className="w-full mb-4 sm:mb-6 relative">
-                    <label className="text-lg sm:text-xl font-medium mb-2 block">
+                  {/* Full Name Input */}
+                  <div className="w-full mb-4 sm:mb-6 space-y-2 relative">
+                    <label className="text-lg font-semibold text-white/90 block">
+                      Họ tên
+                    </label>
+                    <span className="absolute left-4 top-10 text-white">
+                      <UserOutlined />
+                    </span>
+                    <input
+                      type="text"
+                      name="fullName"
+                      className="w-full pl-10 px-4 py-3.5 rounded-xl bg-white/10 border border-white/30 
+        text-white placeholder-white/50 focus:outline-none focus:ring-2 
+        focus:ring-white/50 focus:border-transparent transition-all duration-300
+        hover:bg-white/20"
+                      placeholder="Nhập họ tên của bạn"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  {/* Password Input */}
+                  <div className="w-full mb-4 sm:mb-6 relative space-y-2">
+                    <label className="text-lg font-semibold text-white/90 block">
                       Mật khẩu
                     </label>
+                    <span className="absolute left-4 top-10 text-white">
+                      <LockOutlined />
+                    </span>
                     <input
                       type={showPassword ? 'text' : 'password'}
                       name="password"
-                      className="w-full p-2 border-b-2 border-white bg-transparent text-white focus:outline-none focus:border-gray-200 transition duration-300"
+                      className="w-full pl-10 px-4 py-3.5 rounded-xl bg-white/10 border border-white/30 
+        text-white placeholder-white/50 focus:outline-none focus:ring-2 
+        focus:ring-white/50 focus:border-transparent transition-all duration-300
+        hover:bg-white/20"
                       placeholder="Nhập mật khẩu"
                       value={formData.password}
                       onChange={handleChange}
@@ -182,13 +223,20 @@ export default function SignUp() {
                     </button>
                   </div>
 
-                  <div className="w-full mb-4 sm:mb-6 relative">
-                    <label className="text-lg sm:text-xl font-medium mb-2 block">
+                  {/* Confirm Password Input */}
+                  <div className="w-full mb-4 sm:mb-6 relative space-y-2">
+                    <label className="text-lg font-semibold text-white/90 block">
                       Xác nhận mật khẩu
                     </label>
+                    <span className="absolute left-4 top-10 text-white">
+                      <LockOutlined />
+                    </span>
                     <input
                       type={showConfirmPassword ? 'text' : 'password'}
-                      className="w-full p-2 border-b-2 border-white bg-transparent text-white focus:outline-none focus:border-gray-200 transition duration-300"
+                      className="w-full pl-10 px-4 py-3.5 rounded-xl bg-white/10 border border-white/30 
+        text-white placeholder-white/50 focus:outline-none focus:ring-2 
+        focus:ring-white/50 focus:border-transparent transition-all duration-300
+        hover:bg-white/20"
                       placeholder="Nhập lại mật khẩu"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
@@ -209,29 +257,21 @@ export default function SignUp() {
                     </button>
                   </div>
 
-                  <div className="w-full mb-4 sm:mb-6">
-                    <label className="text-lg sm:text-xl font-medium mb-2 block">
-                      Họ tên
-                    </label>
-                    <input
-                      type="text"
-                      name="fullName"
-                      className="w-full p-2 border-b-2 border-white bg-transparent text-white focus:outline-none focus:border-gray-200 transition duration-300"
-                      placeholder="Nhập họ tên của bạn"
-                      value={formData.fullName}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="w-full mb-4 sm:mb-6">
-                    <label className="text-lg sm:text-xl font-medium mb-2 block">
+                  {/* Phone Number Input */}
+                  <div className="w-full mb-4 sm:mb-6 relative space-y-2">
+                    <label className="text-lg font-semibold text-white/90 block">
                       Số điện thoại
                     </label>
+                    <span className="absolute left-4 top-10 text-white">
+                      <PhoneOutlined />
+                    </span>
                     <input
                       type="tel"
                       name="phone"
-                      className="w-full p-2 border-b-2 border-white bg-transparent text-white focus:outline-none focus:border-gray-200 transition duration-300"
+                      className="w-full pl-10 px-4 py-3.5 rounded-xl bg-white/10 border border-white/30 
+        text-white placeholder-white/50 focus:outline-none focus:ring-2 
+        focus:ring-white/50 focus:border-transparent transition-all duration-300
+        hover:bg-white/20"
                       placeholder="Nhập số điện thoại"
                       value={formData.phone}
                       onChange={handleChange}
@@ -239,43 +279,67 @@ export default function SignUp() {
                     />
                   </div>
 
-                  <div className="w-full mb-4 sm:mb-6">
-                    <label className="text-lg sm:text-xl font-medium mb-2 block">
+                  {/* Gender Select */}
+                  <div className="w-full mb-4 sm:mb-6 relative space-y-2">
+                    <label className="text-lg font-semibold text-white/90 block">
                       Giới tính
                     </label>
+                    <span className="absolute left-4 top-10 text-white">
+                      <UserOutlined />
+                    </span>
                     <select
                       name="gender"
-                      className="w-full p-2 border-b-2 border-white bg-transparent text-black focus:outline-none focus:border-gray-200 transition duration-300"
+                      className="w-full pl-10 pr-4 py-3.5 rounded-xl bg-white/10 border border-white/30 
+      text-white placeholder-white/50 focus:outline-none focus:ring-2 
+      focus:ring-white/50 focus:border-transparent transition-all duration-300
+      hover:bg-white/20 appearance-none"
                       value={formData.gender}
                       onChange={handleChange}
                       required
                     >
-                      <option value="">Chọn giới tính</option>
-                      <option value="Male">Nam</option>
-                      <option value="Female">Nữ</option>
-                      <option value="Other">Khác</option>
+                      <option value="" disabled className="text-white">
+                        Chọn giới tính
+                      </option>
+                      <option value="male" className="text-black">
+                        Nam
+                      </option>
+                      <option value="female" className="text-black">
+                        Nữ
+                      </option>
+                      <option value="other" className="text-black">
+                        Khác
+                      </option>
                     </select>
+                    {/* Custom Arrow Icon */}
+                    <span className="absolute right-4 top-10 text-white">
+                      <DownOutlined />
+                    </span>
                   </div>
                 </div>
 
                 <button
-                  className="w-full py-2 sm:py-3 bg-white text-[#d86500] font-bold text-base sm:text-lg md:text-xl rounded-lg shadow hover:bg-gray-100 transition duration-300 mb-3 sm:mb-4 flex items-center justify-center"
+                  type="submit"
                   disabled={loading}
+                  className="w-full py-3.5 mt-6 bg-white rounded-xl text-[#d86500] font-bold text-lg
+    shadow-lg hover:bg-opacity-90 transform transition-all duration-300
+    hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-white/50
+    active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  {loading ? <Spin size="small" /> : 'Đăng ký'}
+                  {loading ? <Spin /> : 'Đăng ký'}
                 </button>
+                <div className="mt-6 text-center space-y-2">
+                  <p className="text-white/90 text-lg">
+                    Đã có tài khoản?{' '}
+                    <span
+                      onClick={handleSignIn}
+                      className="text-white text-lg underline decoration-2 underline-offset-4
+        hover:text-white/80 transition-colors duration-200 ml-2"
+                    >
+                      Đăng nhập
+                    </span>
+                  </p>
+                </div>
               </form>
-
-              <span className="text-white text-sm sm:text-base mb-3 sm:mb-4">
-                Đã có tài khoản ?
-              </span>
-
-              <span
-                onClick={handleSignIn}
-                className="text-white underline cursor-pointer text-sm sm:text-base"
-              >
-                Đăng nhập
-              </span>
             </div>
           </div>
         </div>

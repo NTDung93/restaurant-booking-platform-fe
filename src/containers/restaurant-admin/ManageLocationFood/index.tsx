@@ -20,7 +20,7 @@ const ManageLocationFood: React.FC = () => {
   const itemsPerPage = 8;
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
-  const [editFoodItem, setEditFoodItem] = useState<Food | null>(null); // State to hold the food item being edited
+  const [editFoodItem, setEditFoodItem] = useState<Food | null>(null);
   const locationId = userInfo?.locationId;
 
   useEffect(() => {

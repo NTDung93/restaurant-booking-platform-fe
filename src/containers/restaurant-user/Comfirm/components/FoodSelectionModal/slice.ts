@@ -1,20 +1,28 @@
 import { ApiStatus } from '@/common/enums/apiStatus';
-import { Food } from '@/common/models/food';
+import { Food, FoodResponse } from '@/common/models/food';
 import { ResponseEntityPagination } from '@/common/models/pagination';
 import {
   ActionReducerMapBuilder,
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit';
-import { fetchFoodByLocation, addFood, editFood, deleteFood } from './thunks';
+import {
+  fetchFoodByLocation,
+  addFood,
+  editFood,
+  deleteFood,
+  fetchFoodById,
+} from './thunks';
 
 export interface FoodByLocationSliceState {
   foodsPaginationResponse: ResponseEntityPagination<Food> | undefined;
+  foodResponse: FoodResponse | undefined;
   status: ApiStatus;
 }
 
 const initialState: FoodByLocationSliceState = {
   foodsPaginationResponse: undefined,
+  foodResponse: undefined,
   status: ApiStatus.Idle,
 };
 
@@ -27,6 +35,7 @@ const foodByLocationSlice = createSlice({
     setAddFoodResponse(builder);
     setEditFoodResponse(builder);
     setDeleteFoodResponse(builder);
+    setFoodById(builder);
   },
 });
 
@@ -112,6 +121,28 @@ function setDeleteFoodResponse(
       }
     })
     .addCase(deleteFood.rejected, (state) => {
+      state.status = ApiStatus.Failed;
+    });
+}
+
+function setFoodById(
+  builder: ActionReducerMapBuilder<FoodByLocationSliceState>,
+) {
+  builder
+    .addCase(fetchFoodById.pending, (state: FoodByLocationSliceState) => {
+      state.status = ApiStatus.Loading;
+    })
+    .addCase(
+      fetchFoodById.fulfilled,
+      (
+        state: FoodByLocationSliceState,
+        action: PayloadAction<FoodResponse>,
+      ) => {
+        state.status = ApiStatus.Fulfilled;
+        state.foodResponse = action.payload;
+      },
+    )
+    .addCase(fetchFoodById.rejected, (state: FoodByLocationSliceState) => {
       state.status = ApiStatus.Failed;
     });
 }
