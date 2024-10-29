@@ -1,7 +1,8 @@
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface FAQItem {
   question: string;
@@ -12,6 +13,9 @@ export default function AboutUs() {
   const [openQuestionIndex, setOpenQuestionIndex] = useState<number | null>(
     null,
   );
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const faqData: FAQItem[] = [
     {
@@ -188,7 +192,9 @@ export default function AboutUs() {
           </div>
         </div>
       </div>
+
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 }

@@ -16,6 +16,7 @@ import MenuSection from './components/MenuSection';
 import { fetchLocationDetail } from '@/containers/restaurant-user/Home/thunks';
 import { selectLocationDetail } from '@/containers/restaurant-user/Home/selectors';
 import { ReduxDispatch } from '@/libs/redux/store';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 const RestaurantDetail: React.FC = () => {
   const dispatch = useDispatch<ReduxDispatch>();
@@ -136,7 +137,9 @@ const RestaurantDetail: React.FC = () => {
         <CommentSection />
         <Interest />
       </div>
+
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 };

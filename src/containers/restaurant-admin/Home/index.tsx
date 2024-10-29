@@ -18,6 +18,7 @@ import { selectBookingByLocation } from '../ManageBookingTableAll/selector';
 import { useEffect, useState } from 'react';
 import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
 import { fetchBookingByLocation } from '../ManageBookingTableAll/thunks';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 ChartJS.register(
   CategoryScale,
@@ -99,6 +100,10 @@ export default function Home() {
       },
     },
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -228,6 +233,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <ScrollToTopButton />
     </>
   );
 }

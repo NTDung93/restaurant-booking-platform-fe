@@ -6,6 +6,7 @@ import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
 import { ReduxDispatch } from '@/libs/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 export default function UserDetail() {
   const dispatch = useDispatch<ReduxDispatch>();
@@ -14,6 +15,10 @@ export default function UserDetail() {
   useEffect(() => {
     dispatch(getUserInfo());
   }, [dispatch]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -46,6 +51,7 @@ export default function UserDetail() {
         </div>
       </div>
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 }

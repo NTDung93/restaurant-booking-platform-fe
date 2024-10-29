@@ -9,6 +9,7 @@ import { ReduxDispatch } from '@/libs/redux/store';
 import { HOME_ROUTE, SIGN_IN_ROUTE } from '@/common/constants/routerConstant';
 import { Spin, notification } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 export default function SignUp() {
   const dispatch = useDispatch<ReduxDispatch>();
@@ -279,7 +280,9 @@ export default function SignUp() {
           </div>
         </div>
       </div>
+
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 }

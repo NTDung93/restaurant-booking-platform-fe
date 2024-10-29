@@ -173,7 +173,6 @@ export default function ManageBookingTableAll() {
                   ),
                 )
               ) : (
-                // Display a message when there are no bookings
                 <div className="text-center text-lg text-gray-700">
                   Không có đơn đặt bàn
                 </div>
@@ -193,24 +192,57 @@ export default function ManageBookingTableAll() {
                 >
                   Trang trước
                 </button>
-                <div className="flex space-x-2">
-                  {Array.from(
-                    { length: totalPages },
-                    (_, index) => index + 1,
-                  ).map((page) => (
-                    <button
-                      key={page}
-                      onClick={() => goToPage(page)}
-                      className={`px-3 py-2 rounded-lg text-lg ${
-                        page === currentPage
-                          ? 'bg-amber-600 text-white'
-                          : 'bg-gray-200 text-gray-900'
-                      }`}
-                    >
-                      {page}
-                    </button>
-                  ))}
-                </div>
+
+                {currentPage > 1 && (
+                  <button
+                    onClick={() => goToPage(1)}
+                    className="px-3 py-2 rounded-lg text-lg bg-gray-200 text-gray-900"
+                  >
+                    1
+                  </button>
+                )}
+
+                {currentPage > 2 && totalPages > 2 && currentPage !== 2 && (
+                  <span className="flex items-center">...</span>
+                )}
+
+                {currentPage > 2 && (
+                  <button
+                    onClick={() => goToPage(currentPage - 1)}
+                    className="px-3 py-2 rounded-lg text-lg bg-gray-200 text-gray-900"
+                  >
+                    {currentPage - 1}
+                  </button>
+                )}
+
+                <button className="px-3 py-2 rounded-lg text-lg bg-amber-600 text-white">
+                  {currentPage}
+                </button>
+
+                {currentPage < totalPages && (
+                  <button
+                    onClick={() => goToPage(currentPage + 1)}
+                    className="px-3 py-2 rounded-lg text-lg bg-gray-200 text-gray-900"
+                  >
+                    {currentPage + 1}
+                  </button>
+                )}
+
+                {currentPage < totalPages - 1 &&
+                  totalPages > 3 &&
+                  currentPage !== totalPages - 1 && (
+                    <span className="flex items-center">...</span>
+                  )}
+
+                {currentPage < totalPages && (
+                  <button
+                    onClick={() => goToPage(totalPages)}
+                    className="px-3 py-2 rounded-lg text-lg bg-gray-200 text-gray-900"
+                  >
+                    {totalPages}
+                  </button>
+                )}
+
                 <button
                   onClick={() => goToPage(currentPage + 1)}
                   disabled={currentPage === totalPages}

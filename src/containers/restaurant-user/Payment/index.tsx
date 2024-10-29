@@ -4,6 +4,7 @@ import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
 import { useNavigate } from 'react-router-dom';
 import { SUCCESSS_ROUTE } from '@/common/constants/routerConstant';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 export default function Payment() {
   const navigate = useNavigate();
@@ -38,6 +39,9 @@ export default function Payment() {
   const handlePaymentComplete = () => {
     navigate(SUCCESSS_ROUTE);
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -113,6 +117,7 @@ export default function Payment() {
         </div>
 
         <Footer />
+        <ScrollToTopButton />
       </div>
     </>
   );

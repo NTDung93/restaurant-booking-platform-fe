@@ -19,6 +19,7 @@ import { Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { SUCCESSS_ROUTE } from '@/common/constants/routerConstant';
 import { CreatePaymentDto, FoodItem } from '@/common/models/booking';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 export default function Confirm() {
   const dispatch = useDispatch<ReduxDispatch>();
@@ -276,6 +277,10 @@ export default function Confirm() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -627,7 +632,9 @@ export default function Confirm() {
         onPromotionSelect={handlePromotionSelect}
       /> */}
       <ToastContainer />
+
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 }
