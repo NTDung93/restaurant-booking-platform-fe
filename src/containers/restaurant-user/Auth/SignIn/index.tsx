@@ -18,6 +18,8 @@ import {
   LockOutlined,
   MailOutlined,
 } from '@ant-design/icons';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
+
 
 const SignIn: React.FC = () => {
   const [userNameOrEmailOrPhone, setUserNameOrEmailOrPhone] =
@@ -186,7 +188,9 @@ const SignIn: React.FC = () => {
           </div>
         </div>
       </div>
+
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 };

@@ -1,8 +1,13 @@
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
 import MenuUser from '@/components/restaurant-user/MenuUser';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
+import { useEffect } from 'react';
 
 export default function UserFavorite() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -142,6 +147,7 @@ export default function UserFavorite() {
         </div>
       </div>
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 }

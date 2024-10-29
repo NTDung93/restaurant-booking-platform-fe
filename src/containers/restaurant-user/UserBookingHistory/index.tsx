@@ -173,6 +173,10 @@ export default function UserBookingHistory() {
 
   const fixedHeight = elementHeight * pageSize + margin * (pageSize - 1);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />

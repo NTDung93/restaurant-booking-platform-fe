@@ -18,6 +18,7 @@ import {
 import { searchLocation } from '../Home/thunks';
 import { ReduxDispatch } from '@/libs/redux/store';
 import { getUserLocation, LocationResult } from '@/utils/location';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 const RestaurantAll: React.FC = () => {
   const navigate = useNavigate();
@@ -147,7 +148,9 @@ const RestaurantAll: React.FC = () => {
           )}
         </div>
       </div>
+
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 };

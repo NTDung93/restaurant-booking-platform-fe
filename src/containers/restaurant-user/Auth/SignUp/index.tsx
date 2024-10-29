@@ -17,6 +17,7 @@ import {
   PhoneOutlined,
   UserOutlined,
 } from '@ant-design/icons';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 export default function SignUp() {
   const dispatch = useDispatch<ReduxDispatch>();
@@ -343,7 +344,9 @@ export default function SignUp() {
           </div>
         </div>
       </div>
+
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
 import MenuUser from '@/components/restaurant-user/MenuUser';
-import { useState, FormEvent } from 'react';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
+import { useState, FormEvent, useEffect } from 'react';
 
 const UserPassword: React.FC = () => {
   const [currentPassword, setCurrentPassword] = useState<string>('');
@@ -12,6 +13,10 @@ const UserPassword: React.FC = () => {
     e.preventDefault();
     console.log({ currentPassword, newPassword, confirmPassword });
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -85,6 +90,7 @@ const UserPassword: React.FC = () => {
         </div>
       </div>
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 };

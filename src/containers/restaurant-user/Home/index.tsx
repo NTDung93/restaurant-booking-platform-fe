@@ -9,8 +9,14 @@ import IntroVideo from '@/containers/restaurant-user/Home/Components/IntroVideo'
 import VoucherCarousel from '@/containers/restaurant-user/Home/Components/VoucherCarousel';
 import RestaurantGallery from './Components/RestaurantGallery';
 import CategoryMobile from './Components/CategoryCarousel';
+import { useEffect } from 'react';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 export default function Home() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
       <div className="flex-grow">
@@ -29,7 +35,10 @@ export default function Home() {
         <EatingPlan />
         <OnSaleRestaurants />
       </div>
+
       <Footer />
+
+      <ScrollToTopButton />
     </div>
   );
 }

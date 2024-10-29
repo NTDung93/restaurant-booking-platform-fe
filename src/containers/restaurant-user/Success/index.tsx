@@ -1,5 +1,7 @@
 import Footer from '@/components/restaurant-user/Footer';
 import Header from '@/components/restaurant-user/Header';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Success() {
@@ -16,6 +18,10 @@ export default function Success() {
   const time = localStorage.getItem('time') || 'Thời gian chưa được cung cấp';
   const adults = localStorage.getItem('adults') || '0';
   const children = localStorage.getItem('children') || '0';
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -73,6 +79,7 @@ export default function Success() {
           </div>
         </div>
         <Footer />
+        <ScrollToTopButton />
       </div>
     </>
   );
