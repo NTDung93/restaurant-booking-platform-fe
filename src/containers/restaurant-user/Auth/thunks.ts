@@ -143,11 +143,19 @@ export const createFeedback = createAppAsyncThunk(
 
 export const getAllFeedbackOfLocation = createAppAsyncThunk(
   `${TypePrefix}/getAllFeedbackOfLocation`,
-  async (locationId: number) => {
+  async ({
+    locationId,
+    currentPage,
+    pageSize,
+  }: {
+    locationId: number;
+    currentPage: number;
+    pageSize: number;
+  }) => {
     const response = await callApi(
       {
         method: 'get',
-        url: `/feedbacks/location/${locationId}`,
+        url: `/feedbacks/location/${locationId}?pageNo=${currentPage}&pageSize=${pageSize}&sortDir=desc`,
       },
       true,
     );

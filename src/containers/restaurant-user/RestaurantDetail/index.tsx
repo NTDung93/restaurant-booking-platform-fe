@@ -15,13 +15,10 @@ import { selectLocationDetail } from '@/containers/restaurant-user/Home/selector
 import { ReduxDispatch } from '@/libs/redux/store';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import OnSaleRestaurants from '../Home/Components/OnSaleRestaurants';
-import { getAllFeedbackOfLocation } from '../Auth/thunks';
-import { selectAllFeedbackOfLocation } from '../Auth/selector';
 
 const RestaurantDetail: React.FC = () => {
   const dispatch = useDispatch<ReduxDispatch>();
   const locationDetail = useSelector(selectLocationDetail);
-  const feedbackByLocation = useSelector(selectAllFeedbackOfLocation);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const sliderRef = useRef<Slider>(null);
   const { id } = useParams<{ id: string }>();
@@ -31,7 +28,6 @@ const RestaurantDetail: React.FC = () => {
     if (numericLocationId) {
       localStorage.setItem('locationId', String(numericLocationId));
       dispatch(fetchLocationDetail(numericLocationId));
-      dispatch(getAllFeedbackOfLocation(numericLocationId));
     }
     window.scrollTo(0, 0);
   }, [dispatch, numericLocationId]);
@@ -134,19 +130,7 @@ const RestaurantDetail: React.FC = () => {
           <RestaurantInfo />
           <ReservationForm />
         </div>
-        <CommentSection
-          feedbackData={
-            feedbackByLocation ?? {
-              totalPages: 0,
-              totalElements: 0,
-              size: 0,
-              first: true,
-              last: true,
-              empty: true,
-              content: [],
-            }
-          }
-        />
+        <CommentSection numericLocationId={numericLocationId} />
         <OnSaleRestaurants />
       </div>
 

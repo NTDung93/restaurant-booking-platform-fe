@@ -35,7 +35,7 @@ export default function Home() {
   const bookingsResponse = useSelector(selectBookingByLocation);
   const userInfo = useSelector(selectUserInfo);
 
-  // Tính toán số lượng các trạng thái đơn hàng
+  // Calculate order status counts
   const pendingCount = bookingsResponse?.content.filter(
     (b) => b.status === 'PENDING',
   ).length;
@@ -64,7 +64,7 @@ export default function Home() {
     datasets: [
       {
         label: 'Doanh thu',
-        data: [0, 0, 0, 0, 0],
+        data: [100, 200, 150, 300, 250], // Fluctuating revenue data
         borderColor: 'rgba(66, 135, 245, 0.8)',
         backgroundColor: 'rgba(66, 135, 245, 0.2)',
         fill: true,
@@ -91,7 +91,7 @@ export default function Home() {
           color: '#666',
         },
         min: 0,
-        max: 1,
+        max: 400, // Adjust max based on data
       },
     },
     plugins: {
@@ -100,6 +100,18 @@ export default function Home() {
       },
     },
   };
+
+  const statsData = {
+    traffic: 1200, // Lượt truy cập
+    bookings: 300, // Bàn đặt
+    views: 4500, // Lượt xem
+  };
+
+  const conversionRate = (
+    (statsData.bookings / statsData.traffic) *
+    100
+  ).toFixed(2);
+  const conversionRateNumber = parseFloat(conversionRate);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -119,8 +131,8 @@ export default function Home() {
           <Image />
           <div className="mx-10">
             <div className="p-8 bg-background text-foreground space-y-10">
-              <h2 className="text-black text-4xl font-bold mb-4">
-                Danh sách cần làm
+              <h2 className="text-amber-600 text-3xl font-bold mb-4">
+                Danh sách đơn đặt bàn
               </h2>
               <p className="text-neutral-400 text-xl mb-8">
                 Những việc bạn sẽ phải làm
@@ -158,7 +170,7 @@ export default function Home() {
             <div className="w-full h-px bg-neutral-300 my-8"></div>
 
             <div className="p-6 bg-white rounded-lg shadow-md">
-              <h2 className="text-black text-4xl font-bold mb-4">
+              <h2 className="text-amber-600 text-3xl font-bold mb-4">
                 Phân tích đặt bàn
               </h2>
               <p className="text-neutral-400 text-xl mb-8">
@@ -181,25 +193,50 @@ export default function Home() {
 
               {/* Stats Section */}
               <div className="mt-8 flex justify-around">
-                {[
-                  'Lượt truy cập',
-                  'Bàn đặt',
-                  'Lượt xem',
-                  'Tỷ lệ chuyển đổi',
-                ].map((label, idx) => (
-                  <div key={idx} className="flex flex-col items-start">
-                    <p className="text-black text-xl">{label}</p>
-                    <p className="text-amber-500 text-3xl font-semibold">0</p>
-                    <p className="text-neutral-400 text-base">
-                      Vs hôm qua 0,00% --
-                    </p>
-                  </div>
-                ))}
+                <div className="flex flex-col items-start">
+                  <p className="text-black text-xl">Lượt truy cập</p>
+                  <p className="text-amber-500 text-3xl font-semibold">
+                    {statsData.traffic}
+                  </p>
+                  <p className="text-neutral-400 text-base">
+                    Vs hôm qua{' '}
+                    {(((statsData.traffic - 1000) / 1000) * 100).toFixed(2)}% --
+                  </p>
+                </div>
+                <div className="flex flex-col items-start">
+                  <p className="text-black text-xl">Bàn đặt</p>
+                  <p className="text-amber-500 text-3xl font-semibold">
+                    {statsData.bookings}
+                  </p>
+                  <p className="text-neutral-400 text-base">
+                    Vs hôm qua{' '}
+                    {(((statsData.bookings - 250) / 250) * 100).toFixed(2)}% --
+                  </p>
+                </div>
+                <div className="flex flex-col items-start">
+                  <p className="text-black text-xl">Lượt xem</p>
+                  <p className="text-amber-500 text-3xl font-semibold">
+                    {statsData.views}
+                  </p>
+                  <p className="text-neutral-400 text-base">
+                    Vs hôm qua{' '}
+                    {(((statsData.views - 4000) / 4000) * 100).toFixed(2)}% --
+                  </p>
+                </div>
+                <div className="flex flex-col items-start">
+                  <p className="text-black text-xl">Tỷ lệ chuyển đổi</p>
+                  <p className="text-amber-500 text-3xl font-semibold">
+                    {conversionRate}%
+                  </p>
+                  <p className="text-neutral-400 text-base">
+                    Vs hôm qua {(conversionRateNumber - 0).toFixed(2)}% --
+                  </p>
+                </div>
               </div>
 
               {/* Rating Section */}
               <div className="relative p-6 bg-gray-50 rounded-lg shadow-md mt-8">
-                <h2 className="text-black text-4xl font-bold mb-4">
+                <h2 className="text-amber-600 text-3xl font-bold mb-4">
                   Điểm Đánh Giá
                 </h2>
                 <p className="text-neutral-400 text-xl mb-4">
@@ -215,11 +252,13 @@ export default function Home() {
 
                 <div className="flex justify-around items-center">
                   <div className="text-center">
-                    <p className="text-green-600 text-4xl font-semibold">0</p>
+                    <p className="text-green-600 text-4xl font-semibold">4.5</p>{' '}
+                    {/* Fixed rating value */}
                     <p className="text-green-600 text-2xl">điểm</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-red-600 text-4xl font-semibold">0</p>
+                    <p className="text-red-600 text-4xl font-semibold">1.5</p>{' '}
+                    {/* Fixed rating value */}
                     <p className="text-red-600 text-2xl">điểm</p>
                   </div>
                 </div>

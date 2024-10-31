@@ -193,55 +193,9 @@ export default function ManageBookingTableAll() {
                   Trang trước
                 </button>
 
-                {currentPage > 1 && (
-                  <button
-                    onClick={() => goToPage(1)}
-                    className="px-3 py-2 rounded-lg text-lg bg-gray-200 text-gray-900"
-                  >
-                    1
-                  </button>
-                )}
-
-                {currentPage > 2 && totalPages > 2 && currentPage !== 2 && (
-                  <span className="flex items-center">...</span>
-                )}
-
-                {currentPage > 2 && (
-                  <button
-                    onClick={() => goToPage(currentPage - 1)}
-                    className="px-3 py-2 rounded-lg text-lg bg-gray-200 text-gray-900"
-                  >
-                    {currentPage - 1}
-                  </button>
-                )}
-
-                <button className="px-3 py-2 rounded-lg text-lg bg-amber-600 text-white">
-                  {currentPage}
-                </button>
-
-                {currentPage < totalPages && (
-                  <button
-                    onClick={() => goToPage(currentPage + 1)}
-                    className="px-3 py-2 rounded-lg text-lg bg-gray-200 text-gray-900"
-                  >
-                    {currentPage + 1}
-                  </button>
-                )}
-
-                {currentPage < totalPages - 1 &&
-                  totalPages > 3 &&
-                  currentPage !== totalPages - 1 && (
-                    <span className="flex items-center">...</span>
-                  )}
-
-                {currentPage < totalPages && (
-                  <button
-                    onClick={() => goToPage(totalPages)}
-                    className="px-3 py-2 rounded-lg text-lg bg-gray-200 text-gray-900"
-                  >
-                    {totalPages}
-                  </button>
-                )}
+                <span>
+                  {currentPage} / {totalPages}
+                </span>
 
                 <button
                   onClick={() => goToPage(currentPage + 1)}
