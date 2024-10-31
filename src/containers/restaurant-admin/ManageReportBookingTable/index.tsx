@@ -105,7 +105,7 @@ const ManageReportBookingTable: React.FC = () => {
           <Image />
 
           <div className="p-8 bg-background text-foreground space-y-10 mx-5">
-            <h1 className="text-4xl font-bold text-gray-800 mb-8">
+            <h1 className="text-3xl font-bold text-amber-600 mb-8">
               Báo cáo chi tiết
             </h1>
 

@@ -141,6 +141,21 @@ export const createFeedback = createAppAsyncThunk(
   },
 );
 
+export const getAllFeedbackOfLocation = createAppAsyncThunk(
+  `${TypePrefix}/getAllFeedbackOfLocation`,
+  async (locationId: number) => {
+    const response = await callApi(
+      {
+        method: 'get',
+        url: `/feedbacks/location/${locationId}`,
+      },
+      true,
+    );
+
+    return response;
+  },
+);
+
 export const logout = createAppAsyncThunk(`${TypePrefix}/logout`, async () => {
   await callApi({
     method: 'get',

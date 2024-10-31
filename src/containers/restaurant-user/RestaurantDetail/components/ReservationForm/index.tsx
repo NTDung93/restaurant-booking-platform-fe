@@ -57,19 +57,19 @@ const ReservationForm: React.FC = () => {
     .slice(0, 5);
 
   return (
-    <div className="md:w-2/5 w-full bg-amber-500 text-white p-4 flex flex-col rounded-lg ml-0 md:ml-6">
-      <h2 className="text-xl md:text-2xl font-bold mb-4 text-center text-black">
-        Đặt bàn
+    <div className="md:w-2/5 w-full bg-gradient-to-br from-amber-600/90 to-amber-400/90 text-white p-6 flex flex-col rounded-lg shadow-lg">
+      <h2 className="text-3xl font-bold mb-4 text-center text-white">
+        Đặt Bàn
       </h2>
       {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-      <div className="flex flex-col gap-4">
-        <div className="bg-zinc-300 p-4 rounded-lg shadow-md">
-          <label className="block text-lg md:text-xl font-medium text-black mb-2">
+      <div className="flex flex-col gap-6">
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <label className="block text-lg font-medium text-gray-700 mb-2">
             Người lớn:
           </label>
           <input
             type="number"
-            className="w-full p-2 bg-white text-black rounded-lg border border-gray-300"
+            className="w-full p-3 text-black rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-600 transition duration-200"
             placeholder="Số người lớn"
             value={numAdults}
             onChange={(e) => {
@@ -78,13 +78,14 @@ const ReservationForm: React.FC = () => {
             }}
           />
         </div>
-        <div className="bg-zinc-300 p-4 rounded-lg shadow-md">
-          <label className="block text-lg md:text-xl font-medium text-black mb-2">
+
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <label className="block text-lg font-medium text-gray-700 mb-2">
             Trẻ em:
           </label>
           <input
             type="number"
-            className="w-full p-2 bg-white text-black rounded-lg border border-gray-300"
+            className="w-full p-3 text-black rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-600 transition duration-200"
             placeholder="Số trẻ em"
             value={numChildren}
             onChange={(e) => {
@@ -93,34 +94,37 @@ const ReservationForm: React.FC = () => {
             }}
           />
         </div>
-        <div className="bg-zinc-300 p-4 rounded-lg shadow-md">
-          <label className="block text-lg md:text-xl font-medium text-black mb-2">
+
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <label className="block text-lg font-medium text-gray-700 mb-2">
             Ngày đến:
           </label>
           <input
             type="date"
-            className="w-full p-2 bg-white text-black rounded-lg border border-gray-300"
+            className="w-full p-3 text-black rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-600 transition duration-200"
             value={reservationDate}
             min={minDate}
             onChange={(e) => setReservationDate(e.target.value)}
           />
         </div>
-        <div className="bg-zinc-300 p-4 rounded-lg shadow-md">
-          <label className="block text-lg md:text-xl font-medium text-black mb-2">
+
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <label className="block text-lg font-medium text-gray-700 mb-2">
             Thời gian đến:
           </label>
           <input
             type="time"
-            className="w-full p-2 bg-white text-black rounded-lg border border-gray-300"
+            className="w-full p-3 text-black rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-600 transition duration-200"
             value={reservationTime}
             onChange={(e) => setReservationTime(e.target.value)}
             min={reservationDate === minDate ? currentTime : undefined}
           />
         </div>
-        <div className="flex justify-center">
+
+        <div className="flex justify-center mt-6">
           <button
             onClick={handleReservation}
-            className="bg-[#312525] text-white px-6 py-2 rounded-lg font-medium text-lg hover:bg-amber-600 transition duration-300"
+            className="bg-white text-amber-600 px-8 py-3 rounded-lg font-semibold text-lg hover:bg-amber-600 hover:text-white transition duration-300 shadow-lg"
           >
             ĐẶT BÀN
           </button>

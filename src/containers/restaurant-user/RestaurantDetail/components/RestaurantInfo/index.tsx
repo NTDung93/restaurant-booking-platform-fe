@@ -25,27 +25,33 @@ const RestaurantInfo: React.FC = () => {
   }, [locationDetail, name, address]);
 
   return (
-    <div className="md:w-3/5 w-full text-white p-4">
+    <div className="md:w-3/5 w-full text-gray-900 p-6 bg-white rounded-3xl shadow-xl border border-gray-100">
       <div className="relative w-full mb-10">
-        <h2 className="text-3xl md:text-6xl font-normal text-black">{name}</h2>
+        <h2 className="text-4xl md:text-5xl font-bold text-amber-600 tracking-tight">
+          {name}
+        </h2>
 
-        <p className="mt-2 text-lg md:text-xl text-zinc-500 leading-loose tracking-tight">
-          <EnvironmentOutlined /> {address} (nhấn vào để xem chỉ đường)
+        <p className="mt-4 text-lg md:text-xl text-gray-500 leading-relaxed tracking-tight flex items-center gap-2 cursor-pointer">
+          <EnvironmentOutlined className="text-amber-500" />
+          <span className="hover:underline hover:text-amber-600">
+            {address} (nhấn vào để xem chỉ đường)
+          </span>
         </p>
 
-        <div className="mt-4 text-lg md:text-xl text-zinc-500 leading-loose tracking-tight">
-          <PhoneFilled />
-          <span className="text-red-600 ml-3">Điện thoại:</span> {phone}
+        <div className="mt-6 text-lg md:text-xl text-gray-500 leading-relaxed tracking-tight flex items-center gap-2">
+          <PhoneFilled className="text-amber-500" />
+          <span className="text-gray-800 font-semibold">Điện thoại:</span>
+          <span className="ml-1">{phone}</span>
         </div>
 
-        <div className="mt-4 text-lg md:text-xl text-zinc-500 leading-loose tracking-tight">
-          <UnorderedListOutlined />
-          <span className="text-red-600 ml-3">Mô tả:</span>
+        <div className="mt-6 text-lg md:text-xl text-gray-500 leading-relaxed tracking-tight flex items-center gap-2">
+          <UnorderedListOutlined className="text-amber-500" />
+          <span className="text-gray-800 font-semibold">Mô tả:</span>
         </div>
 
-        <div className="mt-2 text-lg md:text-xl text-zinc-500">
+        <div className="mt-4 text-lg md:text-xl text-gray-600">
           {descriptionParagraphs.map((paragraph, index) => (
-            <p key={index} className="mb-2">
+            <p key={index} className="mb-3 leading-loose">
               {paragraph}
             </p>
           ))}

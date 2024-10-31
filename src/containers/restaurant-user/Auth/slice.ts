@@ -1,6 +1,7 @@
 import { ApiStatus } from '@/common/enums/apiStatus';
 import { User, UserToken } from '@/common/models/user';
 import {
+  getAllFeedbackOfLocation,
   getFeedbackByLocationBookingId,
   getUserBookingHitory,
   getUserInfo,
@@ -25,6 +26,9 @@ export interface UserSliceState {
     | undefined;
   userStatus: ApiStatus;
   locationFeedbackResponse: LocationFeedbackResponse | undefined;
+  feedbackByLocation:
+    | ResponseEntityPagination<LocationFeedbackResponse>
+    | undefined;
   status: ApiStatus;
 }
 
@@ -33,6 +37,7 @@ const initialState: UserSliceState = {
   userInfo: undefined,
   userBookingHitory: undefined,
   locationFeedbackResponse: undefined,
+  feedbackByLocation: undefined,
   userStatus: ApiStatus.Idle,
   status: ApiStatus.Idle,
 };
@@ -54,6 +59,7 @@ const userSlice = createSlice({
     setUserInfo(builder);
     setUserBookingHitory(builder);
     setFeedbackByLocationBookingId(builder);
+    setAllFeedbackOfLocation(builder);
     setLogout(builder);
   },
 });
@@ -145,6 +151,31 @@ function setFeedbackByLocationBookingId(
         state.locationFeedbackResponse = undefined;
       },
     );
+}
+
+function setAllFeedbackOfLocation(
+  builder: ActionReducerMapBuilder<UserSliceState>,
+) {
+  builder
+    .addCase(getAllFeedbackOfLocation.pending, (state: UserSliceState) => {
+      state.userStatus = ApiStatus.Loading;
+    })
+    .addCase(
+      getAllFeedbackOfLocation.fulfilled,
+      (
+        state: UserSliceState,
+        action: PayloadAction<
+          ResponseEntityPagination<LocationFeedbackResponse>
+        >,
+      ) => {
+        state.userStatus = ApiStatus.Fulfilled;
+        state.feedbackByLocation = action.payload;
+      },
+    )
+    .addCase(getAllFeedbackOfLocation.rejected, (state: UserSliceState) => {
+      state.status = ApiStatus.Failed;
+      state.feedbackByLocation = undefined;
+    });
 }
 
 function setLogout(builder: ActionReducerMapBuilder<UserSliceState>) {

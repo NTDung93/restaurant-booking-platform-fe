@@ -49,9 +49,6 @@ export default function Confirm() {
     time: localStorage.getItem('time') || '',
   });
 
-  // const [isVoucherModalOpen, setIsVoucherModalOpen] = useState<boolean>(false);
-  // const [isPromotionModalOpen, setIsPromotionModalOpen] =
-  //   useState<boolean>(false);
   const [isFoodModalOpen, setIsFoodModalOpen] = useState<boolean>(false);
 
   const handleFoodSelect = (
@@ -61,22 +58,10 @@ export default function Confirm() {
     setIsFoodModalOpen(false);
   };
 
-  // const handleVoucherSelect = (selectedVoucher: string) => {
-  //   setVoucher(selectedVoucher);
-  // };
-
-  // const handlePromotionSelect = (selectedPromotion: string) => {
-  //   setPromotion(selectedPromotion);
-  // };
-
   const clearSelectedFoods = () => {
     setSelectedFoods([]);
     setSelectedPaymentMethod('');
   };
-
-  // const removeVoucher = () => {
-  //   setVoucher('');
-  // };
 
   const removePromotion = () => {
     setPromotion('');
@@ -87,7 +72,7 @@ export default function Confirm() {
   };
 
   useEffect(() => {
-    if (/*isVoucherModalOpen ||*/ /*isPromotionModalOpen ||*/ isFoodModalOpen) {
+    if (isFoodModalOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -96,7 +81,7 @@ export default function Confirm() {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [/*isVoucherModalOpen,*/ /*isPromotionModalOpen*/ isFoodModalOpen]);
+  }, [isFoodModalOpen]);
   useEffect(() => {
     if (selectedFoods.length > 0) {
       localStorage.setItem('selectedFoods', JSON.stringify(selectedFoods));

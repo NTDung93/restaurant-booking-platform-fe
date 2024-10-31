@@ -11,3 +11,6 @@ export const selectUserBookingHistory = (state: ReduxState) =>
 
 export const selectFeedbackByLocationBookingId = (state: ReduxState) =>
   state.user.locationFeedbackResponse;
+
+export const selectAllFeedbackOfLocation = (state: ReduxState) =>
+  state.user.feedbackByLocation;

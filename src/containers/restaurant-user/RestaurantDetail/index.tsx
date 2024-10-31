@@ -7,20 +7,21 @@ import { PrevArrow, NextArrow } from '@/components/Arrow';
 import Header from '@/components/restaurant-user/Header';
 import HeroBanner from '@/components/restaurant-user/HeroBanner';
 import Footer from '@/components/restaurant-user/Footer';
-import Interest from './components/Interest';
-import VoucherSection from './components/VoucherSection';
 import RestaurantInfo from './components/RestaurantInfo';
 import ReservationForm from './components/ReservationForm';
 import CommentSection from './components/CommentSection';
-import MenuSection from './components/MenuSection';
 import { fetchLocationDetail } from '@/containers/restaurant-user/Home/thunks';
 import { selectLocationDetail } from '@/containers/restaurant-user/Home/selectors';
 import { ReduxDispatch } from '@/libs/redux/store';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
+import OnSaleRestaurants from '../Home/Components/OnSaleRestaurants';
+import { getAllFeedbackOfLocation } from '../Auth/thunks';
+import { selectAllFeedbackOfLocation } from '../Auth/selector';
 
 const RestaurantDetail: React.FC = () => {
   const dispatch = useDispatch<ReduxDispatch>();
   const locationDetail = useSelector(selectLocationDetail);
+  const feedbackByLocation = useSelector(selectAllFeedbackOfLocation);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const sliderRef = useRef<Slider>(null);
   const { id } = useParams<{ id: string }>();
@@ -30,6 +31,7 @@ const RestaurantDetail: React.FC = () => {
     if (numericLocationId) {
       localStorage.setItem('locationId', String(numericLocationId));
       dispatch(fetchLocationDetail(numericLocationId));
+      dispatch(getAllFeedbackOfLocation(numericLocationId));
     }
     window.scrollTo(0, 0);
   }, [dispatch, numericLocationId]);
@@ -97,7 +99,7 @@ const RestaurantDetail: React.FC = () => {
                 key={index}
                 onClick={() => handleThumbnailClick(index)}
                 className={`h-1/3 p-2 rounded-lg flex items-center justify-center relative ${
-                  currentSlide === index ? 'border-4 border-blue-500' : ''
+                  currentSlide === index ? 'border-4 border-amber-500' : ''
                 }`}
               >
                 <img
@@ -115,7 +117,7 @@ const RestaurantDetail: React.FC = () => {
                 key={index + 3}
                 onClick={() => handleThumbnailClick(index + 3)}
                 className={`h-1/3 p-2 mb-1 rounded-lg flex items-center justify-center relative ${
-                  currentSlide === index + 3 ? 'border-4 border-blue-500' : ''
+                  currentSlide === index + 3 ? 'border-4 border-amber-500' : ''
                 }`}
               >
                 <img
@@ -132,10 +134,20 @@ const RestaurantDetail: React.FC = () => {
           <RestaurantInfo />
           <ReservationForm />
         </div>
-        <MenuSection />
-        <VoucherSection />
-        <CommentSection />
-        <Interest />
+        <CommentSection
+          feedbackData={
+            feedbackByLocation ?? {
+              totalPages: 0,
+              totalElements: 0,
+              size: 0,
+              first: true,
+              last: true,
+              empty: true,
+              content: [],
+            }
+          }
+        />
+        <OnSaleRestaurants />
       </div>
 
       <Footer />
