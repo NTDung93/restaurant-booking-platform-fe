@@ -194,6 +194,11 @@ const ManageAdvertisingCampaign: React.FC = () => {
         }
       } else {
         toast.error('Tạo liên kết thanh toán không thành công.');
+        setLoadingArray((prev) => {
+          const newLoadingArray = [...prev];
+          newLoadingArray[adIndex] = false;
+          return newLoadingArray;
+        });
       }
     }
   };

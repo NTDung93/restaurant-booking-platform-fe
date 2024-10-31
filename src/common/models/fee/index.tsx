@@ -6,7 +6,7 @@ export interface MonthlyCommissionPayment {
   fixedAmount: number;
   totalAmount: number;
   totalBooking: number;
-  isPaid: boolean;
+  paid: boolean;
   paidAt: string;
   expiredAt: string;
   transactionId: number;
