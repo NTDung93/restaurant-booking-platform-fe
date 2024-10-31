@@ -9,6 +9,9 @@ export const selectUserStatus = (state: ReduxState) => state.user.status;
 export const selectUserBookingHistory = (state: ReduxState) =>
   state.user.userBookingHitory;
 
+export const selectBookingHistoryDetail = (state: ReduxState) =>
+  state.user.bookingHitoryDetail;
+
 export const selectFeedbackByLocationBookingId = (state: ReduxState) =>
   state.user.locationFeedbackResponse;
 

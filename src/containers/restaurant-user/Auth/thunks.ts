@@ -111,6 +111,21 @@ export const getUserBookingHitory = createAppAsyncThunk(
   },
 );
 
+export const getBookingHitoryById = createAppAsyncThunk(
+  `${TypePrefix}/getBookingHitoryById`,
+  async (locationBookingId: number) => {
+    const response = await callApi(
+      {
+        method: 'get',
+        url: `/location-bookings/${locationBookingId}`,
+      },
+      true,
+    );
+
+    return response;
+  },
+);
+
 export const getFeedbackByLocationBookingId = createAppAsyncThunk(
   `${TypePrefix}/getFeedbackByLocationBookingId`,
   async (locationBookingId: number) => {

@@ -2,6 +2,7 @@ import { ApiStatus } from '@/common/enums/apiStatus';
 import { User, UserToken } from '@/common/models/user';
 import {
   getAllFeedbackOfLocation,
+  getBookingHitoryById,
   getFeedbackByLocationBookingId,
   getUserBookingHitory,
   getUserInfo,
@@ -24,6 +25,7 @@ export interface UserSliceState {
   userBookingHitory:
     | ResponseEntityPagination<LocationBookingResponse>
     | undefined;
+  bookingHitoryDetail: LocationBookingResponse | undefined;
   userStatus: ApiStatus;
   locationFeedbackResponse: LocationFeedbackResponse | undefined;
   feedbackByLocation:
@@ -38,6 +40,7 @@ const initialState: UserSliceState = {
   userBookingHitory: undefined,
   locationFeedbackResponse: undefined,
   feedbackByLocation: undefined,
+  bookingHitoryDetail: undefined,
   userStatus: ApiStatus.Idle,
   status: ApiStatus.Idle,
 };
@@ -59,6 +62,7 @@ const userSlice = createSlice({
     setUserInfo(builder);
     setUserBookingHitory(builder);
     setFeedbackByLocationBookingId(builder);
+    setBookingHitoryDetail(builder);
     setAllFeedbackOfLocation(builder);
     setLogout(builder);
   },
@@ -120,6 +124,28 @@ function setUserBookingHitory(
       },
     )
     .addCase(getUserBookingHitory.rejected, (state: UserSliceState) => {
+      state.status = ApiStatus.Failed;
+    });
+}
+
+function setBookingHitoryDetail(
+  builder: ActionReducerMapBuilder<UserSliceState>,
+) {
+  builder
+    .addCase(getBookingHitoryById.pending, (state: UserSliceState) => {
+      state.userStatus = ApiStatus.Loading;
+    })
+    .addCase(
+      getBookingHitoryById.fulfilled,
+      (
+        state: UserSliceState,
+        action: PayloadAction<LocationBookingResponse>,
+      ) => {
+        state.userStatus = ApiStatus.Fulfilled;
+        state.bookingHitoryDetail = action.payload;
+      },
+    )
+    .addCase(getBookingHitoryById.rejected, (state: UserSliceState) => {
       state.status = ApiStatus.Failed;
     });
 }

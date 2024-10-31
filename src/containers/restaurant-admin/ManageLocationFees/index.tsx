@@ -76,11 +76,13 @@ const FeeManagementPage = () => {
   const totalCommission = monthlyCommission?.totalAmount || 0;
   const fixedAmount = monthlyCommission?.fixedAmount || 0;
   const totalAmount = totalCommission + fixedAmount;
-  const paymentStatus = monthlyCommission
-    ? monthlyCommission.isPaid
-      ? 'Đã thanh toán'
-      : 'Chưa thanh toán'
-    : 'Chưa có dữ liệu';
+  const paymentStatus = monthlyCommission?.paid
+    ? 'Đã thanh toán'
+    : 'Chưa thanh toán';
+
+  console.log(paymentStatus);
+  console.log(monthlyCommission);
+
   const paymentDeadline = monthlyCommission?.expiredAt
     ? new Date(monthlyCommission?.expiredAt)
     : null;
@@ -246,8 +248,8 @@ const FeeManagementPage = () => {
                       {totalAmount.toLocaleString()} VNĐ
                     </span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="font-semibold">
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold text-lg">
                       Trạng Thái Thanh Toán:
                     </span>
                     <span className={`${paymentStatusColor} text-xl font-bold`}>
@@ -287,7 +289,7 @@ const FeeManagementPage = () => {
                   </span>
                 </div>
 
-                <div className="flex justify-end mt-10">
+                <div className="flex justify-end mt-3">
                   <button
                     onClick={handlePayment}
                     disabled={totalAmount === 0} // Disable button if totalAmount is 0
@@ -295,7 +297,7 @@ const FeeManagementPage = () => {
                       loading || totalAmount === 0
                         ? 'bg-gray-400 cursor-not-allowed'
                         : 'bg-amber-600 text-white hover:bg-amber-700'
-                    } text-xl font-semibold text-white px-3 py-3 rounded-md mt-3`}
+                    } text-xl font-semibold text-white px-3 py-2 rounded-md mt-3`}
                   >
                     {loading ? (
                       <Spin size="small" className="px-3 py-3" />

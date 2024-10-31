@@ -6,6 +6,7 @@ export interface LocationFeedbackResponse {
   numberOfGuest: number;
   image: string;
   locationName: string;
+  locationBookingId: number;
   userName: string;
 }
 
