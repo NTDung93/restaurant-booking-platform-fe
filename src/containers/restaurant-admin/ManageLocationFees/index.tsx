@@ -163,7 +163,7 @@ const FeeManagementPage = () => {
           <div className="p-8 bg-background text-foreground space-y-10 mx-5">
             {/* Fee Comparison Chart */}
             <h2 className="text-3xl text-amber-600 font-bold text-left mb-6">
-              So Sánh Chi Phí Các Tháng
+              So sánh chi phí
             </h2>
             <div className="bg-white rounded-lg shadow-md p-4 mb-10">
               <ResponsiveContainer width="100%" height={300}>
