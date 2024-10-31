@@ -47,8 +47,8 @@ export default function Success() {
             </div>
             <h1 className="text-2xl font-bold mb-4">Đặt bàn thành công!</h1>
             <p className="text-gray-700 mb-6">
-              Đặt bàn của bạn đã được xác nhận. Chúng tôi rất mong được phục vụ
-              bạn!
+              Đơn đặt bàn của bạn đã được đặt thành công. Nhà hàng sẽ sớm liên
+              hệ với bạn để xác nhận. Chúng tôi rất mong được phục vụ bạn!
             </p>
             <div className="mb-6">
               <p>
