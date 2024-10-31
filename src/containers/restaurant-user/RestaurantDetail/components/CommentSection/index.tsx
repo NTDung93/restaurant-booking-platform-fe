@@ -1,6 +1,8 @@
-import { LocationFeedbackResponse } from '@/common/models/feedback';
-import { ResponseEntityPagination } from '@/common/models/pagination';
-import React, { useState } from 'react';
+import { selectAllFeedbackOfLocation } from '@/containers/restaurant-user/Auth/selector';
+import { getAllFeedbackOfLocation } from '@/containers/restaurant-user/Auth/thunks';
+import { ReduxDispatch } from '@/libs/redux/store';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Rating: React.FC<{ rating: number }> = ({ rating }) => (
   <div>
@@ -19,25 +21,30 @@ const Rating: React.FC<{ rating: number }> = ({ rating }) => (
 );
 
 interface FeedbackSectionProps {
-  feedbackData: ResponseEntityPagination<LocationFeedbackResponse>;
+  numericLocationId: number;
 }
 
-const FeedbackSection: React.FC<FeedbackSectionProps> = ({ feedbackData }) => {
+const FeedbackSection: React.FC<FeedbackSectionProps> = ({
+  numericLocationId,
+}) => {
+  const dispatch = useDispatch<ReduxDispatch>();
+  const feedbackByLocation = useSelector(selectAllFeedbackOfLocation);
+
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = feedbackData.size;
+  const itemsPerPage = feedbackByLocation?.size ?? 0;
   const [ratingFilter, setRatingFilter] = useState<number | null>(null);
 
   const imageAva = 'https://via.placeholder.com/50';
   const filteredFeedbacks = ratingFilter
-    ? feedbackData.content.filter(
+    ? feedbackByLocation?.content.filter(
         (feedback) => feedback.rating === ratingFilter,
       )
-    : feedbackData.content;
+    : feedbackByLocation?.content;
 
-  const totalPages = feedbackData.totalPages;
+  const totalPages = feedbackByLocation?.totalPages;
   const indexOfLastFeedback = currentPage * itemsPerPage;
   const indexOfFirstFeedback = indexOfLastFeedback - itemsPerPage;
-  const currentFeedbacks = filteredFeedbacks.slice(
+  const currentFeedbacks = filteredFeedbacks?.slice(
     indexOfFirstFeedback,
     indexOfLastFeedback,
   );
@@ -45,6 +52,18 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({ feedbackData }) => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+
+  useEffect(() => {
+    dispatch(
+      getAllFeedbackOfLocation({
+        locationId: numericLocationId,
+        currentPage: currentPage - 1,
+        pageSize: 5,
+      }),
+    );
+  }, [dispatch, currentPage]);
+
+  console.log(feedbackByLocation);
 
   return (
     <div className="max-w-screen-xl mx-auto text-base px-4">
@@ -83,8 +102,8 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({ feedbackData }) => {
         ))}
       </div>
 
-      {currentFeedbacks.length > 0 ? (
-        currentFeedbacks.map((feedback) => (
+      {currentFeedbacks?.length ?? 0 > 0 ? (
+        currentFeedbacks?.map((feedback) => (
           <div
             key={feedback.id}
             className="mb-4 shadow-md rounded-lg bg-white border border-gray-200 p-4"
@@ -137,7 +156,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({ feedbackData }) => {
                 : 'bg-amber-600 hover:bg-amber-700'
             }`}
           >
-            Previous
+            Trang trước
           </button>
           <button
             onClick={() => handlePageChange(currentPage + 1)}
@@ -148,7 +167,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({ feedbackData }) => {
                 : 'bg-amber-600 hover:bg-amber-700'
             }`}
           >
-            Next
+            Trang kế
           </button>
         </div>
       </div>
