@@ -292,9 +292,13 @@ const FeeManagementPage = () => {
                 <div className="flex justify-end mt-3">
                   <button
                     onClick={handlePayment}
-                    disabled={totalAmount === 0} // Disable button if totalAmount is 0
+                    disabled={
+                      totalAmount === 0 || monthlyCommission?.paid === true
+                    }
                     className={`${
-                      loading || totalAmount === 0
+                      loading ||
+                      totalAmount === 0 ||
+                      monthlyCommission?.paid === true
                         ? 'bg-gray-400 cursor-not-allowed'
                         : 'bg-amber-600 text-white hover:bg-amber-700'
                     } text-xl font-semibold text-white px-3 py-2 rounded-md mt-3`}
