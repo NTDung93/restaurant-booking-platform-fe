@@ -218,7 +218,7 @@ const ManageAdvertisingCampaign: React.FC = () => {
           <Image />
           <div className="p-8 bg-background text-foreground space-y-10 mx-5">
             <h1 className="text-3xl text-amber-600 font-bold text-left mb-6">
-              Tiếp Thị và Quảng Cáo
+              Tiếp thị và Quảng cáo
             </h1>
 
             <div>

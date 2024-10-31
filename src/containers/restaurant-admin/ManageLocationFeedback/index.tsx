@@ -204,7 +204,7 @@ export default function ReviewManagementPage() {
             {/* Đánh giá nhà hàng tổng quan */}
             <div className="space-y-4">
               <h2 className="text-2xl lg:text-3xl font-bold text-amber-600">
-                Đánh giá Nhà Hàng 4.9/5
+                Đánh giá nhà hàng
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div className="bg-white p-6 shadow-md rounded-lg">
