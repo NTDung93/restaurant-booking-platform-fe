@@ -74,7 +74,7 @@ export default function ManageBookingTableAll() {
           <Image />
 
           <div className="p-8 bg-background text-foreground space-y-10 mx-5">
-            <h1 className="text-4xl font-bold text-gray-900 mb-8">
+            <h1 className="text-3xl font-bold text-amber-600 mb-8">
               Quản lý đặt bàn
             </h1>
 

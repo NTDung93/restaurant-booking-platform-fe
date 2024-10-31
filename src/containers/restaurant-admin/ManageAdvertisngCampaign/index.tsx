@@ -217,7 +217,7 @@ const ManageAdvertisingCampaign: React.FC = () => {
         <div className="ml-[15vw] w-[85vw] flex flex-col overflow-y-auto">
           <Image />
           <div className="p-8 bg-background text-foreground space-y-10 mx-5">
-            <h1 className="text-3xl text-black font-bold text-left mb-6">
+            <h1 className="text-3xl text-amber-600 font-bold text-left mb-6">
               Tiếp Thị và Quảng Cáo
             </h1>
 
@@ -281,9 +281,7 @@ const ManageAdvertisingCampaign: React.FC = () => {
 
             <div className="text-left p-6">
               <h2 className="text-3xl font-bold mb-8 text-amber-600">
-                <span className="border-b-amber-600 border-b-4">
-                  Các gói quảng cáo
-                </span>
+                <span className="">Các gói quảng cáo</span>
               </h2>
 
               {/* Monthly Packages */}

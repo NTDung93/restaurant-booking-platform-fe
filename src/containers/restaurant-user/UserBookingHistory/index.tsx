@@ -276,7 +276,7 @@ export default function UserBookingHistory() {
                             </p>
                             <p className="text-gray-800">
                               Số tiền:{' '}
-                              <span className="text-red-500 font-semibold">
+                              <span className="text-black font-semibold">
                                 {formatPrice(booking.amount)} VNĐ
                               </span>
                             </p>
@@ -610,19 +610,20 @@ export default function UserBookingHistory() {
                           Hủy Đơn
                         </button>
                       )}
-                      {booking.status === 'SUCCESSFUL' && (
-                        <button
-                          disabled={loadingFeedback}
-                          onClick={handleSubmit}
-                          className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200 disabled:cursor-not-allowed"
-                        >
-                          {loadingFeedback ? (
-                            <Spin size="small" />
-                          ) : (
-                            'Gửi Phản hồi'
-                          )}
-                        </button>
-                      )}
+                      {booking.status === 'SUCCESSFUL' &&
+                        locationFeedbackResponse === undefined && (
+                          <button
+                            disabled={loadingFeedback}
+                            onClick={handleSubmit}
+                            className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200 disabled:cursor-not-allowed"
+                          >
+                            {loadingFeedback ? (
+                              <Spin size="small" />
+                            ) : (
+                              'Gửi Phản hồi'
+                            )}
+                          </button>
+                        )}
                       <button
                         className="bg-[#D86500] text-white font-bold py-2 px-4 rounded hover:bg-[#e29140]"
                         onClick={closePopup}

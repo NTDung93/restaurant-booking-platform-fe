@@ -139,7 +139,7 @@ export default function SignUp() {
             className="backdrop-blur-sm bg-white/10 rounded-2xl shadow-2xl overflow-hidden 
                    transition-all duration-300 transform hover:scale-[1.02] border border-white/20"
           >
-            <div className="w-full p-8 sm:p-10 bg-gradient-to-r from-[#d86500]/90 to-[#ffaf40]/90">
+            <div className="w-full p-8 sm:p-10 bg-gradient-to-r from-amber-600/90 to-amber-400/90">
               <h2 className="text-4xl font-bold mb-8 text-center text-white drop-shadow-lg">
                 Đăng ký
               </h2>

@@ -17,7 +17,7 @@ export default function ManageReportBookingTableOnline() {
 
           {/* Content */}
           <div className="p-8 bg-white shadow-lg rounded-lg mx-auto w-[80%] max-w-3xl">
-            <h1 className="text-4xl font-bold mb-6 text-amber-600">
+            <h1 className="text-3xl font-bold mb-6 text-amber-600">
               Đặt hàng Trực tuyến
             </h1>
 

@@ -2,7 +2,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RESTAURANT_DETAIL_ROUTE } from '@/common/constants/routerConstant';
 import LocationCardItem from '@/components/restaurant-user/LocationCardItem';
 import { useDispatch } from 'react-redux';
@@ -94,16 +94,16 @@ export default function OnSaleRestaurants() {
   };
 
   return (
-    <div className="mobile:max-md:w-[90%] mobile:max-md:overflow-hidden w-[80%] mx-auto mt-8 lg:mt-12 mb-10">
+    <div className="w-[80%] mx-auto mt-8 lg:mt-12 mb-10 mobile:max-md:w-full">
       {toastMessage && <Toast type={toastType} message={toastMessage} />}
 
       <div className="text-center mb-4">
-        <div className="mobile:max-md:text-3xl text-black text-4xl font-bold ">
+        <div className="text-black text-4xl font-bold mobile:max-md:text-3xl">
           Đang giảm giá
         </div>
       </div>
 
-      {loading && (
+      {loading ? (
         <Flex
           align="center"
           gap="middle"
@@ -115,14 +115,31 @@ export default function OnSaleRestaurants() {
             }
           />
         </Flex>
-      )}
+      ) : (
+        <>
+          {/* Desktop Carousel */}
+          <div className="hidden lg:block w-full">
+            <Slider {...settings}>
+              {React.Children.map(cards, (card) => (
+                <div className="transition-transform duration-300 ease-in-out transform hover:scale-105 hover:opacity-90">
+                  {card}
+                </div>
+              ))}
+            </Slider>
+          </div>
 
-      <div className="hidden lg:block">
-        <Slider {...settings}>{cards}</Slider>
-      </div>
-      <div className="block lg:hidden mobile:max-md:carousel mobile:max-md:carousel-center rounded-box max-w-md space-x-0">
-        {cards}
-      </div>
+          {/* Mobile Display - Hide scrollbar using Tailwind */}
+          <div className="lg:hidden w-full">
+            <div className="flex space-x-4 overflow-x-auto px-4 [scrollbar-width:none]">
+              {React.Children.map(cards, (card) => (
+                <div className="flex-none min-w-[80%] transition-transform duration-300 ease-in-out transform hover:scale-105 hover:opacity-90">
+                  {card}
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

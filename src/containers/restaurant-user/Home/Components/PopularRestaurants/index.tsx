@@ -2,7 +2,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RESTAURANT_DETAIL_ROUTE } from '@/common/constants/routerConstant';
 import LocationCardItem from '@/components/restaurant-user/LocationCardItem';
 import { ReduxDispatch } from '@/libs/redux/store';
@@ -15,7 +15,6 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Flex, Spin } from 'antd';
 
 export default function PopularRestaurants() {
-  let cards = undefined;
   const navigate = useNavigate();
   const [slidesToShow, setSlidesToShow] = useState(4);
   const cardMaxWidth = 400;
@@ -39,7 +38,6 @@ export default function PopularRestaurants() {
     const fetchData = async () => {
       try {
         const resultAction = await dispatch(fetchPopularLocations());
-
         if (fetchPopularLocations.fulfilled.match(resultAction)) {
           setLoading(false);
           const data: ResponseEntityPagination<LocationResponseLazy> =
@@ -62,26 +60,22 @@ export default function PopularRestaurants() {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [dispatch]);
 
-  if (responsePagination) {
-    cards = responsePagination!.content.map((location) => (
-      <LocationCardItem
-        key={location.id}
-        imageUrl={location.image}
-        name={location.name}
-        address={location.address}
-        rating={location.rating}
-        booking={location.view}
-        category={location.categoryName}
-        onClick={() =>
-          navigate(
-            RESTAURANT_DETAIL_ROUTE.replace(':id', location.id.toString()),
-          )
-        }
-      />
-    ));
-  }
+  const cards = responsePagination?.content.map((location) => (
+    <LocationCardItem
+      key={location.id}
+      imageUrl={location.image}
+      name={location.name}
+      address={location.address}
+      rating={location.rating}
+      booking={location.view}
+      category={location.categoryName}
+      onClick={() =>
+        navigate(RESTAURANT_DETAIL_ROUTE.replace(':id', location.id.toString()))
+      }
+    />
+  ));
 
   const settings = {
     dots: true,
@@ -94,16 +88,16 @@ export default function PopularRestaurants() {
   };
 
   return (
-    <div className="mobile:max-md:w-[90%] mobile:max-md:overflow-hidden w-[80%] mx-auto lg:mt-12">
-      {<Toast type={toastType} message={toastMessage} />}
+    <div className="w-[80%] mx-auto mt-8 lg:mt-12 mb-10 mobile:max-md:w-full">
+      <Toast type={toastType} message={toastMessage} />
 
       <div className="text-center mb-4 mobile:max-md:mt-8">
-        <div className="mobile:max-md:text-3xl text-black text-4xl font-bold ">
+        <div className="mobile:max-md:text-3xl text-black text-4xl font-bold transition-transform duration-300 ease-in-out hover:scale-105 hover:opacity-90">
           Nhà hàng nổi bật
         </div>
       </div>
 
-      {loading && (
+      {loading ? (
         <Flex
           align="center"
           gap="middle"
@@ -115,14 +109,31 @@ export default function PopularRestaurants() {
             }
           />
         </Flex>
-      )}
+      ) : (
+        <>
+          {/* Desktop Carousel */}
+          <div className="hidden lg:block w-full">
+            <Slider {...settings}>
+              {React.Children.map(cards, (card) => (
+                <div className="transition-transform duration-300 ease-in-out transform hover:scale-105 hover:opacity-90">
+                  {card}
+                </div>
+              ))}
+            </Slider>
+          </div>
 
-      <div className="hidden lg:block">
-        <Slider {...settings}>{cards}</Slider>
-      </div>
-      <div className="block lg:hidden mobile:max-md:carousel mobile:max-md:carousel-center rounded-box max-w-md space-x-0">
-        {cards}
-      </div>
+          {/* Mobile Display - Hide scrollbar using Tailwind */}
+          <div className="lg:hidden w-full">
+            <div className="flex space-x-4 overflow-x-auto px-4 [scrollbar-width:none]">
+              {React.Children.map(cards, (card) => (
+                <div className="flex-none min-w-[80%] transition-transform duration-300 ease-in-out transform hover:scale-105 hover:opacity-90">
+                  {card}
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

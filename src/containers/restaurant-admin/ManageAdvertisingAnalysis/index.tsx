@@ -68,7 +68,7 @@ const ManageAdvertisingAnalysis: React.FC = () => {
   return (
     <>
       <Header />
-      <div className="flex min-h-screen">
+      <div className="mt-[100px] flex min-h-screen">
         <div className="fixed top-[100px] left-0 w-[15vw]">
           <Menu />
         </div>
@@ -76,7 +76,7 @@ const ManageAdvertisingAnalysis: React.FC = () => {
         <div className="ml-[15vw] w-[85vw] flex flex-col overflow-y-auto">
           <Image />
           <div className="p-8 bg-background text-foreground space-y-10 mx-5">
-            <h1 className="text-3xl text-black font-bold text-left mb-6">
+            <h1 className="text-3xl text-amber-600 font-bold text-left mb-6">
               Tiếp Thị và Quảng Cáo
             </h1>
 

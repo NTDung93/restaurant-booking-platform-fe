@@ -162,7 +162,7 @@ const FeeManagementPage = () => {
 
           <div className="p-8 bg-background text-foreground space-y-10 mx-5">
             {/* Fee Comparison Chart */}
-            <h2 className="text-3xl font-bold my-6">
+            <h2 className="text-3xl text-amber-600 font-bold text-left mb-6">
               So Sánh Chi Phí Các Tháng
             </h2>
             <div className="bg-white rounded-lg shadow-md p-4 mb-10">
@@ -232,7 +232,7 @@ const FeeManagementPage = () => {
                     Khoảng Phí Hoa Hồng:
                     <span className="text-red-400">
                       {' '}
-                      x{totalCommission / 10000} x 10.000VNĐ
+                      x{totalCommission / 20000} x 20.000VNĐ
                     </span>
                   </span>
                   <span className="text-amber-600 font-semibold text-lg">

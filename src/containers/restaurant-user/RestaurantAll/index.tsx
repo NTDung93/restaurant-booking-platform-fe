@@ -19,6 +19,13 @@ import { searchLocation } from '../Home/thunks';
 import { ReduxDispatch } from '@/libs/redux/store';
 import { getUserLocation, LocationResult } from '@/utils/location';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
+import {
+  DollarOutlined,
+  DownOutlined,
+  EnvironmentOutlined,
+  ForkOutlined,
+  StarOutlined,
+} from '@ant-design/icons';
 
 const RestaurantAll: React.FC = () => {
   const navigate = useNavigate();
@@ -77,7 +84,10 @@ const RestaurantAll: React.FC = () => {
 
   if (responsePagination) {
     cards = responsePagination!.content.map((location) => (
-      <div key={location.id} className="w-full sm:w-1/2 lg:w-1/4 p-2">
+      <div
+        key={location.id}
+        className="w-full sm:w-1/2 lg:w-1/4 p-2 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:opacity-90"
+      >
         <LocationCardItem
           key={location.id}
           imageUrl={location.image}
@@ -101,49 +111,116 @@ const RestaurantAll: React.FC = () => {
       <div className="flex-grow">
         <Header />
         <HeroBanner />
-        <div className="bg-white p-4 shadow-md mt-4 ">
-          <div className="container mx-auto w-4/5">
-            <div className="text-xl font-bold mb-4">Lọc Kết Quả</div>
-            <div className="flex flex-wrap gap-4">
-              <div className="w-full md:w-1/4">
-                <label className="block text-sm font-medium mb-1">Giá</label>
-                <select className="block w-full border-gray-300 rounded-md shadow-sm focus:border-amber-500 focus:ring focus:ring-amber-500 focus:ring-opacity-50">
-                  <option>Thấp đến cao</option>
-                  <option>Cao đến thấp</option>
-                </select>
+
+        <div className="p-8 border-b-2">
+          <div className="max-w-6xl mx-auto">
+            {/* Enhanced Header */}
+            <div className="flex items-center justify-between mb-8 border-b border-amber-200 pb-6">
+              <div className="flex items-center gap-3">
+                <div className="bg-amber-500 p-2 rounded-xl shadow-lg shadow-amber-200">
+                  <StarOutlined className="w-6 h-6 text-white" />
+                </div>
+                <h2 className="text-3xl font-bold text-gray-800 tracking-tight">
+                  Lọc Kết Quả
+                </h2>
+              </div>
+              <span className="text-sm text-amber-600 bg-amber-100 px-4 py-2 rounded-full font-medium">
+                3 bộ lọc đang hoạt động
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Price Filter */}
+              <div className="relative group">
+                <label className="flex items-center gap-2 text-sm font-medium mb-3 text-gray-700">
+                  <div className="bg-amber-100 p-1.5 rounded-lg">
+                    <DollarOutlined className="w-4 h-4 text-amber-600" />
+                  </div>
+                  Giá
+                </label>
+                <div className="relative">
+                  <select
+                    className="w-full appearance-none bg-white px-4 py-4 rounded-xl border-2 border-gray-100
+                           text-gray-700 cursor-pointer shadow-sm transition-all duration-200
+                           hover:border-amber-400 focus:border-amber-500 focus:ring-4 focus:ring-amber-100
+                           focus:outline-none"
+                  >
+                    <option>Thấp đến cao</option>
+                    <option>Cao đến thấp</option>
+                  </select>
+                  <DownOutlined
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 
+                                group-hover:text-amber-500 group-hover:transform group-hover:-translate-y-1/2 
+                                group-hover:scale-110 transition-all duration-200"
+                  />
+                </div>
               </div>
 
-              <div className="w-full md:w-1/4">
-                <label className="block text-sm font-medium mb-1">
+              {/* Distance Filter */}
+              <div className="relative group">
+                <label className="flex items-center gap-2 text-sm font-medium mb-3 text-gray-700">
+                  <div className="bg-amber-100 p-1.5 rounded-lg">
+                    <EnvironmentOutlined className="w-4 h-4 text-amber-600" />
+                  </div>
                   Khoảng cách
                 </label>
-                <select className="block w-full border-gray-300 rounded-md shadow-sm focus:border-amber-500 focus:ring focus:ring-amber-500 focus:ring-opacity-50">
-                  <option>1 km</option>
-                  <option>5 km</option>
-                  <option>10 km</option>
-                  <option>50 km</option>
-                </select>
+                <div className="relative">
+                  <select
+                    className="w-full appearance-none bg-white px-4 py-4 rounded-xl border-2 border-gray-100
+                           text-gray-700 cursor-pointer shadow-sm transition-all duration-200
+                           hover:border-amber-400 focus:border-amber-500 focus:ring-4 focus:ring-amber-100
+                           focus:outline-none"
+                  >
+                    <option>1 km</option>
+                    <option>5 km</option>
+                    <option>10 km</option>
+                    <option>50 km</option>
+                  </select>
+                  <DownOutlined
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 
+                                group-hover:text-amber-500 group-hover:transform group-hover:-translate-y-1/2 
+                                group-hover:scale-110 transition-all duration-200"
+                  />
+                </div>
               </div>
-              <div className="w-full md:w-1/4">
-                <label className="block text-sm font-medium mb-1">
+
+              {/* Type Filter */}
+              <div className="relative group">
+                <label className="flex items-center gap-2 text-sm font-medium mb-3 text-gray-700">
+                  <div className="bg-amber-100 p-1.5 rounded-lg">
+                    <ForkOutlined className="w-4 h-4 text-amber-600" />
+                  </div>
                   Loại hình
                 </label>
-                <select className="block w-full border-gray-300 rounded-md shadow-sm focus:border-amber-500 focus:ring focus:ring-amber-500 focus:ring-opacity-50">
-                  <option>Nhà hàng</option>
-                  <option>Quán cà phê</option>
-                  <option>Bar</option>
-                  <option>Đồ ăn nhanh</option>
-                </select>
+                <div className="relative">
+                  <select
+                    className="w-full appearance-none bg-white px-4 py-4 rounded-xl border-2 border-gray-100
+                           text-gray-700 cursor-pointer shadow-sm transition-all duration-200
+                           hover:border-amber-400 focus:border-amber-500 focus:ring-4 focus:ring-amber-100
+                           focus:outline-none"
+                  >
+                    <option>Nhà hàng</option>
+                    <option>Quán cà phê</option>
+                    <option>Bar</option>
+                    <option>Đồ ăn nhanh</option>
+                  </select>
+                  <DownOutlined
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 
+                                group-hover:text-amber-500 group-hover:transform group-hover:-translate-y-1/2 
+                                group-hover:scale-110 transition-all duration-200"
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="container py-2 mx-auto w-4/5">
+
+        <div className="container py-4 mx-auto w-4/5">
           {responsePagination && responsePagination.content.length > 0 ? (
             <div className="flex flex-wrap -mx-4">{cards}</div>
           ) : (
-            <div className="p-4">
-              <div>No search results to display.</div>
+            <div className="p-4 text-center">
+              <p className="text-gray-500">No search results to display.</p>
             </div>
           )}
         </div>

@@ -164,7 +164,7 @@ const LocationPopupSearch: React.FC<ModalProps> = ({
               ref={inputRef}
               type="text"
               placeholder="Nhập từ khóa"
-              className="w-3/4 h-12 border border-neutral-400 rounded-l-lg px-4 text-gray-700 placeholder-gray-500"
+              className="w-3/4 h-12 border border-neutral-400 rounded-l-lg px-4 text-gray-700 placeholder-gray-500 outline-none"
               value={searchText}
               onChange={handleInputChange}
             />

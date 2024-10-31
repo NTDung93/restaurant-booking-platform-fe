@@ -75,7 +75,7 @@ const HeroBanner: React.FC = () => {
 
         <div className="absolute bottom-[-30px] md:bottom-[-50px] left-1/2 transform -translate-x-1/2 w-full max-w-screen-lg px-2 md:px-4">
           <div className="bg-white shadow-lg rounded-lg flex items-center p-3 md:p-6">
-            <div className="relative flex-grow w-full bg-white border h-12 rounded-lg">
+            <div className="relative flex-grow w-full bg-white border h-12 rounded-sm">
               <input
                 ref={inputRef}
                 type="text"

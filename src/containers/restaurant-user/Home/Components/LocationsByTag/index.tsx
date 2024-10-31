@@ -2,7 +2,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RESTAURANT_DETAIL_ROUTE } from '@/common/constants/routerConstant';
 import { ReduxDispatch } from '@/libs/redux/store';
 import { useDispatch } from 'react-redux';
@@ -101,23 +101,24 @@ export default function LocationsByTag() {
   };
 
   return (
-    <div className="mobile:max-md:w-[90%] mobile:max-md:overflow-hidden w-[80%] mx-auto lg:mt-12 mt-10">
+    <div className="w-[80%] mx-auto mt-8 lg:mt-12 mb-10 mobile:max-md:w-full ">
       {toastMessage && <Toast type={toastType} message={toastMessage} />}
 
-      <div className="text-left pl-2 lg:pl-4">
-        <h2 className="text-xl md:text-3xl font-semibold text-black mb-4">
+      {/* Title and Tags Section */}
+      <div className="bg-white rounded-lg text-left px-4 lg:px-6 py-6">
+        <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-6">
           Lên kế hoạch cho bữa ăn nhanh chóng
         </h2>
-        <div className="flex flex-wrap justify-start gap-4 mb-4">
+        <div className="flex flex-wrap gap-3 md:gap-4 mb-4">
           {['Ăn sáng', 'Ăn trưa', 'Ăn tối', 'Hẹn hò', 'Gặp mặt'].map(
             (tag, index) => (
               <button
                 key={tag}
-                className={`px-4 py-2 text-sm md:text-lg font-normal rounded-full border ${
+                className={`px-5 py-2 text-sm md:text-lg font-medium rounded-full shadow-sm transition-all duration-300 transform hover:scale-105 ${
                   tagName === tag
-                    ? 'border-gray-600 bg-amber-500 text-white border-none'
-                    : 'border-gray-400 bg-gray-200'
-                } hover:bg-amber-500 transition hover:text-white ${index === 4 ? 'hidden lg:block' : ''}`}
+                    ? 'bg-amber-500 text-white shadow-md'
+                    : 'bg-gray-100 text-gray-700 hover:bg-amber-500 hover:text-white'
+                } ${index === 4 ? 'hidden lg:block' : ''}`}
                 onClick={() => handleTagChange(tag)}
               >
                 {tag}
@@ -127,6 +128,7 @@ export default function LocationsByTag() {
         </div>
       </div>
 
+      {/* Loading Spinner */}
       {loading && (
         <Flex
           align="center"
@@ -141,11 +143,26 @@ export default function LocationsByTag() {
         </Flex>
       )}
 
-      <div className="hidden lg:block">
-        <Slider {...settings}>{cards}</Slider>
+      {/* Desktop Carousel */}
+      <div className="hidden lg:block w-full">
+        <Slider {...settings}>
+          {React.Children.map(cards, (card) => (
+            <div className="transition-transform duration-300 ease-in-out transform hover:scale-105 hover:opacity-90">
+              {card}
+            </div>
+          ))}
+        </Slider>
       </div>
-      <div className="block lg:hidden mobile:max-md:carousel mobile:max-md:carousel-center rounded-box max-w-md space-x-0">
-        {cards}
+
+      {/* Mobile Display - Hide scrollbar using Tailwind */}
+      <div className="lg:hidden w-full">
+        <div className="flex space-x-4 overflow-x-auto px-4 [scrollbar-width:none]">
+          {React.Children.map(cards, (card) => (
+            <div className="flex-none min-w-[80%] transition-transform duration-300 ease-in-out transform hover:scale-105 hover:opacity-90">
+              {card}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

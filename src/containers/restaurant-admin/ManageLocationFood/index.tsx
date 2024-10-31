@@ -65,12 +65,12 @@ const ManageLocationFood: React.FC = () => {
 
           <div className="p-8 bg-background text-foreground space-y-10 mx-5">
             <div className="flex justify-between items-center mb-8">
-              <h1 className="text-4xl font-bold text-gray-800">
+              <h1 className="text-3xl font-bold text-amber-600">
                 Tất cả món ăn
               </h1>
               <button
                 onClick={() => setShowAddModal(true)}
-                className="px-4 py-3 text-xl font-semibold text-white rounded-md bg-amber-600 hover:bg-amber-700"
+                className="px-4 py-2 text-lg font-semibold text-white rounded-2xl bg-amber-600 hover:bg-amber-700"
               >
                 Thêm món ăn
               </button>
