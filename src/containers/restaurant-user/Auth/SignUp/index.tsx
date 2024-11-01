@@ -24,7 +24,7 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<AccountSignUp>({
-    username: '',
+    username: 'useruseruser',
     email: '',
     password: '',
     fullName: '',
@@ -300,13 +300,13 @@ export default function SignUp() {
                       <option value="" disabled className="text-white">
                         Chọn giới tính
                       </option>
-                      <option value="male" className="text-black">
+                      <option value="Male" className="text-black">
                         Nam
                       </option>
-                      <option value="female" className="text-black">
+                      <option value="Female" className="text-black">
                         Nữ
                       </option>
-                      <option value="other" className="text-black">
+                      <option value="Other" className="text-black">
                         Khác
                       </option>
                     </select>
