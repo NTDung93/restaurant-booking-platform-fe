@@ -17,3 +17,6 @@ export const selectOnSaleLocations = (state: ReduxState) =>
 
 export const selectSearchLocationStatus = (state: ReduxState) =>
   state.location.searchLocationStatus;
+
+export const selectLocationDetailById = (state: ReduxState) =>
+  state.location.locationDetailById;

@@ -1,5 +1,6 @@
 import { ApiStatus } from '@/common/enums/apiStatus';
 import {
+  LocationResponse,
   LocationResponseLazy,
   LocationResponseLazyDetail,
 } from '@/common/models/location';
@@ -11,10 +12,12 @@ import {
 } from '@reduxjs/toolkit';
 import {
   fetchLocationDetail,
+  fetchLocationDetailById,
   fetchLocationsByTag,
   fetchOnSaleLocations,
   fetchPopularLocations,
   searchLocation,
+  updateLocationDetailById,
 } from './thunks';
 
 export interface LocationSliceState {
@@ -22,6 +25,7 @@ export interface LocationSliceState {
     | ResponseEntityPagination<LocationResponseLazy>
     | undefined;
   locationDetail: LocationResponseLazyDetail | undefined;
+  locationDetailById: LocationResponse | undefined;
   popularLocationsResponse:
     | ResponseEntityPagination<LocationResponseLazy>
     | undefined;
@@ -41,6 +45,7 @@ const initialState: LocationSliceState = {
   popularLocationsResponse: undefined,
   locationsByTagResponse: undefined,
   onSaleLocationsResponse: undefined,
+  locationDetailById: undefined,
   searchLocationStatus: ApiStatus.Idle,
   status: ApiStatus.Idle,
 };
@@ -55,6 +60,8 @@ const locationSlice = createSlice({
     setPopularLocationsResponse(builder);
     setLocationsByTagResponse(builder);
     setOnSaleLocationsResponse(builder);
+    setLocationDetailById(builder);
+    setUpdateLocationDetailById(builder);
   },
 });
 
@@ -164,6 +171,44 @@ function setOnSaleLocationsResponse(
       },
     )
     .addCase(fetchOnSaleLocations.rejected, (state: LocationSliceState) => {
+      state.status = ApiStatus.Failed;
+    });
+}
+
+function setLocationDetailById(
+  builder: ActionReducerMapBuilder<LocationSliceState>,
+) {
+  builder
+    .addCase(fetchLocationDetailById.pending, (state: LocationSliceState) => {
+      state.status = ApiStatus.Loading;
+    })
+    .addCase(
+      fetchLocationDetailById.fulfilled,
+      (state: LocationSliceState, action: PayloadAction<LocationResponse>) => {
+        state.status = ApiStatus.Fulfilled;
+        state.locationDetailById = action.payload;
+      },
+    )
+    .addCase(fetchLocationDetailById.rejected, (state: LocationSliceState) => {
+      state.status = ApiStatus.Failed;
+    });
+}
+
+function setUpdateLocationDetailById(
+  builder: ActionReducerMapBuilder<LocationSliceState>,
+) {
+  builder
+    .addCase(updateLocationDetailById.pending, (state: LocationSliceState) => {
+      state.status = ApiStatus.Loading;
+    })
+    .addCase(
+      updateLocationDetailById.fulfilled,
+      (state: LocationSliceState, action: PayloadAction<LocationResponse>) => {
+        state.status = ApiStatus.Fulfilled;
+        state.locationDetailById = action.payload;
+      },
+    )
+    .addCase(updateLocationDetailById.rejected, (state: LocationSliceState) => {
       state.status = ApiStatus.Failed;
     });
 }

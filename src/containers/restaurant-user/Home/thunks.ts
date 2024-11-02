@@ -1,4 +1,7 @@
-import { LocationSearchCriteria } from '@/common/models/location';
+import {
+  LocationRequest,
+  LocationSearchCriteria,
+} from '@/common/models/location';
 import { createAppAsyncThunk } from '@/libs/redux/createAppAsyncThunk';
 import callApi, { objectToQueryString } from '@/utils/api';
 
@@ -49,4 +52,29 @@ export const fetchOnSaleLocations = createAppAsyncThunk(
       method: 'get',
       url: `/locations/ads-type?adsType=FLASH_SALE`,
     }),
+);
+
+export const fetchLocationDetailById = createAppAsyncThunk(
+  `${TypePrefix}/fetchLocationDetailById`,
+  async (locationId: number) =>
+    await callApi({
+      method: 'get',
+      url: `/locations/${locationId}`,
+    }),
+);
+
+export const updateLocationDetailById = createAppAsyncThunk(
+  `${TypePrefix}/updateLocationDetailById`,
+  async (locationRequest: LocationRequest) => {
+    const response = await callApi(
+      {
+        method: 'put',
+        url: `/locations`,
+        data: locationRequest,
+      },
+      true,
+    );
+
+    return response;
+  },
 );

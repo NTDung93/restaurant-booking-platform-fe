@@ -1,8 +1,12 @@
+import { selectLocationDetail } from '@/containers/restaurant-user/Home/selectors';
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const ReservationForm: React.FC = () => {
   const navigate = useNavigate();
+  const locationDetail = useSelector(selectLocationDetail);
+  const status = locationDetail?.status || 'INACTIVE';
 
   const [reservationDate, setReservationDate] = useState<string>('');
   const [reservationTime, setReservationTime] = useState<string>('');
@@ -123,8 +127,9 @@ const ReservationForm: React.FC = () => {
 
         <div className="flex justify-center mt-6">
           <button
+            disabled={status === 'INACTIVE'}
             onClick={handleReservation}
-            className="bg-white text-amber-600 px-8 py-3 rounded-lg font-semibold text-lg hover:bg-amber-600 hover:text-white transition duration-300 shadow-lg"
+            className={`bg-white text-amber-600 px-8 py-3 rounded-lg font-semibold text-lg duration-300 shadow-lg ${status === 'INACTIVE' ? 'disabled:cursor-not-allowed' : 'hover:bg-amber-600 hover:text-white transition'}`}
           >
             ĐẶT BÀN
           </button>
