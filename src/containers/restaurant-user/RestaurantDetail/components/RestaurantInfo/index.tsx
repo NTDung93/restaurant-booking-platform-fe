@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
   EnvironmentOutlined,
   PhoneFilled,
   UnorderedListOutlined,
@@ -14,6 +16,7 @@ const RestaurantInfo: React.FC = () => {
   const address = locationDetail?.address || 'Địa chỉ nhà hàng';
   const phone = locationDetail?.phone || 'Số điện thoại';
   const description = locationDetail?.description || 'Mô tả nhà hàng';
+  const status = locationDetail?.status || 'INACTIVE';
 
   const descriptionParagraphs = description.split('\n');
 
@@ -42,6 +45,22 @@ const RestaurantInfo: React.FC = () => {
           <PhoneFilled className="text-amber-500" />
           <span className="text-gray-800 font-semibold">Điện thoại:</span>
           <span className="ml-1">{phone}</span>
+        </div>
+
+        {/* Status Indicator */}
+        <div className="mt-6 text-lg md:text-xl flex items-center gap-2">
+          {status === 'ACTIVE' ? (
+            <CheckCircleOutlined className="text-green-600 text-2xl" />
+          ) : (
+            <CloseCircleOutlined className="text-red-600 text-2xl" />
+          )}
+          <span
+            className={`font-semibold ${
+              status === 'ACTIVE' ? 'text-green-600' : 'text-red-600'
+            }`}
+          >
+            {status === 'ACTIVE' ? 'Còn bàn' : 'Đã hết bàn'}
+          </span>
         </div>
 
         <div className="mt-6 text-lg md:text-xl text-gray-500 leading-relaxed tracking-tight flex items-center gap-2">
