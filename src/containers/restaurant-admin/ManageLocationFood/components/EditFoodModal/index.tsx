@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReduxDispatch } from '@/libs/redux/store';
 import {
   editFood,
@@ -7,6 +7,7 @@ import {
 } from '@/containers/restaurant-user/Comfirm/components/FoodSelectionModal/thunks';
 import { Food } from '@/common/models/food';
 import { Modal, notification } from 'antd';
+import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
 
 interface EditFoodModalProps {
   food: Food;
@@ -36,7 +37,7 @@ const EditFoodModal: React.FC<EditFoodModalProps> = ({ food, onClose }) => {
   }, [food.image]);
 
   const foodCategoryId = 1;
-  const locationId = 1;
+  const userInfo = useSelector(selectUserInfo);
 
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -82,7 +83,7 @@ const EditFoodModal: React.FC<EditFoodModalProps> = ({ food, onClose }) => {
       description: foodDescription,
       image: imagesString,
       foodCategoryId,
-      locationId,
+      locationId: userInfo?.locationId ?? 0,
     };
 
     dispatch(editFood(updatedFood));
