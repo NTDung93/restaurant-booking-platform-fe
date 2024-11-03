@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addFood } from '@/containers/restaurant-user/Comfirm/components/FoodSelectionModal/thunks';
 import { ReduxDispatch } from '@/libs/redux/store';
 import { notification } from 'antd';
+import { selectUserInfo } from '@/containers/restaurant-user/Auth/selector';
 
 const AddFoodModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const dispatch = useDispatch<ReduxDispatch>();
@@ -12,7 +13,7 @@ const AddFoodModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [foodDescription, setFoodDescription] = useState('');
   const [foodImages, setFoodImages] = useState<string[]>(new Array(6).fill(''));
   const foodCategoryId = 1;
-  const locationId = 1;
+  const userInfo = useSelector(selectUserInfo);
 
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -59,7 +60,7 @@ const AddFoodModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       status: 'ACTIVE',
       image: imagesString,
       foodCategoryId,
-      locationId,
+      locationId: userInfo?.locationId ?? 0,
     };
 
     try {
