@@ -24,7 +24,7 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<AccountSignUp>({
-    username: 'useruseruser',
+    username: '',
     email: '',
     password: '',
     fullName: '',
@@ -96,7 +96,12 @@ export default function SignUp() {
     setLoading(true);
 
     try {
-      await dispatch(signUp(formData));
+      const dataToSend = {
+        ...formData,
+        username: formData.email,
+      };
+
+      await dispatch(signUp(dataToSend));
       navigate(HOME_ROUTE);
     } catch (error) {
       console.error('Đăng ký thất bại:', error);
