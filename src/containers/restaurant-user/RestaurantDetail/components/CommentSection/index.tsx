@@ -1,6 +1,7 @@
 import { selectAllFeedbackOfLocation } from '@/containers/restaurant-user/Auth/selector';
 import { getAllFeedbackOfLocation } from '@/containers/restaurant-user/Auth/thunks';
 import { ReduxDispatch } from '@/libs/redux/store';
+import { UserOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -34,7 +35,6 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
   const itemsPerPage = feedbackByLocation?.size ?? 0;
   const [ratingFilter, setRatingFilter] = useState<number | null>(null);
 
-  const imageAva = 'https://via.placeholder.com/50';
   const filteredFeedbacks = ratingFilter
     ? feedbackByLocation?.content.filter(
         (feedback) => feedback.rating === ratingFilter,
@@ -109,11 +109,10 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
             className="mb-4 shadow-md rounded-lg bg-white border border-gray-200 p-4"
           >
             <div className="flex items-center mb-2">
-              <img
-                src={imageAva}
-                alt={`${feedback.userName}'s avatar`}
-                className="w-12 h-12 rounded-full mr-4"
-              />
+              <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-2">
+                <UserOutlined className="text-xl text-gray-500" />
+              </div>
+
               <div>
                 <h4 className="text-lg font-semibold">{feedback.userName}</h4>
                 <p className="text-gray-500">{feedback.feedbackDate}</p>
